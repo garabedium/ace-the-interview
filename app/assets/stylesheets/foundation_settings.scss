@@ -44,11 +44,12 @@
 @include foundation-tooltip;
 @include foundation-top-bar;
 
-// If you'd like to include motion-ui the foundation-rails gem comes prepackaged with it, uncomment the 3 @imports, if you are not using the gem you need to install the motion-ui sass package.
+// If you'd like to include motion-ui the foundation-rails gem comes prepackaged with it, uncomment the 3 @imports,
+// if you are not using the gem you need to install the motion-ui sass package.
 //
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
 
-// Custom Partials
+// All custom partials
 // ----------------
 @import '_acetheinterview_custom';
