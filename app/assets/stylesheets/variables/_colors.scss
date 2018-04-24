@@ -1,0 +1,31 @@
+// COLORS::stylesheets/variables/colors.scss
+
+// Internal Variables:
+// Only assigned to other variables to separate concerns.
+$x-color-blue: rgb(0,176,255);
+$x-color-green: rgb(126,204,84);
+$x-color-orange: rgb(255,130,0);
+$x-color-black: rgb(16,24,32);
+$x-color-navy: rgb(0,66,106);
+$x-color-gray: rgb(91,103,112);
+$x-color-gray-medium: rgb(153,153,153);
+
+// Color Variables:
+// For use in other SCSS partials.
+$color-primary: $x-color-blue;
+$color-secondary: $x-color-green;
+$color-tertiary: $x-color-orange;
+
+$color-accent-primary: $x-color-black;
+$color-accent-secondary: $x-color-navy;
+$color-accent-tertiary: $x-color-gray;
+
+// Misc:
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+// Social Media:
+// $color-facebook: #3b5998;
+// $color-twitter: #55acee;
+// $color-instagram: #517fa4;
+// $color-youtube: #b31217;
