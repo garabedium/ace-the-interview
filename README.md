@@ -1,24 +1,6 @@
-# README
+# Ace the Interview Readme
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Description
+Ace the Interview helps you improve your interview readiness:
+- Write and practice interview questions and answers.
+- Do mock interviews with peers to practice your questions in a low-stakes environment.
