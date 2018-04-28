@@ -30,6 +30,10 @@
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore Coveralls coverage reports
+/coverage
+.env
+
 # Workspace
 *.sublime-project
 *.sublime-workspace
