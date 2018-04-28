@@ -32,6 +32,7 @@ yarn-debug.log*
 
 # Ignore Coveralls coverage reports
 /coverage
+.env
 
 # Workspace
 *.sublime-project
