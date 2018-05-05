@@ -37,8 +37,8 @@
 // foundation.toggler.js
 // foundation.tooltip.js
 // foundation.util.box.js
-// foundation.util.keyboard.js
-// foundation.util.mediaQuery.js
+//= require foundation.util.keyboard.js
+//= require foundation.util.mediaQuery.js
 // foundation.util.motion.js
 // foundation.util.nest.js
 // foundation.util.timerAndImageLoader.js
