@@ -6,7 +6,6 @@ FactoryBot.define do
     first_name 'Lorem'
     last_name 'Ipsum'
     zip '02918'
-    # admin { false }
     password 'password'
     password_confirmation 'password'
   end
