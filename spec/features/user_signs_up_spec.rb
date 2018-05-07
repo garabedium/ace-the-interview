@@ -20,12 +20,9 @@ feature 'user registers', %Q{
     fill_in 'Email', with: 'john@example.com'
     fill_in 'First name', with: 'John'
     fill_in 'Last name', with: 'Doh'
-<<<<<<< HEAD
-=======
 
     select("Test Industry", :from => "user[industry_id]")
 
->>>>>>> master
     fill_in 'Zip', with: '02918'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'

@@ -1,6 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-<<<<<<< HEAD
 #
 # Examples:
 #
@@ -9,18 +8,7 @@
 
 
 if Rails.env.development? || Rails.env.production?
-  # IndustrySeeder.seed!
+  IndustrySeeder.seed!
   UserSeeder.seed!
   QuestionSeeder.seed!
 end
-
-=======
-
-if Rails.env.development? || Rails.env.production?
-  IndustrySeeder.seed!
-end
-
-if Rails.env.development?
-  UserSeeder.seed!
-end
->>>>>>> master

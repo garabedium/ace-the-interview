@@ -4,12 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-<<<<<<< HEAD
-  has_many :questions
-=======
   belongs_to :industry
   validates :industry, presence: true
->>>>>>> master
 
   validates :first_name, presence: true
   validates :last_name, presence: true
