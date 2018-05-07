@@ -24,12 +24,16 @@ ActiveRecord::Schema.define(version: 2018_05_07_144513) do
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
+  create_table "industries", force: :cascade do |t|
+    t.string "name", null: false
+    t.index ["name"], name: "index_industries_on_name", unique: true
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_questions_on_user_id"
+    t.index ["title"], name: "index_questions_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,7 +53,9 @@ ActiveRecord::Schema.define(version: 2018_05_07_144513) do
     t.string "last_name", null: false
     t.string "zip", null: false
     t.boolean "admin", default: false, null: false
+    t.bigint "industry_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["industry_id"], name: "index_users_on_industry_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
