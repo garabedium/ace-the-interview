@@ -1,3 +1,4 @@
 class Question < ApplicationRecord
-  validates :title, presence: true, uniqueness: true
+  belongs_to :user
+  validates :title, presence: true
 end
