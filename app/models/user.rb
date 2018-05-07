@@ -4,8 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :industry
-  validates_associated :industry
+  belongs_to :industry
   validates :industry, presence: true
 
   validates :first_name, presence: true

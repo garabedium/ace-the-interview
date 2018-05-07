@@ -8,6 +8,3 @@ end
 if Rails.env.development?
   UserSeeder.seed!
 end
-
-# User.create!(:email => 'ace@gmail.com',:password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Greg', :last_name =>'Gee', :admin => true, :zip => '02115')
-# User.create!(:email => 'lorem@gmail.com',:password => 'topsecret', :password_confirmation => 'topsecret', :industry_id => Industry.find(2), :first_name => 'Greg', :last_name =>'Gee', :zip => '02116')

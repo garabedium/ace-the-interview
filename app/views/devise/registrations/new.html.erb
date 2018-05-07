@@ -21,7 +21,7 @@
 
   <div class="field">
     <%= f.label :industry %><br />
-    <%= collection_select(:user, :industry_id, Industry.all, :id, :name, {:include_blank => "Please select..." }) %>
+    <%= f.collection_select(:industry_id, Industry.all, :id, :name, {:include_blank => "Please select..." }) %>
   </div>
 
   <div class="field">
