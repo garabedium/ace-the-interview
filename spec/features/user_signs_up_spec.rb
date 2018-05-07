@@ -12,10 +12,18 @@ feature 'user registers', %Q{
   # * If I don't specify the required information, I am presented with
   #   an error message
 
+  Industry.create(name: 'Test Industry')
+
   scenario 'provide valid registration information' do
     visit new_user_registration_path
 
     fill_in 'Email', with: 'john@example.com'
+    fill_in 'First name', with: 'John'
+    fill_in 'Last name', with: 'Doh'
+
+    select("Test Industry", :from => "user[industry_id]")
+
+    fill_in 'Zip', with: '02918'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'
 
