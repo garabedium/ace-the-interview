@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import HomepageContainer from './containers/HomepageContainer';
+import AppContainer from './containers/AppContainer';
 
 class Routes extends Component {
 
@@ -13,6 +14,7 @@ class Routes extends Component {
     return (
       <Router history={browserHistory}>
         <Route path='/' component={HomepageContainer} />
+        <Route path='/app' component={AppContainer} />
       </Router>
     );
   }
