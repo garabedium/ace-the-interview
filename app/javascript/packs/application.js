@@ -9,15 +9,29 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+<<<<<<< HEAD
 import Routes from './routes.js'
+=======
+// import Routes from './routes.js'
+>>>>>>> master
 
 document.addEventListener('DOMContentLoaded', () => {
   let reactElement = document.getElementById('app')
 
   if (reactElement) {
     ReactDOM.render(
+<<<<<<< HEAD
       <Routes/>,
       reactElement
     )
   }
 })
+=======
+      <h1>hello from react</h1>,
+      reactElement
+    )
+  }
+})
+      // <Routes/>,
+      // reactElement
+>>>>>>> master

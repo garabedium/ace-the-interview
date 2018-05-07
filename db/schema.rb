@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_05_07_144513) do
+=======
+ActiveRecord::Schema.define(version: 2018_05_06_002124) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "answers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "question_id", null: false
@@ -24,6 +29,8 @@ ActiveRecord::Schema.define(version: 2018_05_07_144513) do
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
+=======
+>>>>>>> master
   create_table "industries", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_industries_on_name", unique: true
