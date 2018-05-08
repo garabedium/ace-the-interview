@@ -38,6 +38,7 @@ end
 
 group :test do
   gem 'coveralls', require: false
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -61,3 +62,4 @@ gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'devise'
 gem 'foundation-rails', '~> 6.3.0'
 gem 'webpacker', '~> 3.3'
+gem 'active_model_serializers'
