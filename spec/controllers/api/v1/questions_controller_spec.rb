@@ -7,7 +7,7 @@ RSpec.describe Api::V1::QuestionsController, type: :controller do
   question2 = FactoryBot.create(:question)
 
   describe "GET#index" do
-    it "should return a list of all the questions" do
+    it "should return a list of all the public questions" do
       get :index
 
       returned_json = JSON.parse(response.body)
@@ -20,6 +20,10 @@ RSpec.describe Api::V1::QuestionsController, type: :controller do
       expect(returned_json[0]["title"]).to eq "#{question0.title}"
       expect(returned_json[1]["title"]).to eq "#{question1.title}"
       expect(returned_json[2]["title"]).to eq "#{question2.title}"
+
+      returned_json.each do |item|
+        expect(item["public"]).to eq(true)
+      end
 
     end
 
