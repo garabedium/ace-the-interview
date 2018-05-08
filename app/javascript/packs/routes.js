@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import HomepageContainer from './containers/HomepageContainer';
 import AppContainer from './containers/AppContainer';
+import QuestionsIndexContainer from './containers/QuestionsIndexContainer';
 
 class Routes extends Component {
 
@@ -15,6 +16,7 @@ class Routes extends Component {
       <Router history={browserHistory}>
         <Route path='/' component={HomepageContainer} />
         <Route path='/app' component={AppContainer} />
+        <Route path='/app/questions' component={QuestionsIndexContainer} />
       </Router>
     );
   }

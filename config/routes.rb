@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get "app", to: 'apps#index'
+  get "app/questions", to: 'apps#questions'
+
 end

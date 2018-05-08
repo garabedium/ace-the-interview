@@ -2,14 +2,23 @@ require 'factory_bot'
 
 FactoryBot.define do
 
+  factory :industry do
+    sequence(:name) {|n| "Industry Name #{n}" }
+  end
+
   factory :user do
     sequence(:email) {|n| "user#{n}@example.com" }
     first_name 'Lorem'
     last_name 'Ipsum'
-    industry { Industry.create!(name:'Some Industry') }
+    industry { FactoryBot.create(:industry) }
     zip '02918'
     password 'password'
     password_confirmation 'password'
+  end
+
+  factory :question do
+    sequence(:title) {|n| "How do you lorem the #{n}?" }
+    user { FactoryBot.create(:user) }
   end
 
 end
