@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FieldTextarea from '../components/FieldTextarea'
+import ButtonSubmit from '../components/ButtonSubmit'
 
 class AnswerFormContainer extends Component {
   constructor(props){
@@ -43,12 +44,6 @@ class AnswerFormContainer extends Component {
 
     return (
         <form className="form form__answers--new" onSubmit={this.handleSubmit}>
-          <FieldTextarea
-            label="Hint"
-            name="answerHint"
-            content={this.state.body}
-            handleChange={this.handleInput}
-          />
 
           <FieldTextarea
             label="Answer"
@@ -57,7 +52,10 @@ class AnswerFormContainer extends Component {
             handleChange={this.handleInput}
           />
 
-          <input className="button" type="submit" value="Submit" />
+          <ButtonSubmit
+            value="Save"
+            class="button"
+          />
         </form>
     );
   }

@@ -11,9 +11,8 @@ class QuestionCardContainer extends Component {
     this.addNewAnswer = this.addNewAnswer.bind(this)
   }
 
-
   addNewAnswer(submission) {
-    let apiUrl = `/api/v1/questions/${this.props.question.id}/answers`
+    let apiUrl = `/api/v1/questions/${this.props.question.id}/answers.json`
     fetch(apiUrl, {
       credentials: 'same-origin',
       method: 'POST',
@@ -31,7 +30,6 @@ class QuestionCardContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      debugger
       // let allReviews = this.state.reviews
       // this.setState({
       //   reviews: allReviews.concat(review)
@@ -42,19 +40,25 @@ class QuestionCardContainer extends Component {
 
   render() {
 
-    let title
+    let title, answerBody
     if (this.props.question){
       title = this.props.question.title
+      answerBody = this.props.answerBody
     }
+
     return (
       <div className="card">
         <h4 className="card-divider">
           {title}
         </h4>
         <div className="card-section">
+
+          <blockquote>{answerBody}</blockquote>
+
           <AnswerFormContainer
             addNewAnswer={this.addNewAnswer}
           />
+
         </div>
       </div>
     );

@@ -12,11 +12,11 @@ class AppContainer extends Component {
       questionId: 0,
       shown: []
     }
-    this.randomQuestion = this.randomQuestion.bind(this)
+    this.setQuestion = this.setQuestion.bind(this)
   }
 
   componentDidMount(){
-    let apiUrl = '/api/v1/questions'
+    let apiUrl = '/api/v1/questions.json'
     fetch(apiUrl,{
       credentials: 'same-origin'
     })
@@ -31,21 +31,29 @@ class AppContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        this.setState({ questions: response });
+        this.setState({
+          questions: response.questions
+        })
       })
+      .then( this.setQuestion )
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  randomQuestion(){
-    let randomIndex = Math.round(Math.random() * (this.state.questions.questions.length - 1))
-    this.setState({ questionId: randomIndex })
+  setQuestion(){
+    let randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
+    this.setState({
+      questionId: randomIndex
+    })
   }
 
   render() {
 
-    let question
-    if (this.state.questions.questions){
-      question = this.state.questions.questions[this.state.questionId]
+    let question, answerBody, answerHint
+    if (this.state.questions.length > 0){
+      question = this.state.questions[this.state.questionId].question
+      // console.log(question.answer)
+      answerBody = (question.answer !== null) ? question.answer.body : "This question is lonely. Add an answer."
+
     }
 
     return (
@@ -54,11 +62,13 @@ class AppContainer extends Component {
          <div className="columns medium-4 text-center end">
           <QuestionCardContainer
             question={question}
+            answerBody={answerBody}
+            answerHint={answerHint}
           />
           <ButtonComponent
             text="Random Question"
             class='button'
-            handleClick={this.randomQuestion}
+            handleClick={this.setQuestion}
           />
         </div>
       </div>

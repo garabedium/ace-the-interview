@@ -1,21 +1,22 @@
 class Api::V1::QuestionsController < ApiController
   serialization_scope :current_user
 
+  def answers_by_questions
+    questions_public = Question.where(public: true)
+    questions = questions_public.map do |item|
+      {
+        question: {
+          title: item.title,
+          answer: item.answers.find_by(user: current_user)
+        }
+      }
+    end
+
+  end
+
   def index
-
     if current_user
-      # questions_public = Question.where(public: true)
-      # questions_hash = questions_public.each do |item|
-      #   "question" => {
-      #     "title" =>  item["title"]
-      #   }
-      # end
-      # render json: {
-      #   questions: Question.where(public: true)
-      # }
-      questions = Question.where(public: true)
-      render json: questions
-
+      render json: { questions: answers_by_questions }
     else
       redirect_to "/"
     end

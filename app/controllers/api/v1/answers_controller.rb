@@ -6,7 +6,7 @@ class Api::V1::AnswersController < ApiController
     # question = Question.find(params[:question_id])
     # answers = question.answers
     if current_user
-      answer = Answer.find_by(user: current_user.id, question: params[:question_id])
+      answer = Answer.find_by(user: current_user, question: params[:question_id])
       render json: { answer: answer }
     else
       redirect_to "/"
@@ -24,9 +24,11 @@ class Api::V1::AnswersController < ApiController
   def create
     if current_user
       answer = Answer.new(answer_params)
+      # check answers table if question && current_user already exist
       answer.question = Question.find(params[:question_id])
       answer.user = current_user
       answer.save
+
     end
   end
 
