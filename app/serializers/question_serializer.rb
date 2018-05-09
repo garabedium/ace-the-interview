@@ -1,3 +1,7 @@
 class QuestionSerializer < ActiveModel::Serializer
-  attributes :title
+  attributes :title, :answers
+end
+
+def answers
+  object.answers
 end
