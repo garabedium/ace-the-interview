@@ -51,7 +51,7 @@ class AppContainer extends Component {
     return (
       <div className="row">
         <h1>App homepage: containers/appcontainer</h1>
-         <div className="columns medium-4 end">
+         <div className="columns medium-4 text-center end">
           <QuestionCardContainer
             question={questionTitle}
           />

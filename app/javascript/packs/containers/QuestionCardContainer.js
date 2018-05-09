@@ -14,7 +14,8 @@ class QuestionCardContainer extends Component {
             {this.props.question}
           </h4>
           <div className="card-section">
-            Content goes here.
+            Add answer
+            Add hint
           </div>
         </div>
 

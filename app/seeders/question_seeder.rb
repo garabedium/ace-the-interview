@@ -1,8 +1,5 @@
 class QuestionSeeder
   QUESTIONS = [
-    # { title: "What is a recent technical challenge you experienced and how did you solve it?", user: User.first, public: true },
-    # { title: "What is a closure in Javascript?", user: User.first, public: true },
-    # { title: "What is a private question?", user: User.first, public: false }
     {
       title: "What did you learn yesterday/last week?",
       user: User.first,
