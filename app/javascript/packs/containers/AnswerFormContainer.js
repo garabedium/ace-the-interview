@@ -9,9 +9,18 @@ class AnswerFormContainer extends Component {
       answerHint: "",
       errors: {}
     }
+    // this.handleClear = this.handleClear.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
   }
+
+  // handleClear(){
+  //   this.setState({
+  //     answerBody: "",
+  //     answerHint: "",
+  //     errors: {}
+  //   })
+  // }
 
   handleInput(event){
     // Taking this approach, event.target.name must match what's in state.
@@ -27,6 +36,7 @@ class AnswerFormContainer extends Component {
       hint: this.state.answerHint
     }
     this.props.addNewAnswer(newAnswer)
+    // this.handleClear()
   }
 
   render() {
