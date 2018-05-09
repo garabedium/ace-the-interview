@@ -21,4 +21,10 @@ FactoryBot.define do
     user { FactoryBot.create(:user) }
   end
 
+  factory :answer do
+    sequence(:body) {|n| "This is an awesome answer no: #{n}?" }
+    user { FactoryBot.create(:user) }
+    question { FactoryBot.create(:question) }
+  end
+
 end

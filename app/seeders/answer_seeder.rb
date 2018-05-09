@@ -14,7 +14,6 @@ class AnswerSeeder
 
   def self.seed!
     ANSWERS.each do |item|
-      binding.pry
       answer = Answer.find_or_initialize_by(user: item[:user],question: item[:question])
       answer.body = item[:body]
       answer.save!

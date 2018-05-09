@@ -7,7 +7,9 @@ class Api::V1::AnswersController < ApiController
     # answers = question.answers
     if current_user
       answer = Answer.find_by(user: current_user.id, question: params[:question_id])
-
+      render json: { answer: answer }
+    else
+      redirect_to "/"
     end
     # answer = Answer.find_by(user: current_user.id, params[:question_id])
     # render json: { questions: Question.where(public: true) }
@@ -19,5 +21,19 @@ class Api::V1::AnswersController < ApiController
     # question = Question.find(params[:question_id])
   end
 
+  def create
+    if current_user
+      answer = Answer.new(answer_params)
+      answer.question = Question.find(params[:question_id])
+      answer.user = current_user
+      answer.save
+    end
+  end
+
+
+  private
+  def answer_params
+    params.require(:answer).permit(:hint,:body)
+  end
 
 end

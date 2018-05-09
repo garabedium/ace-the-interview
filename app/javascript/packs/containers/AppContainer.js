@@ -43,9 +43,9 @@ class AppContainer extends Component {
 
   render() {
 
-    let questionTitle
+    let question
     if (this.state.questions.questions){
-      questionTitle = this.state.questions.questions[this.state.questionId]["title"];
+      question = this.state.questions.questions[this.state.questionId]
     }
 
     return (
@@ -53,7 +53,7 @@ class AppContainer extends Component {
         <h1>App homepage: containers/appcontainer</h1>
          <div className="columns medium-4 text-center end">
           <QuestionCardContainer
-            question={questionTitle}
+            question={question}
           />
           <ButtonComponent
             text="Random Question"
