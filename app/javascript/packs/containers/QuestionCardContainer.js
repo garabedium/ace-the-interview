@@ -5,11 +5,17 @@ class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      answer: {}
+      showAnswerForm: false
     }
 
     this.addNewAnswer = this.addNewAnswer.bind(this)
+    this.showAnswerForm = this.showAnswerForm.bind(this)
+    // this.doSomething = this.doSomething.bind(this)
   }
+
+  // doSomething(){
+  //   console.log("lorem ipsum");
+  // }
 
   addNewAnswer(submission) {
     let apiUrl = `/api/v1/questions/${this.props.question.id}/answers.json`
@@ -38,13 +44,34 @@ class QuestionCardContainer extends Component {
     .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
   }
 
+  showAnswerForm(){
+    return this.setState({
+      showAnswerForm: !this.state.showAnswerForm
+    })
+  }
+
   render() {
 
     let title, answerBody
     if (this.props.question){
       title = this.props.question.title
-      answerBody = this.props.answerBody
     }
+
+    let answerComponent = () => {
+      if (this.props.answerBody){
+        return(
+          <div>
+            <button>Show Answer</button>
+            <blockquote>{this.props.answerBody}</blockquote>
+          </div>
+        )
+      } else {
+        return( <button className="button" onClick={this.showAnswerForm}>Add Answer</button> )
+      }
+    }
+    //   console.log(this.props.answerBody);
+    // if (this.props.answerBody){
+    // }
 
     return (
       <div className="card">
@@ -52,13 +79,7 @@ class QuestionCardContainer extends Component {
           {title}
         </h4>
         <div className="card-section">
-
-          <blockquote>{answerBody}</blockquote>
-
-          <AnswerFormContainer
-            addNewAnswer={this.addNewAnswer}
-          />
-
+          {answerComponent()}
         </div>
       </div>
     );
@@ -67,3 +88,11 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
+
+
+    // return (
+    //   <AnswerFormContainer
+    //     addNewAnswer={this.addNewAnswer}
+    //   />
+    // )
+          // <blockquote>{answerBody}</blockquote>

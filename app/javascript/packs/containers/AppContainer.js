@@ -52,7 +52,7 @@ class AppContainer extends Component {
     if (this.state.questions.length > 0){
       question = this.state.questions[this.state.questionId].question
       // console.log(question.answer)
-      answerBody = (question.answer !== null) ? question.answer.body : "This question is lonely. Add an answer."
+      answerBody = (question.answer !== null) ? question.answer.body : ""
 
     }
 
