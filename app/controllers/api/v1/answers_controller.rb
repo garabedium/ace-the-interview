@@ -28,7 +28,6 @@ class Api::V1::AnswersController < ApiController
       answer.question = Question.find(params[:question_id])
       answer.user = current_user
       answer.save
-
     end
   end
 

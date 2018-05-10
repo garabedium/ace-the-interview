@@ -10,10 +10,14 @@ class AppContainer extends Component {
     this.state = {
       questions: [],
       questionId: 0,
+      answer: {},
       hasAnswer: false,
+      answerActive: true,
       shown: []
     }
     this.setQuestion = this.setQuestion.bind(this)
+    this.addNewAnswer = this.addNewAnswer.bind(this)
+    this.toggleAnswer = this.toggleAnswer.bind(this)
   }
 
   componentDidMount(){
@@ -41,21 +45,68 @@ class AppContainer extends Component {
   }
 
   setQuestion(){
-    let randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
-    let hasAnswer = (this.state.questions[randomIndex].question.answer !== null) ? true : false
+    let answerBody, answerHint
+    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
+    const hasAnswer = (this.state.questions[randomIndex].question.answer !== null) ? true : false
+    if (hasAnswer){
+      answerBody = this.state.questions[randomIndex].question.answer.body
+      answerHint = this.state.questions[randomIndex].question.answer.hint || ""
+    }
 
     this.setState({
       questionId: randomIndex,
-      hasAnswer: hasAnswer
+      hasAnswer: hasAnswer,
+      answer:{
+        answerBody: answerBody,
+        answerHint: answerHint
+      },
+      answerActive: false
     })
   }
 
+  toggleAnswer(){
+    return this.setState({
+      answerActive: !this.state.answerActive
+    })
+  }
+
+
+  addNewAnswer(submission) {
+    event.preventDefault()
+    console.log(submission);
+    // const apiUrl = `/api/v1/questions/${this.state.questionId}/answers.json`
+    // fetch(apiUrl, {
+    //   credentials: 'same-origin',
+    //   method: 'POST',
+    //   body: JSON.stringify(submission),
+    //   headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    // })
+    // .then(response => {
+    //   if (response.ok) {
+    //     return response;
+    //   } else {
+    //     let errorMessage = `${response.status} (${response.statusText})`,
+    //         error = new Error(errorMessage);
+    //     throw(error);
+    //   }
+    // })
+    // .then(response => response.json())
+    // .then(response => {
+    //   // let allReviews = this.state.reviews
+    //   // this.setState({
+    //   //   reviews: allReviews.concat(review)
+    //   // })
+    // })
+    // .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
+
+  }
+
+
   render() {
 
-    let question, answerBody
+    let question
     if (this.state.questions.length > 0){
       question = this.state.questions[this.state.questionId].question
-      answerBody = (question.answer !== null) ? question.answer.body : ""
     }
 
     return (
@@ -64,8 +115,12 @@ class AppContainer extends Component {
          <div className="columns medium-4 text-center end">
           <QuestionCardContainer
             question={question}
-            answerBody={answerBody}
+            answerBody={this.state.answer.answerBody}
+            answerHint={this.state.answer.answerHint}
             hasAnswer={this.state.hasAnswer}
+            answerActive={this.state.answerActive}
+            toggleAnswer={this.toggleAnswer}
+            addNewAnswer={this.addNewAnswer}
           />
           <ButtonComponent
             text="Random Question"

@@ -13,10 +13,18 @@ class AnswerFormContainer extends Component {
     this.handleClear = this.handleClear.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    // this.updateAnswer = this.updateAnswer.bind(this)
+  }
+
+  componentDidMount(){
+    this.setState({
+      answerBody: this.props.answerBody,
+      answerHint: this.props.answerHint
+    })
   }
 
   handleClear(event){
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       answerBody: "",
       answerHint: "",
@@ -24,12 +32,15 @@ class AnswerFormContainer extends Component {
     })
   }
 
-  componentDidMount(){
-
-  }
+  // 1 infinite loop
+  // updateAnswer(){
+  //   this.setState({
+  //     answerBody: this.props.answerBody,
+  //     answerHint: this.props.answerHint
+  //   })
+  // }
 
   handleInput(event){
-    // Taking this approach, event.target.name must match what's in state.
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -37,18 +48,23 @@ class AnswerFormContainer extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    let newAnswer = {
+    const submission  = {
       body: this.state.answerBody,
       hint: this.state.answerHint
     }
-    // this.handleClear()
-    this.props.addNewAnswer(newAnswer)
+    this.handleClear(event)
+    this.props.addNewAnswer(submission)
   }
 
   render() {
 
+    // 1 infinite loop
+    // if (this.props.hasAnswer){
+    //   this.updateAnswer()
+    // }
+
     return (
-        <form className="form form__answers--new">
+        <form className="form form__answers--new" onSubmit={this.handleSubmit}>
 
           <FieldTextarea
             label="Answer"
@@ -61,8 +77,7 @@ class AnswerFormContainer extends Component {
             value="Save"
             class="button"
           />
-          <br/>
-          <button className="button" onClick={this.handleClear}>clear</button>
+
         </form>
     );
   }
@@ -70,6 +85,3 @@ class AnswerFormContainer extends Component {
 }
 
 export default AnswerFormContainer;
-
-
- // onSubmit={this.handleSubmit}

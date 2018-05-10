@@ -5,56 +5,19 @@ class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      answerActive: false
+      // answerActive: false
     }
-
-    this.addNewAnswer = this.addNewAnswer.bind(this)
-    this.toggleAnswer = this.toggleAnswer.bind(this)
-  }
-
-  addNewAnswer(submission) {
-    let apiUrl = `/api/v1/questions/${this.props.question.id}/answers.json`
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
-      // let allReviews = this.state.reviews
-      // this.setState({
-      //   reviews: allReviews.concat(review)
-      // })
-    })
-    .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
-  }
-
-  toggleAnswer(){
-    return this.setState({
-      answerActive: !this.state.answerActive
-    })
   }
 
   render() {
 
     const question = (this.props.question) ? this.props.question.title : ""
-    const isAnswerActive = this.state.answerActive
+    const isAnswerActive = this.props.answerActive
     const answerButton = !isAnswerActive ? (
-      <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
+      <button className="button" onClick={this.props.toggleAnswer}>Show Answer</button>
     ) : (
-      <button className="button" onClick={this.toggleAnswer}>Hide Answer</button>
+      <button className="button" onClick={this.props.toggleAnswer}>Hide Answer</button>
     )
-
 
     return (
       <div className="card">
@@ -65,7 +28,10 @@ class QuestionCardContainer extends Component {
           {answerButton}
           {isAnswerActive &&
             <AnswerFormContainer
+              addNewAnswer={this.props.addNewAnswer}
               answerBody={this.props.answerBody}
+              answerHint={this.props.answerHint}
+              hasAnswer={this.props.hasAnswer}
             />
           }
         </div>
@@ -76,5 +42,3 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
-
-// {this.state.answerActive && <AnswerFormContainer/>}
