@@ -11,4 +11,5 @@ if Rails.env.development? || Rails.env.production?
   IndustrySeeder.seed!
   UserSeeder.seed!
   QuestionSeeder.seed!
+  AnswerSeeder.seed!
 end
