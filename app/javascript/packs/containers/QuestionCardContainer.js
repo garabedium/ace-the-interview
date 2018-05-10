@@ -5,17 +5,15 @@ class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      showAnswerForm: false
+      answerActive: false
     }
 
     this.addNewAnswer = this.addNewAnswer.bind(this)
-    this.showAnswerForm = this.showAnswerForm.bind(this)
-    // this.doSomething = this.doSomething.bind(this)
-  }
+    this.toggleAnswer = this.toggleAnswer.bind(this)
 
-  // doSomething(){
-  //   console.log("lorem ipsum");
-  // }
+    // this.showAnswerForm = this.showAnswerForm.bind(this)
+
+  }
 
   addNewAnswer(submission) {
     let apiUrl = `/api/v1/questions/${this.props.question.id}/answers.json`
@@ -44,31 +42,34 @@ class QuestionCardContainer extends Component {
     .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
   }
 
-  showAnswerForm(){
+  // showAnswerForm(){
+  //   return this.setState({
+  //     showAnswerForm: !this.state.showAnswerForm
+  //   })
+  // }
+
+  toggleAnswer(){
     return this.setState({
-      showAnswerForm: !this.state.showAnswerForm
+      answerActive: !this.state.answerActive
     })
   }
 
   render() {
 
-    let title, answerBody
+    let title, answer
     if (this.props.question){
       title = this.props.question.title
+      //answer = this.props.answerBody
     }
 
     let answerComponent = () => {
-      if (this.props.answerBody){
+      if (this.props.hasAnswer){
         return(
-          <div>
-            <button>Show Answer</button>
-            <blockquote>{this.props.answerBody}</blockquote>
-          </div>
+          <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
         )
-      } else {
-        return( <button className="button" onClick={this.showAnswerForm}>Add Answer</button> )
       }
     }
+
     //   console.log(this.props.answerBody);
     // if (this.props.answerBody){
     // }
@@ -80,6 +81,7 @@ class QuestionCardContainer extends Component {
         </h4>
         <div className="card-section">
           {answerComponent()}
+          {this.state.answerActive && <AnswerFormContainer/>}
         </div>
       </div>
     );
@@ -89,10 +91,3 @@ class QuestionCardContainer extends Component {
 
 export default QuestionCardContainer;
 
-
-    // return (
-    //   <AnswerFormContainer
-    //     addNewAnswer={this.addNewAnswer}
-    //   />
-    // )
-          // <blockquote>{answerBody}</blockquote>

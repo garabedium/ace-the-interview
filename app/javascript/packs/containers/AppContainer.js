@@ -10,6 +10,7 @@ class AppContainer extends Component {
     this.state = {
       questions: [],
       questionId: 0,
+      hasAnswer: false,
       shown: []
     }
     this.setQuestion = this.setQuestion.bind(this)
@@ -41,19 +42,20 @@ class AppContainer extends Component {
 
   setQuestion(){
     let randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
+    let hasAnswer = (this.state.questions[randomIndex].question.answer !== null) ? true : false
+
     this.setState({
-      questionId: randomIndex
+      questionId: randomIndex,
+      hasAnswer: hasAnswer
     })
   }
 
   render() {
 
-    let question, answerBody, answerHint
+    let question, answerBody
     if (this.state.questions.length > 0){
       question = this.state.questions[this.state.questionId].question
-      // console.log(question.answer)
       answerBody = (question.answer !== null) ? question.answer.body : ""
-
     }
 
     return (
@@ -63,11 +65,11 @@ class AppContainer extends Component {
           <QuestionCardContainer
             question={question}
             answerBody={answerBody}
-            answerHint={answerHint}
+            hasAnswer={this.state.hasAnswer}
           />
           <ButtonComponent
             text="Random Question"
-            class='button'
+            class='button secondary'
             handleClick={this.setQuestion}
           />
         </div>
