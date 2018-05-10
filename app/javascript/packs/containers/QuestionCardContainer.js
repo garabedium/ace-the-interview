@@ -56,19 +56,26 @@ class QuestionCardContainer extends Component {
 
   render() {
 
+    const isAnswerActive = this.state.answerActive
+    const answerButton = !isAnswerActive ? (
+      <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
+    ) : (
+      <button className="button" onClick={this.toggleAnswer}>Hide Answer</button>
+    )
+
     let title, answer
     if (this.props.question){
       title = this.props.question.title
       //answer = this.props.answerBody
     }
 
-    let answerComponent = () => {
-      if (this.props.hasAnswer){
-        return(
-          <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
-        )
-      }
-    }
+    // let answerComponent = () => {
+    //   if (this.props.hasAnswer){
+    //     return(
+    //       <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
+    //     )
+    //   }
+    // }
 
     //   console.log(this.props.answerBody);
     // if (this.props.answerBody){
@@ -80,8 +87,8 @@ class QuestionCardContainer extends Component {
           {title}
         </h4>
         <div className="card-section">
-          {answerComponent()}
-          {this.state.answerActive && <AnswerFormContainer/>}
+          {answerButton}
+          {isAnswerActive && <AnswerFormContainer/>}
         </div>
       </div>
     );
@@ -91,3 +98,4 @@ class QuestionCardContainer extends Component {
 
 export default QuestionCardContainer;
 
+// {this.state.answerActive && <AnswerFormContainer/>}
