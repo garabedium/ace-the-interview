@@ -6,12 +6,12 @@ class Api::V1::QuestionsController < ApiController
     questions = questions_public.map do |item|
       {
         question: {
+          id: item.id,
           title: item.title,
           answer: item.answers.find_by(user: current_user)
         }
       }
     end
-
   end
 
   def index

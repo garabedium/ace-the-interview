@@ -13,7 +13,6 @@ class AnswerFormContainer extends Component {
     this.handleClear = this.handleClear.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    // this.updateAnswer = this.updateAnswer.bind(this)
   }
 
   componentDidMount(){
