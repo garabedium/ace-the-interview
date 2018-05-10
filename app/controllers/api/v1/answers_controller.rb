@@ -34,6 +34,17 @@ class Api::V1::AnswersController < ApiController
     # question = Question.find(params[:question_id])
   end
 
+  # def editable_by?(user)
+  #   user.admin? || self.user == user
+  # end
+  # def edit
+  #   @answer = Answer.find(params[:id])
+  #   if @answer.editable_by?(current_user)
+
+  #   end
+  # end
+
+
   def create
     answer_absent = Answer.find_by(user:current_user,question: params[:question_id]).nil?
 
