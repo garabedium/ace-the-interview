@@ -13,11 +13,20 @@ class QuestionCardContainer extends Component {
 
     const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.props.answerActive
-    const answerButton = !isAnswerActive ? (
-      <button className="button" onClick={this.props.toggleAnswer}>Show Answer</button>
-    ) : (
-      <button className="button" onClick={this.props.toggleAnswer}>Hide Answer</button>
-    )
+
+    const buttonText = () => {
+      let result
+      if (!isAnswerActive && this.props.hasAnswer){
+        result = "Show Answer"
+      } else if (!this.props.hasAnswer) {
+        result = "Add Answer"
+      } else {
+        result = "Hide Answer"
+      }
+      return result
+    }
+
+    const answerButton = <button className="button" onClick={this.props.toggleAnswer}>{buttonText()}</button>
 
     return (
       <div className="card">
@@ -25,7 +34,9 @@ class QuestionCardContainer extends Component {
           {question}
         </h4>
         <div className="card-section">
+
           {answerButton}
+
           {isAnswerActive &&
             <AnswerFormContainer
               addNewAnswer={this.props.addNewAnswer}
@@ -42,3 +53,20 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
+
+    // const answerButton = (!isAnswerActive) ? (
+
+    //   <button className="button" onClick={this.props.toggleAnswer}>Show Answer</button>
+    // ) : (
+    //   <button className="button" onClick={this.props.toggleAnswer}>Hide Answer</button>
+    // )
+          // {answerButton}
+
+          // {isAnswerActive &&
+          //   <AnswerFormContainer
+          //     addNewAnswer={this.props.addNewAnswer}
+          //     answerBody={this.props.answerBody}
+          //     answerHint={this.props.answerHint}
+          //     hasAnswer={this.props.hasAnswer}
+          //   />
+          // }
