@@ -10,9 +10,6 @@ class QuestionCardContainer extends Component {
 
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
-
-    // this.showAnswerForm = this.showAnswerForm.bind(this)
-
   }
 
   addNewAnswer(submission) {
@@ -42,12 +39,6 @@ class QuestionCardContainer extends Component {
     .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
   }
 
-  // showAnswerForm(){
-  //   return this.setState({
-  //     showAnswerForm: !this.state.showAnswerForm
-  //   })
-  // }
-
   toggleAnswer(){
     return this.setState({
       answerActive: !this.state.answerActive
@@ -56,6 +47,7 @@ class QuestionCardContainer extends Component {
 
   render() {
 
+    const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.state.answerActive
     const answerButton = !isAnswerActive ? (
       <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
@@ -63,32 +55,19 @@ class QuestionCardContainer extends Component {
       <button className="button" onClick={this.toggleAnswer}>Hide Answer</button>
     )
 
-    let title, answer
-    if (this.props.question){
-      title = this.props.question.title
-      //answer = this.props.answerBody
-    }
-
-    // let answerComponent = () => {
-    //   if (this.props.hasAnswer){
-    //     return(
-    //       <button className="button" onClick={this.toggleAnswer}>Show Answer</button>
-    //     )
-    //   }
-    // }
-
-    //   console.log(this.props.answerBody);
-    // if (this.props.answerBody){
-    // }
 
     return (
       <div className="card">
         <h4 className="card-divider">
-          {title}
+          {question}
         </h4>
         <div className="card-section">
           {answerButton}
-          {isAnswerActive && <AnswerFormContainer/>}
+          {isAnswerActive &&
+            <AnswerFormContainer
+              answerBody={this.props.answerBody}
+            />
+          }
         </div>
       </div>
     );

@@ -10,18 +10,23 @@ class AnswerFormContainer extends Component {
       answerHint: "",
       errors: {}
     }
-    // this.handleClear = this.handleClear.bind(this)
+    this.handleClear = this.handleClear.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
   }
 
-  // handleClear(){
-  //   this.setState({
-  //     answerBody: "",
-  //     answerHint: "",
-  //     errors: {}
-  //   })
-  // }
+  handleClear(event){
+    event.preventDefault();
+    this.setState({
+      answerBody: "",
+      answerHint: "",
+      errors: {}
+    })
+  }
+
+  componentDidMount(){
+
+  }
 
   handleInput(event){
     // Taking this approach, event.target.name must match what's in state.
@@ -36,19 +41,19 @@ class AnswerFormContainer extends Component {
       body: this.state.answerBody,
       hint: this.state.answerHint
     }
-    this.props.addNewAnswer(newAnswer)
     // this.handleClear()
+    this.props.addNewAnswer(newAnswer)
   }
 
   render() {
 
     return (
-        <form className="form form__answers--new" onSubmit={this.handleSubmit}>
+        <form className="form form__answers--new">
 
           <FieldTextarea
             label="Answer"
             name="answerBody"
-            content={this.state.body}
+            content={this.state.answerBody}
             handleChange={this.handleInput}
           />
 
@@ -56,6 +61,8 @@ class AnswerFormContainer extends Component {
             value="Save"
             class="button"
           />
+          <br/>
+          <button className="button" onClick={this.handleClear}>clear</button>
         </form>
     );
   }
@@ -63,3 +70,6 @@ class AnswerFormContainer extends Component {
 }
 
 export default AnswerFormContainer;
+
+
+ // onSubmit={this.handleSubmit}
