@@ -16,17 +16,16 @@
 }
 
 #header-nav {
-  background: #ebebeb;
+  background: #5356ad;
   padding: 30px 0;
 }
-
+// LOGO
 .logo {
-  font-family: $font-palanquin;
-  line-height: 40px;
+  font-family: $font-primary-sans;
   display: block;
   &__card {
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 700;
     padding: 0 12px;
     line-height: 1.75;
     border-radius: 4px;
@@ -34,13 +33,64 @@
     background: $color-white;
     border: solid 2px #ddd;
     float: left;
+    color: $color-black;
   }
   &__text {
+    color: $color-white;
     margin-left: 15px;
     float: left;
-    line-height: 4.8;
+    line-height: 1.2;
+    font-weight: 600;
+    font-size: 22px;
+    &--serif {
+      display: block;
+      font-family: $font-serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 18px;
+    }
   }
 }
+// END:LOGO
+
+// background: linear-gradient(to bottom right, red, yellow);
+
+.home-hero {
+  z-index: 10;
+  position: relative;
+  min-height: 400px;
+  background: lighten($color-primary,2%);
+  padding-top: 30px;
+  &__header {
+    font-family: 'Gudea';
+    color: $color-white;
+
+    &--subheader {
+
+    }
+  }
+}
+
+
+.home-card {
+  z-index: 20;
+  position: absolute;;
+  max-width: 400px;
+  left: 0;
+  right: 0;
+  margin: -35px auto 0 auto;
+  .card {
+    border: 0;
+    .card-divider {
+      background: $color-black;
+      color: $color-white;
+    }
+    .card-section {
+      padding: 30px 15px;
+    }
+  }
+}
+
 
 // #mobile-toggle {
 //   position: fixed;
