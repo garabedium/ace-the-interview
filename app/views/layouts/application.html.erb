@@ -46,8 +46,9 @@
 
       <div class="title-bar-right title-bar-menu menu-centered">
         <ul class="main menu dropdown vertical medium-horizontal" data-responsive-menu="accordion medium-dropdown" data-alignment="auto">
-          <li>Sign Up</li>
-          <li>Login</li>
+          <li><a href="#">About</a></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+          <li><%= link_to 'Sign In', new_user_session_path %></li>
         </ul>
       </div>
 
@@ -64,66 +65,6 @@
   </div>
 
   </header>
-
-
-
-
-<div class="home-hero">
-
-  <div class="row column text-center">
-
-      <h1 class="home-hero__header">Don't leave your interview up to chance.</h1>
-      <h2 class="home-hero__header home-hero__header--subheader">Ace the Interview</h2>
-
-  </div>
-
-</div>
-
-
-<div class="row text-center home-card-push">
-  <div class="home-card">
-    <div class="card">
-      <div class="card-divider">
-        <h4>What is a class?</h4>
-      </div>
-      <div class="card-section">
-        <button class="button primary">Hide Answer</button>
-        <blockquote>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero cupiditate mollitia illum minima nulla repellendus repudiandae in consectetur eius saepe, nostrum quae, nemo ipsum? Repudiandae molestiae eveniet dolor dignissimos delectus.</blockquote>
-        <p>Rate</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="row">
-
-  <div class="columns medium-6">
-    <h4 class="home--feature"></h4>
-  </div>
-
-  <div class="columns medium-6">
-
-  </div>
-
-</div>
-
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequuntur, aliquam reiciendis commodi libero placeat veritatis similique iusto id voluptates itaque, assumenda distinctio fuga, at esse dignissimos! Deleniti, dolorem.
 
 
 
@@ -159,5 +100,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero aliquid consequun
 
   <%= javascript_include_tag 'application' %>
   <%= yield :extra_footer %>
+
+  <footer>
+    copyright FOREVER
+  </footer>
 </body>
 </html>

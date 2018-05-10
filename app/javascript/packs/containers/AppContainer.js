@@ -114,8 +114,7 @@ class AppContainer extends Component {
 
     return (
       <div className="row">
-        <h1>App homepage: containers/appcontainer</h1>
-         <div className="columns medium-4 text-center end">
+         <div className="columns medium-6 text-center">
           <QuestionCardContainer
             question={question}
             answerBody={this.state.answer.answerBody}
