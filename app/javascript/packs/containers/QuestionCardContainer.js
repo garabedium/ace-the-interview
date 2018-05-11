@@ -26,14 +26,14 @@ class QuestionCardContainer extends Component {
       return result
     }
 
-    const answerButton = <button className="button" onClick={this.props.toggleAnswer}>{buttonText()}</button>
+    const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
 
     return (
-      <div className="card">
-        <h4 className="card-divider">
+      <div className="card question">
+        <h4 className="card-divider question__header">
           {question}
         </h4>
-        <div className="card-section">
+        <div className="card-section question__body">
 
           {answerButton}
 

@@ -1,0 +1,18 @@
+.button {
+  &--primary {
+    background: $color-secondary;
+    &:hover {
+      color: $color-black;
+      background: lighten($color-secondary,10%);
+    }
+  }
+
+  &__nav {
+    margin-right: 5px;
+  }
+
+  &__answer {
+
+  }
+
+}

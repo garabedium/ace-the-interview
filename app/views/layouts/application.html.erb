@@ -47,12 +47,12 @@
       <div class="title-bar-right title-bar-menu menu-centered">
         <ul class="main menu dropdown vertical medium-horizontal" data-responsive-menu="accordion medium-dropdown" data-alignment="auto">
         <%- if current_user -%>
-          <li><a href="#">App</a></li>
-          <li><a href="#">Dashboard</a></li>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+          <li><a href="/app" class="button button__nav button__nav--app">App</a></li>
+          <li><a href="#" class="button button__nav button__nav--dashboard">Dashboard</a></li>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "button button__nav buton__nav--signout" %></li>
         <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path, :class => "button button--primary button__nav buton__nav--signup" %></li>
+          <li><%= link_to 'Sign In', new_user_session_path, :class => "button button__nav buton__nav--signin" %></li>
         <%- end -%>
         </ul>
       </div>
@@ -106,8 +106,10 @@
   <%= javascript_include_tag 'application' %>
   <%= yield :extra_footer %>
 
-  <footer>
-    copyright FOREVER
+  <footer class="footer">
+    <div class="row column text-center">
+      © forever
+    </div>
   </footer>
 </body>
 </html>
