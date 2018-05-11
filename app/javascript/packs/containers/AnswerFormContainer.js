@@ -31,14 +31,6 @@ class AnswerFormContainer extends Component {
     })
   }
 
-  // 1 infinite loop
-  // updateAnswer(){
-  //   this.setState({
-  //     answerBody: this.props.answerBody,
-  //     answerHint: this.props.answerHint
-  //   })
-  // }
-
   handleInput(event){
     this.setState({
       [event.target.name]: event.target.value
@@ -51,16 +43,15 @@ class AnswerFormContainer extends Component {
       body: this.state.answerBody,
       hint: this.state.answerHint
     }
-    this.handleClear(event)
-    this.props.addNewAnswer(submission)
+    // If hasAnswer is true, put, else post
+    if (this.props.hasAnswer){
+      this.props.updateAnswer(submission)
+    } else {
+      this.props.addNewAnswer(submission)
+    }
   }
 
   render() {
-
-    // 1 infinite loop
-    // if (this.props.hasAnswer){
-    //   this.updateAnswer()
-    // }
 
     return (
         <form className="form form__answers--new" onSubmit={this.handleSubmit}>
