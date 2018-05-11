@@ -1,4 +1,9 @@
 @import 'variables/all';
+
 body {
-  background: $color-body;
+  background: lighten($color-body,5%);
+}
+
+#app {
+  padding: 25px 0 0 0;
 }
