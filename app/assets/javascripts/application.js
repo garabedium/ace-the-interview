@@ -30,7 +30,7 @@
 // foundation.orbit.js
 //= require foundation.responsiveMenu.js
 //= require foundation.responsiveToggle.js
-// foundation.reveal.js
+//= require foundation.reveal.js
 // foundation.slider.js
 //= require foundation.sticky.js
 // foundation.tabs.js
