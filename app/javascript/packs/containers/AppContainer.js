@@ -17,6 +17,7 @@ class AppContainer extends Component {
     }
     this.setQuestion = this.setQuestion.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
+    this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
   }
 
@@ -97,11 +98,37 @@ class AppContainer extends Component {
         questions: response.questions
       })
     })
-    .catch(error => console.error(`Error in fetch (submitting new review): ${error.message}`))
+    .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
 
   }
 
   updateAnswer(submission){
+    const questionId = this.state.questions[this.state.questionId].question.id
+    const answerId = this.state.questions[this.state.questionId].question.answer.id
+    const apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
+
+    fetch(apiUrl, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      body: JSON.stringify(submission),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      this.setState({
+        questions: response.questions
+      })
+    })
+    .catch(error => console.error(`Error in fetch (updating answer): ${error.message}`))
 
   }
 
@@ -123,6 +150,7 @@ class AppContainer extends Component {
             answerActive={this.state.answerActive}
             toggleAnswer={this.toggleAnswer}
             addNewAnswer={this.addNewAnswer}
+            updateAnswer={this.updateAnswer}
           />
           <ButtonComponent
             text="Random Question"
