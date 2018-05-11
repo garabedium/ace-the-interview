@@ -34,6 +34,31 @@ class QuestionSeeder
       title: "What actions have you personally taken on recent projects to increase maintainability of your code?",
       user: User.last,
       public: false
+    },
+    {
+      title: "What is an event listener?",
+      user: User.last,
+      public: true
+    },
+    {
+      title: "What is a callback?",
+      user: User.last,
+      public: true
+    },
+    {
+      title: "What is the difference between classical inheritance and prototypical inheritance?",
+      user: User.last,
+      public: true
+    },
+    {
+      title: "What is event delegation?",
+      user: User.last,
+      public: true
+    },
+    {
+      title: "What is Activerecord?",
+      user: User.first,
+      public: true
     }
   ]
 
