@@ -14,7 +14,6 @@ class Routes extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path='/' component={HomepageContainer} />
         <Route path='/app' component={AppContainer} />
         <Route path='/app/questions' component={QuestionsIndexContainer} />
       </Router>

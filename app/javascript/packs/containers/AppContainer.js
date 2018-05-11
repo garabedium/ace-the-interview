@@ -114,8 +114,7 @@ class AppContainer extends Component {
 
     return (
       <div className="row">
-        <h1>App homepage: containers/appcontainer</h1>
-         <div className="columns medium-4 text-center end">
+         <div className="columns medium-6 medium-offset-1 text-center">
           <QuestionCardContainer
             question={question}
             answerBody={this.state.answer.answerBody}
@@ -131,6 +130,9 @@ class AppContainer extends Component {
             handleClick={this.setQuestion}
           />
         </div>
+          <div className="columns medium-4">
+            sidebar
+          </div>
       </div>
     );
 

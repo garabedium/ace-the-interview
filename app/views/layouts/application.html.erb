@@ -9,10 +9,72 @@
   <%= javascript_include_tag "application" %>
   <%= javascript_pack_tag 'application'%>
   <%= csrf_meta_tags %>
+
+<link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Francois+One|Gudea:700|Hammersmith+One|News+Cycle:400|700|Palanquin:100,400,600,700|Crimson+Text:400,400i" rel="stylesheet"
+
 </head>
 <body>
 
-  <nav class="top-bar">
+
+
+  <header class="header">
+   <div id="mobile-toggle" class="title-bar" data-responsive-toggle="header-nav" data-hide-for="medium">
+      <button class="menu-icon" type="button" data-toggle="header-nav"></button>
+      <button class="title-bar-title" data-toggle="header-nav">Menu</button>
+      <div class="title-bar-right">
+        <a href="/" class="header__logo--mobile">
+          logo mobile
+        </a>
+      </div>
+    </div>
+
+  <div data-sticky-container>
+    <nav id="header-nav" class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-sticky-on="small">
+
+    <div class="row">
+      <div class="columns large-11 large-centered">
+
+      <div class="title-bar-left title-bar-logo">
+        <a href="/" class="logo">
+          <span class="logo logo__card">A</span>
+
+          <span class="logo logo__text">
+            Ace <span class="logo__text--serif">-the-</span> Interview
+          </span>
+        </a>
+      </div>
+
+      <div class="title-bar-right title-bar-menu menu-centered">
+        <ul class="main menu dropdown vertical medium-horizontal" data-responsive-menu="accordion medium-dropdown" data-alignment="auto">
+        <%- if current_user -%>
+          <li><a href="#">App</a></li>
+          <li><a href="#">Dashboard</a></li>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        <%- else -%>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+          <li><%= link_to 'Sign In', new_user_session_path %></li>
+        <%- end -%>
+        </ul>
+      </div>
+
+      </div>
+
+    </div>
+
+
+      <div id="header-search">
+
+      </div>
+
+    </nav>
+  </div>
+
+  </header>
+
+
+
+<!--   <nav class="top-bar">
     <ul class="title-area">
       <li class="name">
         <h1><a href="/">AceTheInterview</a></h1>
@@ -30,6 +92,9 @@
       </ul>
     </section>
   </nav>
+ -->
+
+
 
   <%- flash.each do |key, value| -%>
     <div class="flash flash-<%= key %>">
@@ -41,5 +106,9 @@
 
   <%= javascript_include_tag 'application' %>
   <%= yield :extra_footer %>
+
+  <footer>
+    copyright FOREVER
+  </footer>
 </body>
 </html>
