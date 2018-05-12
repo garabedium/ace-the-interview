@@ -18,8 +18,8 @@
 ///////////////////////////////////////
 //= require foundation.core.js
 // foundation.abide.js
-// foundation.accordion.js
-// foundation.accordionMenu.js
+//= require foundation.accordion.js
+//= require foundation.accordionMenu.js
 // foundation.drilldown.js
 // foundation.dropdown.js
 //= require foundation.dropdownMenu.js
@@ -36,11 +36,11 @@
 // foundation.tabs.js
 // foundation.toggler.js
 // foundation.tooltip.js
-// foundation.util.box.js
+//= require foundation.util.box.js
 //= require foundation.util.keyboard.js
 //= require foundation.util.mediaQuery.js
 //= require foundation.util.motion.js
-// foundation.util.nest.js
+//= require foundation.util.nest.js
 // foundation.util.timerAndImageLoader.js
 //= require foundation.util.touch.js
 //= require foundation.util.triggers.js

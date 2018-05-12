@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import AnswerFormContainer from './AnswerFormContainer'
 
 class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      // answerActive: false
+    }
+    this.showCategories = this.showCategories.bind(this)
+  }
+
+  showCategories(){
+    if (this.props.hasCategories){
+      let categories = this.props.categories.map( (item) => {
+        return (
+          <li className="question__category">
+            <Link to={`/app/categories/${item.id}`}>{item.name}</Link>
+          </li>
+        )
+      })
+      return (
+        <ul className="menu simple">
+          {categories}
+        </ul>
+      )
     }
   }
 
@@ -28,6 +46,8 @@ class QuestionCardContainer extends Component {
 
     const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
 
+    // const categories = this.showCategories
+
     return (
       <div className="card question">
         <h4 className="card-divider question__header">
@@ -46,6 +66,9 @@ class QuestionCardContainer extends Component {
               hasAnswer={this.props.hasAnswer}
             />
           }
+
+          {this.showCategories()}
+
         </div>
       </div>
     );
@@ -54,20 +77,3 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
-
-    // const answerButton = (!isAnswerActive) ? (
-
-    //   <button className="button" onClick={this.props.toggleAnswer}>Show Answer</button>
-    // ) : (
-    //   <button className="button" onClick={this.props.toggleAnswer}>Hide Answer</button>
-    // )
-          // {answerButton}
-
-          // {isAnswerActive &&
-          //   <AnswerFormContainer
-          //     addNewAnswer={this.props.addNewAnswer}
-          //     answerBody={this.props.answerBody}
-          //     answerHint={this.props.answerHint}
-          //     hasAnswer={this.props.hasAnswer}
-          //   />
-          // }
