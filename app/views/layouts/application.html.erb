@@ -15,8 +15,6 @@
 </head>
 <body>
 
-
-
   <header class="header">
    <div id="mobile-toggle" class="title-bar" data-responsive-toggle="header-nav" data-hide-for="medium">
       <button class="menu-icon" type="button" data-toggle="header-nav"></button>
@@ -35,7 +33,9 @@
       <div class="columns large-11 large-centered">
 
       <div class="title-bar-left title-bar-logo">
-        <a href="/" class="logo">
+
+        <a href="/<% if current_user %>app<% end %>" class="logo">
+
           <span class="logo logo__card">A</span>
 
           <span class="logo logo__text">
@@ -46,14 +46,14 @@
 
       <div class="title-bar-right title-bar-menu menu-centered">
         <ul class="main menu dropdown vertical medium-horizontal" data-responsive-menu="accordion medium-dropdown" data-alignment="auto">
-        <%- if current_user -%>
+        <% if current_user %>
           <li><a href="/app" class="button button__nav button__nav--app">App</a></li>
           <li><a href="#" class="button button__nav button__nav--dashboard">Dashboard</a></li>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "button button__nav buton__nav--signout" %></li>
-        <%- else -%>
+        <% else %>
           <li><%= link_to 'Sign Up', new_user_registration_path, :class => "button button--primary button__nav buton__nav--signup" %></li>
           <li><%= link_to 'Sign In', new_user_session_path, :class => "button button__nav buton__nav--signin" %></li>
-        <%- end -%>
+        <% end %>
         </ul>
       </div>
 
@@ -70,29 +70,6 @@
   </div>
 
   </header>
-
-
-
-<!--   <nav class="top-bar">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/">AceTheInterview</a></h1>
-      </li>
-    </ul>
-
-    <section class="top-bar-section">
-      <ul class="right">
-        <%- if current_user -%>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-        <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
-        <%- end -%>
-      </ul>
-    </section>
-  </nav>
- -->
-
 
 
   <%- flash.each do |key, value| -%>

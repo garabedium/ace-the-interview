@@ -4,7 +4,8 @@ class Api::V1::QuestionsController < ApiController
   before_action :authorize_user
 
   def index
-    render json: { questions: answers_by_questions }
+    render json: { questions: user_answers_by_question }
+    # render json: Question.all # Couple this with the serializer....
   end
 
 end

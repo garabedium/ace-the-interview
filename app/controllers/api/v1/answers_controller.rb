@@ -32,7 +32,7 @@ class Api::V1::AnswersController < ApiController
     if !current_user.nil? && current_user == @answer.user
       @answer = @answer.update(answer_params)
 
-      render json: { questions: answers_by_questions }
+      render json: { questions: user_answers_by_question }
     end
   end
 
@@ -56,7 +56,7 @@ class Api::V1::AnswersController < ApiController
       answer.user = current_user
       answer.save
 
-      render json: { questions: answers_by_questions }
+      render json: { questions: user_answers_by_question }
     end
 
   end
