@@ -11,6 +11,8 @@ Rails.application.routes.draw do
         resources :answers
       end
 
+      resources :categories, only: [:index,:show]
+
     end
   end
 
