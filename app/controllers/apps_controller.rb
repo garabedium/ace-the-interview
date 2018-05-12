@@ -3,4 +3,6 @@ class AppsController < ApplicationController
   end
   def questions
   end
+  def categories
+  end
 end

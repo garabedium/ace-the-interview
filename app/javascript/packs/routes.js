@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
-import HomepageContainer from './containers/HomepageContainer';
 import AppContainer from './containers/AppContainer';
+import HomepageContainer from './containers/HomepageContainer';
 import QuestionsIndexContainer from './containers/QuestionsIndexContainer';
+import CategoriesIndexContainer from './containers/CategoriesIndexContainer';
+import CategoryShowContainer from './containers/CategoryShowContainer';
 
 class Routes extends Component {
 
@@ -16,6 +18,8 @@ class Routes extends Component {
       <Router history={browserHistory}>
         <Route path='/app' component={AppContainer} />
         <Route path='/app/questions' component={QuestionsIndexContainer} />
+        <Route path='/app/categories' component={CategoriesIndexContainer} />
+        <Route path='/app/categories/:id' component={CategoryShowContainer} />
       </Router>
     );
   }
@@ -23,4 +27,5 @@ class Routes extends Component {
 
 export default Routes;
 
-// <Route path="spots/:id" component={SpotsShowContainer} />
+// Route path='/app/categories' component={CategoriesIndexContainer} />
+// <Route path="/app/categories/:id" component={CategoryShowContainer} />

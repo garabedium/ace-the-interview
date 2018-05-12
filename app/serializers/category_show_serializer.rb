@@ -1,7 +1,8 @@
 class CategoryShowSerializer < ActiveModel::Serializer
-  attributes :id, :name, :questions_by_category
+  attributes :id, :name, :questions
 
-  def questions_by_category
+  def questions
+    # should be able to loop through and create custom object:
     object.questions
   end
 end

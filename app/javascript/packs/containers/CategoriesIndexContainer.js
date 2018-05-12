@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
-class QuestionsIndexContainer extends Component {
+class CategoriesIndexContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      questions: []
+      categories: []
     }
   }
 
   componentDidMount(){
-    let apiUrl = '/api/v1/questions'
+    let apiUrl = '/api/v1/categories'
     fetch(apiUrl,{
       credentials: 'same-origin'
     })
@@ -24,31 +25,37 @@ class QuestionsIndexContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        this.setState({ questions: response });
+        this.setState({ categories: response.categories });
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   render() {
 
-    let questions;
-    if (this.state.questions.questions){
-      questions = this.state.questions.questions.map(item => {
+    let categories;
+    if (this.state.categories){
+      categories = this.state.categories.map(item => {
         return(
-          <div key={item.question.id}>
-            {item.question.title}
+          <div
+            key={item.id}
+          >
+            <Link to={`/app/categories/${item.id}`}>
+              {item.name}
+            </Link>
           </div>
         )
       })
     }
 
     return (
-      <div>
-        {questions}
+      <div className="row">
+        <div className="columns medium-10 medium-centered">
+          {categories}
+        </div>
       </div>
     );
   }
 }
 
-export default QuestionsIndexContainer;
+export default CategoriesIndexContainer;
 
