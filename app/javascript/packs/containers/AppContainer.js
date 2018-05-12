@@ -12,6 +12,7 @@ class AppContainer extends Component {
       questionId: 0,
       answer: {},
       hasAnswer: false,
+      hasCategories: false,
       answerActive: true,
       shown: []
     }
@@ -46,21 +47,30 @@ class AppContainer extends Component {
   }
 
   setQuestion(){
-    let answerBody, answerHint
-    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
-    const hasAnswer = (this.state.questions[randomIndex].question.answer !== null) ? true : false
+    let answerBody, answerHint, categories
+    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1)),
+          question = this.state.questions[randomIndex].question,
+          hasAnswer = (question.answer !== null) ? true : false,
+          hasCategories = (question.categories.length > 0) ? true : false
+
     if (hasAnswer){
-      answerBody = this.state.questions[randomIndex].question.answer.body
-      answerHint = this.state.questions[randomIndex].question.answer.hint || ""
+      answerBody = question.answer.body
+      answerHint = question.answer.hint || ""
+    }
+
+    if (hasCategories){
+      categories = question.categories
     }
 
     this.setState({
       questionId: randomIndex,
       hasAnswer: hasAnswer,
+      hasCategories: hasCategories,
       answer:{
         answerBody: answerBody,
         answerHint: answerHint
       },
+      categories: categories,
       answerActive: false
     })
   }
@@ -103,9 +113,9 @@ class AppContainer extends Component {
   }
 
   updateAnswer(submission){
-    const questionId = this.state.questions[this.state.questionId].question.id
-    const answerId = this.state.questions[this.state.questionId].question.answer.id
-    const apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
+    const questionId = this.state.questions[this.state.questionId].question.id,
+          answerId = this.state.questions[this.state.questionId].question.answer.id,
+          apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
 
     fetch(apiUrl, {
       credentials: 'same-origin',
@@ -146,7 +156,9 @@ class AppContainer extends Component {
             question={question}
             answerBody={this.state.answer.answerBody}
             answerHint={this.state.answer.answerHint}
+            categories={this.state.categories}
             hasAnswer={this.state.hasAnswer}
+            hasCategories={this.state.hasCategories}
             answerActive={this.state.answerActive}
             toggleAnswer={this.toggleAnswer}
             addNewAnswer={this.addNewAnswer}
@@ -158,9 +170,12 @@ class AppContainer extends Component {
             handleClick={this.setQuestion}
           />
         </div>
-          <div className="columns medium-4">
-            sidebar
-          </div>
+          <aside className="columns medium-4">
+            <h4>Interview Lists</h4>
+            <button className="button secondary">Add New List +</button>
+            <hr/>
+            <button className="button warning">Add New Question +</button>
+          </aside>
       </div>
     );
 

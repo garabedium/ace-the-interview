@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
     '/app'
   end
 
+  def authorize_user
+    if !user_signed_in?
+      redirect_to root_path
+    end
+  end
+
 end

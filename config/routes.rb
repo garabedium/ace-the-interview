@@ -11,10 +11,14 @@ Rails.application.routes.draw do
         resources :answers
       end
 
+      resources :categories, only: [:index,:show]
+
     end
   end
 
   get "app", to: 'apps#index'
   get "app/questions", to: 'apps#questions'
+  get "app/categories", to: 'apps#categories'
+  get "app/categories/:id", to: 'apps#categories'
 
 end

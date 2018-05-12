@@ -1,8 +1,9 @@
-class QuestionSerializer < ActiveModel::Serializer
-  attributes :title, :answers
+# class QuestionSerializer < ActiveModel::Serializer
 
-  def answers
-    object.answers
-  end
+#   attributes :title
 
-end
+#   # def answers
+#   #   object.answers
+#   # end
+
+# end
