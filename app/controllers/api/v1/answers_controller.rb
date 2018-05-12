@@ -3,32 +3,12 @@ class Api::V1::AnswersController < ApiController
 
   before_action :authorize_user
 
-  def answers_by_questions
-    questions_public = Question.where(public: true)
-    questions = questions_public.map do |item|
-      {
-        question: {
-          id: item.id,
-          title: item.title,
-          answer: item.answers.find_by(user: current_user)
-        }
-      }
-    end
-  end
-
   def index
-
     answer = Answer.find_by(user: current_user, question: params[:question_id])
     render json: { answer: answer }
-
-    # answer = Answer.find_by(user: current_user.id, params[:question_id])
-    # render json: { questions: Question.where(public: true) }
   end
 
   def show
-    # show answer for a given question:
-    # binding.pry
-    # question = Question.find(params[:question_id])
     answer = Answer.find_by(user: current_user, question: params[:question_id])
     render json: { answer: answer }
   end
@@ -87,11 +67,5 @@ class Api::V1::AnswersController < ApiController
     params.require(:answer).permit(:hint,:body)
   end
 
-  def authorize_user
-    if !user_signed_in?
-      # flash[:notice] = "You do not have access to this page."
-      redirect_to root_path
-    end
-  end
 
 end
