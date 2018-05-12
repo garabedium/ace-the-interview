@@ -170,9 +170,12 @@ class AppContainer extends Component {
             handleClick={this.setQuestion}
           />
         </div>
-          <div className="columns medium-4">
-            sidebar
-          </div>
+          <aside className="columns medium-4">
+            <h4>Interview Lists</h4>
+            <button className="button secondary">Add New List +</button>
+            <hr/>
+            <button className="button warning">Add New Question +</button>
+          </aside>
       </div>
     );
 

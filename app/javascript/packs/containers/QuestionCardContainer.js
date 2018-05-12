@@ -21,6 +21,7 @@ class QuestionCardContainer extends Component {
       })
       return (
         <ul className="menu simple">
+          <li className="question__category--label">Tags:</li>
           {categories}
         </ul>
       )

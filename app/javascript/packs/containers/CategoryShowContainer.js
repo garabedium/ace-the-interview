@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router'
 
 class CategoryShowContainer extends Component {
   constructor(props) {
@@ -48,7 +47,6 @@ class CategoryShowContainer extends Component {
     return(
       <div className="row">
         <div className="columns medium-10 medium-centered">
-        <button className="button" onClick={browserHistory.goBack}>Back</button>
           <h1>Category: {this.state.category.name}</h1>
           {questions}
         </div>
