@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import QuestionCardContainer from './QuestionCardContainer';
+import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
 
 class AppContainer extends Component {
@@ -14,9 +15,12 @@ class AppContainer extends Component {
       hasAnswer: false,
       hasCategories: false,
       answerActive: true,
+      questionLists: [],
       shown: []
     }
     this.setQuestion = this.setQuestion.bind(this)
+    // this.getLists = this.getLists.bind(this)
+    // this.showLists = this.showLists.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
@@ -44,6 +48,9 @@ class AppContainer extends Component {
       })
       .then( this.setQuestion )
       .catch(error => console.error(`Error in fetch: ${error.message}`));
+
+    // this.getLists()
+
   }
 
   setQuestion(){
@@ -172,9 +179,7 @@ class AppContainer extends Component {
         </div>
           <aside className="columns medium-4">
             <h4>Interview Lists</h4>
-            <button className="button secondary">Add New List +</button>
-            <hr/>
-            <button className="button warning">Add New Question +</button>
+            <QuestionListContainer/>
           </aside>
       </div>
     );
@@ -185,3 +190,5 @@ class AppContainer extends Component {
 }
 
 export default AppContainer;
+
+//{this.showLists()}
