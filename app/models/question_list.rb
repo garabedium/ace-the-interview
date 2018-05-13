@@ -1,6 +1,6 @@
-class QuestionCategory < ApplicationRecord
+class QuestionList < ApplicationRecord
   validates :question, presence: true
-  validates :category, presence: true
+  validates :list, presence: true
 
   belongs_to :question
   belongs_to :category
