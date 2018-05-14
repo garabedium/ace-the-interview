@@ -1,0 +1,11 @@
+What is a class?
+What are the basic data types in Ruby?
+What is a Ruby gem and why are they useful?
+What is the difference between a class and a module?
+What is an object?
+How would you declare and use a constructor in Ruby?
+How would you create getter and setter methods in Ruby?
+Describe the difference between class and instance variables?
+What are the three levels of method access control for classes and what do they signify?
+What does 'self' mean?
+Explain how (almost) everything is an object in Ruby.
