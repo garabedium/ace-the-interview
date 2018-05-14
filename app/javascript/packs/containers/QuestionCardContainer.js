@@ -5,8 +5,7 @@ import AnswerFormContainer from './AnswerFormContainer'
 class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
-    this.state = {
-    }
+    this.state = {}
     this.showCategories = this.showCategories.bind(this)
   }
 
@@ -47,8 +46,6 @@ class QuestionCardContainer extends Component {
     }
 
     const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
-
-    // const categories = this.showCategories
 
     return (
       <div className="card question">

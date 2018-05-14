@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import FieldTextarea from '../components/FieldTextarea'
+import FieldInput from '../components/FieldInput'
 import ButtonSubmit from '../components/ButtonSubmit'
 
-class AnswerFormContainer extends Component {
+class QuestionNewFormContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
+      questionTitle: "",
       answerBody: "",
       answerHint: "",
       errors: {}
@@ -40,23 +42,25 @@ class AnswerFormContainer extends Component {
   handleSubmit(event){
     event.preventDefault()
     const submission  = {
+      title: this.state.questionTitle,
       body: this.state.answerBody,
       hint: this.state.answerHint
     }
-    // If hasAnswer is true, put, else post
-    if (this.props.hasAnswer){
 
-      this.props.updateAnswer(submission)
-    } else {
 
-      this.props.addNewAnswer(submission)
-    }
+    this.props.addNewQuestion(submission)
   }
 
   render() {
 
     return (
-        <form className="form form__answers--new" onSubmit={this.handleSubmit}>
+        <form className="form form__question--new" onSubmit={this.handleSubmit}>
+
+          <FieldInput
+            label="Question"
+            content={this.state.questionTitle}
+            handleChange={this.handleInput}
+          />
 
           <FieldTextarea
             label="Answer"
@@ -76,4 +80,4 @@ class AnswerFormContainer extends Component {
 
 }
 
-export default AnswerFormContainer;
+export default QuestionNewFormContainer;
