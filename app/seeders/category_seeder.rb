@@ -11,7 +11,10 @@ class CategorySeeder
     'Security',
     'Soft Skills',
     'Testing',
-    'Unit Testing'
+    'Fun',
+    'Unit Testing',
+    'HTTP',
+    'Computer Software'
   ]
 
   def self.seed!

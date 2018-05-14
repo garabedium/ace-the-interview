@@ -1,0 +1,8 @@
+What is SQL?
+What is database normalization?
+What are super, primary, candidate and foreign keys?
+What is a race condition?
+What are advantages of DBMS over traditional file based systems?
+What is the difference between an inner and outer join?
+What is NoSQL?
+What are the various relationships in a database?
