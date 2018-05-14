@@ -45,11 +45,7 @@ class AnswerFormContainer extends Component {
     }
 
     this.props.handleAnswer(submission)
-    // if (this.props.hasAnswer){
-    //   this.props.updateAnswer(submission)
-    // } else {
-    //   this.props.addNewAnswer(submission)
-    // }
+
   }
 
   render() {
