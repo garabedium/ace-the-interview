@@ -29,7 +29,6 @@ class QuestionCardContainer extends Component {
   }
 
   render() {
-
     const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.props.answerActive
 

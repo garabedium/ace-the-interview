@@ -64,7 +64,7 @@ class AppContainer extends Component {
     const question = this.state.questions[randomIndex]
     const hasAnswer = (question.answer !== null) ? true : false
     const hasCategories = (question.categories.length > 0) ? true : false
-debugger
+
     if (hasAnswer){
       answerBody = question.answer.body
       answerHint = question.answer.hint || ""
@@ -129,8 +129,6 @@ debugger
     const questionId = this.state.questions[this.state.questionId].id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
 
-
-
     fetch(apiUrl, {
       credentials: 'same-origin',
       method: 'POST',
@@ -148,7 +146,6 @@ debugger
     })
     .then(response => response.json())
     .then(response => {
-
       this.setState({
         questions: response.questions
       })
@@ -161,7 +158,6 @@ debugger
     const questionId = this.state.questions[this.state.questionId].id,
           answerId = this.state.questions[this.state.questionId].answer.id,
           apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
-
 
     fetch(apiUrl, {
       credentials: 'same-origin',
@@ -221,7 +217,7 @@ debugger
             <QuestionListContainer />
             <hr/>
             <button className="button warning">Add New Question +</button>
-            <QuestionNewFormContainer />
+
           </aside>
       </div>
     );
@@ -233,5 +229,6 @@ debugger
 
 export default AppContainer;
 
+// <QuestionNewFormContainer />
 //{this.showLists()}
 // <QuestionFormContainer />
