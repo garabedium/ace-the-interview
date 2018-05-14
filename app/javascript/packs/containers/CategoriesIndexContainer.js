@@ -10,7 +10,7 @@ class CategoriesIndexContainer extends Component {
   }
 
   componentDidMount(){
-    let apiUrl = '/api/v1/categories'
+    let apiUrl = '/api/v1/categories.json'
     fetch(apiUrl,{
       credentials: 'same-origin'
     })

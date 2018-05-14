@@ -1,10 +1,10 @@
-class CategoryShowSerializer < ActiveModel::Serializer
+class ListShowSerializer < ActiveModel::Serializer
   attributes :id, :name, :questions
 
   def questions
-    category_questions = object.questions
+    list_questions = object.questions
 
-    category_questions = category_questions.map do |item|
+    list_questions = list_questions.map do |item|
       {
         question: {
           id: item.id,
@@ -15,4 +15,5 @@ class CategoryShowSerializer < ActiveModel::Serializer
       }
     end
   end
+
 end

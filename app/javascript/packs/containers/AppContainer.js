@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import QuestionCardContainer from './QuestionCardContainer';
+import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
 
 class AppContainer extends Component {
@@ -13,9 +14,13 @@ class AppContainer extends Component {
       answer: {},
       hasAnswer: false,
       hasCategories: false,
+      isCategory: false,
+      isList: false,
       answerActive: true,
       shown: []
     }
+    this.getData = this.getData.bind(this)
+    // this.setList = this.setList.bind(this)
     this.setQuestion = this.setQuestion.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
@@ -23,7 +28,20 @@ class AppContainer extends Component {
   }
 
   componentDidMount(){
-    let apiUrl = '/api/v1/questions.json'
+    const path = `${this.props.params.list_type}/${this.props.params.id}`
+    this.getData(path)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const path = `${nextProps.params.list_type}/${nextProps.params.id}`
+    this.getData(path);
+  }
+
+  getData(path){
+    const apiUrl = `/api/v1/${path}.json`
+
+    // add check to see if apiURL already matches to avoid unnecessary call
+
     fetch(apiUrl,{
       credentials: 'same-origin'
     })
@@ -38,20 +56,25 @@ class AppContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
+        const responseType = (path.indexOf('lists') > -1) ? response.list : response.category
+
         this.setState({
-          questions: response.questions
+          questions: responseType.questions
         })
       })
       .then( this.setQuestion )
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .catch(error => {
+        console.log(error)
+        console.error(`Error in fetch: ${error.message}`)
+      });
   }
 
   setQuestion(){
     let answerBody, answerHint, categories
-    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1)),
-          question = this.state.questions[randomIndex].question,
-          hasAnswer = (question.answer !== null) ? true : false,
-          hasCategories = (question.categories.length > 0) ? true : false
+    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
+    const question = this.state.questions[randomIndex].question
+    const hasAnswer = (question.answer !== null) ? true : false
+    const hasCategories = (question.categories.length > 0) ? true : false
 
     if (hasAnswer){
       answerBody = question.answer.body
@@ -73,6 +96,7 @@ class AppContainer extends Component {
       categories: categories,
       answerActive: false
     })
+
   }
 
   toggleAnswer(){
@@ -171,8 +195,8 @@ class AppContainer extends Component {
           />
         </div>
           <aside className="columns medium-4">
-            <h4>Interview Lists</h4>
-            <button className="button secondary">Add New List +</button>
+            <h4>My Lists</h4>
+            <QuestionListContainer />
             <hr/>
             <button className="button warning">Add New Question +</button>
           </aside>
@@ -185,3 +209,5 @@ class AppContainer extends Component {
 }
 
 export default AppContainer;
+
+//{this.showLists()}

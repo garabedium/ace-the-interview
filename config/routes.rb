@@ -12,13 +12,15 @@ Rails.application.routes.draw do
       end
 
       resources :categories, only: [:index,:show]
+      resources :lists, only: [:index,:show]
 
     end
   end
 
   get "app", to: 'apps#index'
   get "app/questions", to: 'apps#questions'
-  get "app/categories", to: 'apps#categories'
-  get "app/categories/:id", to: 'apps#categories'
+  # get "app/categories", to: 'apps#categories'
+  # get "app/categories/:id", to: 'apps#categories'
+  get "app/:list_type/:id", to: 'apps#lists'
 
 end

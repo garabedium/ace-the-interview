@@ -17,9 +17,7 @@ class Routes extends Component {
     return (
       <Router history={browserHistory}>
         <Route path='/app' component={AppContainer} />
-        <Route path='/app/questions' component={QuestionsIndexContainer} />
-        <Route path='/app/categories' component={CategoriesIndexContainer} />
-        <Route path='/app/categories/:id' component={CategoryShowContainer} />
+        <Route path='/app/:list_type/:id' component={AppContainer} />
       </Router>
     );
   }
@@ -29,3 +27,6 @@ export default Routes;
 
 // Route path='/app/categories' component={CategoriesIndexContainer} />
 // <Route path="/app/categories/:id" component={CategoryShowContainer} />
+        // <Route path='/app/questions' component={QuestionsIndexContainer} />
+        // <Route path='/app/categories' component={CategoriesIndexContainer} />
+        // <Route path='/app/categories/:id' component={CategoryShowContainer} />
