@@ -30,6 +30,8 @@
 yarn-debug.log*
 .yarn-integrity
 
+/seeders/data
+
 # Ignore Coveralls coverage reports
 /coverage
 .env

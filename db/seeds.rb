@@ -4,8 +4,9 @@
 if Rails.env.development? || Rails.env.production?
   IndustrySeeder.seed!
   UserSeeder.seed!
-  QuestionSeeder.seed!
-  AnswerSeeder.seed!
+  # QuestionSeeder.seed!
+  # AnswerSeeder.seed!
   CategorySeeder.seed!
-  QuestionCategorySeeder.seed!
+  TestSeeder.seed!
+  # QuestionCategorySeeder.seed!
 end
