@@ -9,7 +9,7 @@ class Api::V1::ListsController < ApiController
 
     list_questions = lists.map do |list|
       {
-        list:{
+        list: {
           id: list[:id],
           name: list[:name],
           questions: list.questions
@@ -18,6 +18,12 @@ class Api::V1::ListsController < ApiController
     end
 
     render json: { lists: list_questions }
+  end
+
+  def show
+    lists = current_user.lists
+
+    render json: lists.find(params[:id]), serializer: ListShowSerializer
   end
 
 end

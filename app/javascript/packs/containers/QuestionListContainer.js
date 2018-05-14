@@ -37,7 +37,10 @@ class QuestionListContainer extends Component {
     const questionLists = this.state.questionLists
     if(questionLists){
       let result = questionLists.map( (item) => {
-        return (<li key={item.list.id}>{item.list.name}</li>)
+        return (
+          <li key={item.list.id}>
+            <Link to={`/app/lists/${item.list.id}`}>{item.list.name}</Link>
+          </li>)
       })
 
       return (
@@ -54,8 +57,6 @@ class QuestionListContainer extends Component {
       <div>
         {this.showLists()}
         <button className="button secondary">Add New List +</button>
-        <hr/>
-        <button className="button warning">Add New Question +</button>
       </div>
     );
   }

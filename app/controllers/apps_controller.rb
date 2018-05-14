@@ -4,6 +4,8 @@ class AppsController < ApplicationController
   end
   def questions
   end
-  def categories
-  end
+  # def categories
+  # end
+  # def list_type
+  # end
 end

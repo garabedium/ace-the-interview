@@ -19,7 +19,8 @@ Rails.application.routes.draw do
 
   get "app", to: 'apps#index'
   get "app/questions", to: 'apps#questions'
-  get "app/categories", to: 'apps#categories'
-  get "app/categories/:id", to: 'apps#categories'
+  # get "app/categories", to: 'apps#categories'
+  # get "app/categories/:id", to: 'apps#categories'
+  get "app/:list_type/:id", to: 'apps#lists'
 
 end
