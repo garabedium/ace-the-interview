@@ -57,11 +57,11 @@ class QuestionCardContainer extends Component {
 
           {isAnswerActive &&
             <AnswerFormContainer
-              addNewAnswer={this.props.addNewAnswer}
-              updateAnswer={this.props.updateAnswer}
               answerBody={this.props.answerBody}
               answerHint={this.props.answerHint}
               hasAnswer={this.props.hasAnswer}
+              toggleAnswer={this.props.toggleAnswer}
+              handleAnswer={this.props.handleAnswer}
             />
           }
 

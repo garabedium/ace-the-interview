@@ -24,6 +24,7 @@ class AppContainer extends Component {
     this.addNewQuestion = this.addNewQuestion.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
   }
 
   componentDidMount(){
@@ -44,7 +45,6 @@ class AppContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-
         this.setState({
           questions: response.questions
         })
@@ -55,10 +55,10 @@ class AppContainer extends Component {
         console.error(`Error in fetch: ${error.message}`)
       });
 
-
   }
 
   setQuestion(){
+
     let answerBody, answerHint, categories
     const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
     const question = this.state.questions[randomIndex]
@@ -124,6 +124,14 @@ class AppContainer extends Component {
 
   }
 
+  handleAnswer(submission){
+    debugger
+    if (this.state.hasAnswer){
+      this.updateAnswer(submission)
+    } else {
+      this.addNewAnswer(submission)
+    }
+  }
 
   addNewAnswer(submission) {
     const questionId = this.state.questions[this.state.questionId].id
@@ -146,8 +154,14 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
+      debugger
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        hasAnswer: true,
+        answer:{
+          answerBody: submission.body,
+          answerHint: submission.hint
+        }
       })
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
@@ -155,9 +169,9 @@ class AppContainer extends Component {
   }
 
   updateAnswer(submission){
-    const questionId = this.state.questions[this.state.questionId].id,
-          answerId = this.state.questions[this.state.questionId].answer.id,
-          apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
+    const questionId = this.state.questions[this.state.questionId].id
+    const answerId = this.state.questions[this.state.questionId].answer.id
+    const apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
 
     fetch(apiUrl, {
       credentials: 'same-origin',
@@ -177,7 +191,12 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        hasAnswer: true,
+        answer:{
+          answerBody: submission.body,
+          answerHint: submission.hint
+        }
       })
     })
     .catch(error => console.error(`Error in fetch (updating answer): ${error.message}`))
@@ -203,8 +222,7 @@ class AppContainer extends Component {
             hasCategories={this.state.hasCategories}
             answerActive={this.state.answerActive}
             toggleAnswer={this.toggleAnswer}
-            addNewAnswer={this.addNewAnswer}
-            updateAnswer={this.updateAnswer}
+            handleAnswer={this.handleAnswer}
           />
           <ButtonComponent
             text="Random Question"

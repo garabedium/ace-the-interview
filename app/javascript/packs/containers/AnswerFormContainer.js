@@ -43,14 +43,13 @@ class AnswerFormContainer extends Component {
       body: this.state.answerBody,
       hint: this.state.answerHint
     }
-    // If hasAnswer is true, put, else post
-    if (this.props.hasAnswer){
 
-      this.props.updateAnswer(submission)
-    } else {
-
-      this.props.addNewAnswer(submission)
-    }
+    this.props.handleAnswer(submission)
+    // if (this.props.hasAnswer){
+    //   this.props.updateAnswer(submission)
+    // } else {
+    //   this.props.addNewAnswer(submission)
+    // }
   }
 
   render() {
