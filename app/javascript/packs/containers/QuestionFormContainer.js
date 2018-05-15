@@ -14,13 +14,15 @@ class QuestionFormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.validateTextInput = this.validateTextInput.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
 
   handleClear(event){
     event.preventDefault()
     this.setState({
       questionTitle: "",
-      errors: {}
+      errors: {},
+      showForm: false
     })
   }
 
@@ -41,6 +43,12 @@ class QuestionFormContainer extends Component {
       this.handleClear(event)
     }
 
+  }
+
+  toggleForm(){
+    return this.setState( ({
+      showForm: !this.state.showForm
+    }));
   }
 
   validateTextInput(field,error) {
@@ -64,7 +72,7 @@ class QuestionFormContainer extends Component {
     let errorWrapper, errorItems
 
     const newQuestionButton = <button className="button button__question warning" onClick={this.toggleForm}>+ New Question</button>
-
+    const showForm = this.state.showForm
 
     if ( Object.keys(this.state.errors).length > 0 ){
       errorItems = Object.values(this.state.errors).map( error => {
@@ -80,6 +88,7 @@ class QuestionFormContainer extends Component {
         {newQuestionButton}
         {errorWrapper}
 
+        {showForm &&
         <form className="form form__question--new" onSubmit={this.handleSubmit}>
 
           <FieldInput
@@ -95,7 +104,7 @@ class QuestionFormContainer extends Component {
           />
 
         </form>
-
+      }
       </div>
     );
   }
