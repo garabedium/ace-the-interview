@@ -51,6 +51,7 @@ class QuestionFormContainer extends Component {
     }));
   }
 
+
   validateTextInput(field,error) {
     const value = this.state[field];
     const setError = () => {
@@ -73,6 +74,7 @@ class QuestionFormContainer extends Component {
 
     const newQuestionButton = <button className="button button__question warning" onClick={this.toggleForm}>+ New Question</button>
     const showForm = this.state.showForm
+    const questionAdded = this.props.questionAdded
 
     if ( Object.keys(this.state.errors).length > 0 ){
       errorItems = Object.values(this.state.errors).map( error => {
@@ -88,7 +90,8 @@ class QuestionFormContainer extends Component {
         {newQuestionButton}
         {errorWrapper}
 
-        {showForm &&
+      {showForm &&
+
         <form className="form form__question--new" onSubmit={this.handleSubmit}>
 
           <FieldInput

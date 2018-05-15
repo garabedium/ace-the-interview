@@ -16,7 +16,7 @@ class AppContainer extends Component {
       hasAnswer: false,
       hasCategories: false,
       answerActive: true,
-      questionFormActive: true,
+      questionAdded: false,
       shown: []
     }
 
@@ -117,7 +117,8 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        questionAdded: true
       })
     })
     .catch(error => console.error(`Error in fetch (add new question): ${error.message}`))
@@ -155,7 +156,12 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        hasAnswer: true,
+        answer:{
+          answerBody: submission.body,
+          answerHint: submission.hint
+        }
       })
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
@@ -230,6 +236,7 @@ class AppContainer extends Component {
             <hr/>
             <QuestionFormContainer
               addNewQuestion={this.addNewQuestion}
+              questionAdded={this.state.questionAdded}
             />
           </aside>
       </div>
@@ -242,6 +249,7 @@ class AppContainer extends Component {
 
 export default AppContainer;
 
-// <QuestionNewFormContainer />
-//{this.showLists()}
-// <QuestionFormContainer />
+            // <QuestionFormContainer
+            //   addNewQuestion={this.addNewQuestion}
+            //   questionAdded={this.state.questionAdded}
+            // />
