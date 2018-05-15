@@ -43,5 +43,4 @@ class Api::V1::QuestionsController < ApiController
     params.require(:question).permit(:title)
   end
 
-
 end

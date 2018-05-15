@@ -17,15 +17,18 @@ class AppContainer extends Component {
       hasCategories: false,
       answerActive: true,
       questionAdded: false,
+      questionLists: [],
       shown: []
     }
 
     this.setQuestion = this.setQuestion.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.addNewQuestion = this.addNewQuestion.bind(this)
+    this.addNewList = this.addNewList.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
+    this.getLists = this.getLists.bind(this)
   }
 
   componentDidMount(){
@@ -51,6 +54,7 @@ class AppContainer extends Component {
         })
       })
       .then( this.setQuestion )
+      .then( this.getLists )
       .catch(error => {
         console.log(error)
         console.error(`Error in fetch: ${error.message}`)
@@ -134,6 +138,45 @@ class AppContainer extends Component {
     }
   }
 
+  addNewList(submission) {
+
+    const apiUrl = '/api/v1/lists.json'
+
+    fetch(apiUrl, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(submission),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      debugger
+      this.setState({
+        questionLists: this.state.questionLists.concat(response)
+      })
+    })
+    .catch(error => console.error(`Error in fetch (add new list): ${error.message}`))
+
+  }
+
+  handleAnswer(submission){
+
+    if (this.state.hasAnswer){
+      this.updateAnswer(submission)
+    } else {
+      this.addNewAnswer(submission)
+    }
+  }
+
   addNewAnswer(submission) {
     const questionId = this.state.questions[this.state.questionId].id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
@@ -166,6 +209,29 @@ class AppContainer extends Component {
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
 
+  }
+
+  getLists(){
+    let apiUrl = '/api/v1/lists.json'
+    fetch(apiUrl,{
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {;
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          questionLists: response.lists
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   updateAnswer(submission){
@@ -232,7 +298,10 @@ class AppContainer extends Component {
         </div>
           <aside className="columns medium-4">
             <h4>My Lists</h4>
-            <QuestionListContainer />
+            <QuestionListContainer
+              questionLists={this.state.questionLists}
+              addNewList={this.addNewList}
+            />
             <hr/>
             <QuestionFormContainer
               addNewQuestion={this.addNewQuestion}
@@ -249,7 +318,3 @@ class AppContainer extends Component {
 
 export default AppContainer;
 
-            // <QuestionFormContainer
-            //   addNewQuestion={this.addNewQuestion}
-            //   questionAdded={this.state.questionAdded}
-            // />

@@ -85,7 +85,6 @@ class QuestionFormContainer extends Component {
 
 
     return (
-
       <div>
         {newQuestionButton}
         {errorWrapper}
