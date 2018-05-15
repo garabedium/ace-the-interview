@@ -3,7 +3,7 @@ import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import QuestionCardContainer from './QuestionCardContainer';
 import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
-import QuestionNewFormContainer from './QuestionNewFormContainer';
+import QuestionFormContainer from './QuestionFormContainer';
 
 class AppContainer extends Component {
 
@@ -16,6 +16,7 @@ class AppContainer extends Component {
       hasAnswer: false,
       hasCategories: false,
       answerActive: true,
+      questionFormActive: true,
       shown: []
     }
 
@@ -95,9 +96,8 @@ class AppContainer extends Component {
   }
 
   addNewQuestion(submission) {
-    const questionId = this.state.questions[this.state.questionId].id
 
-    const apiUrl = `/api/v1/questions/${questionId}/answers.json`
+    const apiUrl = '/api/v1/questions.json'
 
     fetch(apiUrl, {
       credentials: 'same-origin',
@@ -120,12 +120,12 @@ class AppContainer extends Component {
         questions: response.questions
       })
     })
-    .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
+    .catch(error => console.error(`Error in fetch (add new question): ${error.message}`))
 
   }
 
   handleAnswer(submission){
-    debugger
+
     if (this.state.hasAnswer){
       this.updateAnswer(submission)
     } else {
@@ -154,14 +154,8 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      debugger
       this.setState({
-        questions: response.questions,
-        hasAnswer: true,
-        answer:{
-          answerBody: submission.body,
-          answerHint: submission.hint
-        }
+        questions: response.questions
       })
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
@@ -234,8 +228,9 @@ class AppContainer extends Component {
             <h4>My Lists</h4>
             <QuestionListContainer />
             <hr/>
-            <button className="button warning">Add New Question +</button>
-
+            <QuestionFormContainer
+              addNewQuestion={this.addNewQuestion}
+            />
           </aside>
       </div>
     );

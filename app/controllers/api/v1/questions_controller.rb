@@ -25,13 +25,23 @@ class Api::V1::QuestionsController < ApiController
 
   end
 
-  def create
+  def new
+    @question = Question.new
   end
 
+  def create
+    @question = Question.new(question_params)
+    @question.user = current_user
+    @question.save
+
+    render json: { questions: user_answers_by_question }
+  end
+
+
   private
-  #def question_params
-    # params.require(:answer).permit(:hint,:body)
-  #end
+  def question_params
+    params.require(:question).permit(:title)
+  end
 
 
 end

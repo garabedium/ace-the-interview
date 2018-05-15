@@ -45,7 +45,6 @@ class AnswerFormContainer extends Component {
     }
 
     this.props.handleAnswer(submission)
-
   }
 
   render() {
