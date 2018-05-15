@@ -5,8 +5,7 @@ import AnswerFormContainer from './AnswerFormContainer'
 class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
-    this.state = {
-    }
+    this.state = {}
     this.showCategories = this.showCategories.bind(this)
   }
 
@@ -30,7 +29,6 @@ class QuestionCardContainer extends Component {
   }
 
   render() {
-
     const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.props.answerActive
 
@@ -48,8 +46,6 @@ class QuestionCardContainer extends Component {
 
     const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
 
-    // const categories = this.showCategories
-
     return (
       <div className="card question">
         <h4 className="card-divider question__header">
@@ -61,11 +57,11 @@ class QuestionCardContainer extends Component {
 
           {isAnswerActive &&
             <AnswerFormContainer
-              addNewAnswer={this.props.addNewAnswer}
-              updateAnswer={this.props.updateAnswer}
               answerBody={this.props.answerBody}
               answerHint={this.props.answerHint}
               hasAnswer={this.props.hasAnswer}
+              toggleAnswer={this.props.toggleAnswer}
+              handleAnswer={this.props.handleAnswer}
             />
           }
 

@@ -3,6 +3,7 @@ import {Router, browserHistory, Route, IndexRoute } from 'react-router';
 import QuestionCardContainer from './QuestionCardContainer';
 import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
+import QuestionFormContainer from './QuestionFormContainer';
 
 class AppContainer extends Component {
 
@@ -14,33 +15,22 @@ class AppContainer extends Component {
       answer: {},
       hasAnswer: false,
       hasCategories: false,
-      isCategory: false,
-      isList: false,
       answerActive: true,
+      questionAdded: false,
       shown: []
     }
-    this.getData = this.getData.bind(this)
-    // this.setList = this.setList.bind(this)
+
     this.setQuestion = this.setQuestion.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
+    this.addNewQuestion = this.addNewQuestion.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
   }
 
   componentDidMount(){
-    const path = `${this.props.params.list_type}/${this.props.params.id}`
-    this.getData(path)
-  }
 
-  componentWillReceiveProps(nextProps) {
-    const path = `${nextProps.params.list_type}/${nextProps.params.id}`
-    this.getData(path);
-  }
-
-  getData(path){
-    const apiUrl = `/api/v1/${path}.json`
-
-    // add check to see if apiURL already matches to avoid unnecessary call
+    const apiUrl = `/api/v1/questions.json`
 
     fetch(apiUrl,{
       credentials: 'same-origin'
@@ -56,10 +46,8 @@ class AppContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        const responseType = (path.indexOf('lists') > -1) ? response.list : response.category
-
         this.setState({
-          questions: responseType.questions
+          questions: response.questions
         })
       })
       .then( this.setQuestion )
@@ -67,12 +55,14 @@ class AppContainer extends Component {
         console.log(error)
         console.error(`Error in fetch: ${error.message}`)
       });
+
   }
 
   setQuestion(){
+
     let answerBody, answerHint, categories
     const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
-    const question = this.state.questions[randomIndex].question
+    const question = this.state.questions[randomIndex]
     const hasAnswer = (question.answer !== null) ? true : false
     const hasCategories = (question.categories.length > 0) ? true : false
 
@@ -105,10 +95,47 @@ class AppContainer extends Component {
     })
   }
 
+  addNewQuestion(submission) {
+
+    const apiUrl = '/api/v1/questions.json'
+
+    fetch(apiUrl, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(submission),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      this.setState({
+        questions: response.questions,
+        questionAdded: true
+      })
+    })
+    .catch(error => console.error(`Error in fetch (add new question): ${error.message}`))
+
+  }
+
+  handleAnswer(submission){
+
+    if (this.state.hasAnswer){
+      this.updateAnswer(submission)
+    } else {
+      this.addNewAnswer(submission)
+    }
+  }
 
   addNewAnswer(submission) {
-    const questionId = this.state.questions[this.state.questionId].question.id
-
+    const questionId = this.state.questions[this.state.questionId].id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
 
     fetch(apiUrl, {
@@ -129,7 +156,12 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        hasAnswer: true,
+        answer:{
+          answerBody: submission.body,
+          answerHint: submission.hint
+        }
       })
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
@@ -137,9 +169,9 @@ class AppContainer extends Component {
   }
 
   updateAnswer(submission){
-    const questionId = this.state.questions[this.state.questionId].question.id,
-          answerId = this.state.questions[this.state.questionId].question.answer.id,
-          apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
+    const questionId = this.state.questions[this.state.questionId].id
+    const answerId = this.state.questions[this.state.questionId].answer.id
+    const apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
 
     fetch(apiUrl, {
       credentials: 'same-origin',
@@ -159,7 +191,12 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions
+        questions: response.questions,
+        hasAnswer: true,
+        answer:{
+          answerBody: submission.body,
+          answerHint: submission.hint
+        }
       })
     })
     .catch(error => console.error(`Error in fetch (updating answer): ${error.message}`))
@@ -170,7 +207,7 @@ class AppContainer extends Component {
 
     let question
     if (this.state.questions.length > 0){
-      question = this.state.questions[this.state.questionId].question
+      question = this.state.questions[this.state.questionId]
     }
 
     return (
@@ -185,8 +222,7 @@ class AppContainer extends Component {
             hasCategories={this.state.hasCategories}
             answerActive={this.state.answerActive}
             toggleAnswer={this.toggleAnswer}
-            addNewAnswer={this.addNewAnswer}
-            updateAnswer={this.updateAnswer}
+            handleAnswer={this.handleAnswer}
           />
           <ButtonComponent
             text="Random Question"
@@ -198,7 +234,10 @@ class AppContainer extends Component {
             <h4>My Lists</h4>
             <QuestionListContainer />
             <hr/>
-            <button className="button warning">Add New Question +</button>
+            <QuestionFormContainer
+              addNewQuestion={this.addNewQuestion}
+              questionAdded={this.state.questionAdded}
+            />
           </aside>
       </div>
     );
@@ -210,4 +249,7 @@ class AppContainer extends Component {
 
 export default AppContainer;
 
-//{this.showLists()}
+            // <QuestionFormContainer
+            //   addNewQuestion={this.addNewQuestion}
+            //   questionAdded={this.state.questionAdded}
+            // />
