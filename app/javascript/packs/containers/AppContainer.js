@@ -24,6 +24,7 @@ class AppContainer extends Component {
     this.setQuestion = this.setQuestion.bind(this)
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.addNewQuestion = this.addNewQuestion.bind(this)
+    this.addQuestionToList = this.addQuestionToList.bind(this)
     this.addNewList = this.addNewList.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
@@ -211,6 +212,47 @@ class AppContainer extends Component {
 
   }
 
+
+  addQuestionToList(submission) {
+
+    const apiUrl = '/api/v1/question_lists.json'
+
+    fetch(apiUrl, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(submission),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      debugger
+      // this.setState({
+      //   questions: response.questions,
+      //   questionAdded: true
+      // })
+    })
+    .catch(error => console.error(`Error in fetch (add question to list): ${error.message}`))
+
+  }
+
+  handleAnswer(submission){
+
+    if (this.state.hasAnswer){
+      this.updateAnswer(submission)
+    } else {
+      this.addNewAnswer(submission)
+    }
+  }
+
   getLists(){
     let apiUrl = '/api/v1/lists.json'
     fetch(apiUrl,{
@@ -289,6 +331,8 @@ class AppContainer extends Component {
             answerActive={this.state.answerActive}
             toggleAnswer={this.toggleAnswer}
             handleAnswer={this.handleAnswer}
+            questionLists={this.state.questionLists}
+            addQuestionToList={this.addQuestionToList}
           />
           <ButtonComponent
             text="Random Question"
