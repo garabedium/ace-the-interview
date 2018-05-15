@@ -13,9 +13,9 @@ class Api::V1::AnswersController < ApiController
     render json: { answer: answer }
   end
 
-  def edit
-    @answer = Answer.find(params[:id])
-  end
+  # def edit
+  #   @answer = Answer.find(params[:id])
+  # end
 
   def update
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import AnswerFormContainer from './AnswerFormContainer'
+import QuestionAddtoListFormContainer from './QuestionAddtoListFormContainer'
 
 class QuestionCardContainer extends Component {
   constructor(props){
@@ -29,8 +30,10 @@ class QuestionCardContainer extends Component {
   }
 
   render() {
+
     const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.props.answerActive
+    const hasQuestionLists = (this.props.questionLists.length > 0) ? true : false
 
     const buttonText = () => {
       let result
@@ -45,6 +48,7 @@ class QuestionCardContainer extends Component {
     }
 
     const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
+
 
     return (
       <div className="card question">
@@ -65,6 +69,14 @@ class QuestionCardContainer extends Component {
             />
           }
 
+        {hasQuestionLists &&
+          <QuestionAddtoListFormContainer
+            questionLists={this.props.questionLists}
+            questionId={this.props.question.id}
+            addQuestionToList={this.props.addQuestionToList}
+          />
+        }
+
           {this.showCategories()}
 
         </div>
@@ -75,3 +87,11 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
+
+
+          // <QuestionAddtoListFormContainer
+          //   questionLists={this.props.questionLists}
+          // />
+
+
+
