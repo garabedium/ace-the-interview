@@ -1,66 +1,167 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import FieldInput from '../components/FieldInput';
+import ButtonSubmit from '../components/ButtonSubmit';
 
 class QuestionListContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      questionLists: []
+      questionLists: [],
+      listName:"",
+      listAdded: false,
+      errors: {},
+      showForm: false
     }
     this.showLists = this.showLists.bind(this)
-  }
-
-  componentDidMount(){
-    let apiUrl = '/api/v1/lists.json'
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
-    .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          questionLists: response.lists
-        })
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    this.handleClear = this.handleClear.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    this.validateTextInput = this.validateTextInput.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
 
   showLists(){
-    const questionLists = this.state.questionLists
+    const questionLists = this.props.questionLists
+
     if(questionLists){
-      let result = questionLists.map( (item) => {
+      let result = questionLists.map( (list) => {
         return (
-          <li key={item.list.id}>
-            <Link to={`/app/lists/${item.list.id}`}>{item.list.name}</Link>
+          <li key={list.id}>
+            <Link to={`/app/lists/${list.id}`}>{list.name}</Link>
           </li>)
       })
 
       return (
-        <ul className="menu">
+        <ul className="menu vertical">
           {result}
         </ul>
       )
     }
   }
 
+  handleClear(event){
+    event.preventDefault()
+    this.setState({
+      listName: "",
+      errors: {}
+    })
+  }
+
+  handleInput(event){
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(event){
+    event.preventDefault()
+
+    if (
+      this.validateTextInput('listName','Please enter a List name.') &&
+      this.validateDuplicateList('listName','List names must be unique.')
+    ){
+      const submission  = {
+        name: this.state.listName
+      }
+
+      this.props.addNewList(submission)
+      this.handleClear(event)
+    }
+
+  }
+
+  toggleForm(){
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  }
+
+ validateTextInput(field,error) {
+    const value = this.state[field];
+    const setError = () => {
+      let newError = { [field]: error }
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    }
+    const clearError = () => {
+      let errorState = this.state.errors
+      delete errorState[field]
+      this.setState({ errors: errorState })
+      return true
+    }
+    return (value.trim() === '') ? setError() : clearError();
+  }
+
+ validateDuplicateList(field,error) {
+    const value = this.state[field].toLowerCase().replace(/ {1,}/g," ")
+    const currentLists = this.props.questionLists.map( (list) => { return list.name.toLowerCase() })
+
+    const setError = () => {
+      let newError = { [field]: error }
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    }
+    const clearError = () => {
+      let errorState = this.state.errors
+      delete errorState[field]
+      this.setState({ errors: errorState })
+      return true
+    }
+    return (currentLists.indexOf(value) > -1) ? setError() : clearError();
+  }
+
+
   render() {
+
+    let errorWrapper, errorItems
+    const newListButton = <button className="button button__question warning" onClick={this.toggleForm}>+ New List</button>
+    const showForm = this.state.showForm
+
+    if ( Object.keys(this.state.errors).length > 0 ){
+      errorItems = Object.values(this.state.errors).map( error => {
+        return (<li key={error}>{error}</li>)
+      })
+      errorWrapper = <ul className="callout alert">{errorItems}</ul>
+    }
 
     return (
       <div>
         {this.showLists()}
-        <button className="button secondary">Add New List +</button>
+
+        {newListButton}
+
+        {errorWrapper}
+
+        {showForm &&
+          <form className="form form__list--new" onSubmit={this.handleSubmit}>
+
+            <FieldInput
+              label="List Name"
+              name="listName"
+              content={this.state.listName}
+              handleChange={this.handleInput}
+            />
+
+            <ButtonSubmit
+              value="Add"
+              class="button"
+            />
+
+          </form>
+        }
       </div>
     );
   }
 }
 
 export default QuestionListContainer;
+
+
+
+
+
+
+
+
 
