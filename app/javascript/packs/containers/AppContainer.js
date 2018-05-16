@@ -319,6 +319,31 @@ class AppContainer extends Component {
     }
 
     return (
+<div>
+
+    <div className="row">
+      <div className="columns medium-9 medium-centered">
+
+<label>Categories
+  <select>
+    <option value="husker">Husker</option>
+    <option value="starbuck">Starbuck</option>
+    <option value="hotdog">Hot Dog</option>
+    <option value="apollo">Apollo</option>
+  </select>
+</label>
+<label>Lists
+  <select>
+    <option value="husker">Husker</option>
+    <option value="starbuck">Starbuck</option>
+    <option value="hotdog">Hot Dog</option>
+    <option value="apollo">Apollo</option>
+  </select>
+</label>
+      category dropdown | list dropdown
+      </div>
+    </div>
+
       <div className="row">
          <div className="columns medium-4 medium-offset-3 text-center">
           <QuestionCardContainer
@@ -353,6 +378,7 @@ class AppContainer extends Component {
             />
           </aside>
       </div>
+    </div>
     );
 
   }
