@@ -53,10 +53,12 @@ class AnswerFormContainer extends Component {
         <form className="form form__answers--new" onSubmit={this.handleSubmit}>
 
           <FieldTextarea
-            label="Answer"
+            label=""
+            placeholder="Add and update your answer here."
             name="answerBody"
             content={this.state.answerBody}
             handleChange={this.handleInput}
+            class="textarea textarea--answer"
           />
 
           <ButtonSubmit

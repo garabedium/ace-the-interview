@@ -1,14 +1,25 @@
 .button {
+  border-radius: 5px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $color-black;
+    // background: $color-secondary;
+    // top: 2px;
+    // box-shadow: 0 1px darken($color-secondary,15%);
+  }
   &--primary {
     background: $color-secondary;
     &:hover {
-      color: $color-black;
-      background: lighten($color-secondary,10%);
+      background: darken($color-secondary,15%);
     }
   }
 
   &__nav {
     margin-right: 5px;
+    &:hover {
+      background-color: $color-black;
+    }
   }
 
   &__answer {
@@ -16,3 +27,24 @@
   }
 
 }
+
+// .button
+// .button__submit
+// .button__submit--primary
+// .button__
+// --special
+
+// .button__nav
+// .button__nav
+
+// .button__category
+
+// .button__primary--toggle
+
+  // background: $color-secondary;
+  // box-shadow: 0 3px darken($color-secondary,15%);
+  // font-weight: 700;
+
+  // border: 0;
+  // position: relative;
+  // outline: none;

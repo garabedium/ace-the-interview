@@ -1,0 +1,8 @@
+.textarea--answer {
+  border: solid 4px #ddd;
+  padding: 15px;
+  height: 200px;
+  &:focus {
+    border: solid 4px #ddd;
+  }
+}
