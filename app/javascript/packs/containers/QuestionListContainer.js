@@ -27,13 +27,13 @@ class QuestionListContainer extends Component {
     if(questionLists){
       let result = questionLists.map( (list) => {
         return (
-          <li key={list.id}>
-            <Link to={`/app/lists/${list.id}`}>{list.name}</Link>
+          <li key={list.id} className="list--item">
+            <Link to={`/app/lists/${list.id}`} className="list--link">{list.name}</Link>
           </li>)
       })
 
       return (
-        <ul className="menu vertical">
+        <ul className="user-lists">
           {result}
         </ul>
       )
@@ -126,7 +126,7 @@ class QuestionListContainer extends Component {
     }
 
     return (
-      <div>
+      <div className="card-section">
         {this.showLists()}
 
         {newListButton}

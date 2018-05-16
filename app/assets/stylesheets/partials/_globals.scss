@@ -1,7 +1,11 @@
+@import 'foundation';
 @import 'variables/all';
-
 body {
   background: lighten($color-body,5%);
+  font-family: $font-primary;
+  @include breakpoint(small only) {
+      padding-top: 59px;
+  }
 }
 
 #app {
