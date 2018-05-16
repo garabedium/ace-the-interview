@@ -9,6 +9,7 @@ class ListShowContainer extends Component {
   }
 
   componentDidMount() {
+
     const listId = this.props.params.id,
           apiUrl = `/api/v1/lists/${listId}`
 
@@ -26,7 +27,7 @@ class ListShowContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        this.setState({ category: response.category });
+        this.setState({ list: response.list });
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -34,12 +35,12 @@ class ListShowContainer extends Component {
   render() {
     let questions
 
-    if (this.state.category.questions){
-      questions = this.state.category.questions.map( (item) => {
+    if (this.state.list.questions){
+      questions = this.state.list.questions.map( (item) => {
         return(
-          <div key={item.id}>
+          <li key={item.id}>
             {item.title}
-          </div>
+          </li>
         )
       })
     }
@@ -47,8 +48,10 @@ class ListShowContainer extends Component {
     return(
       <div className="row">
         <div className="columns medium-10 medium-centered">
-          <h1>Category: {this.state.category.name}</h1>
-          {questions}
+          <h1>List: {this.state.list.name}</h1>
+          <ul>
+            {questions}
+          </ul>
         </div>
       </div>
     )
