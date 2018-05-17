@@ -36,6 +36,8 @@ class AppContainer extends Component {
     this.handleAnswer = this.handleAnswer.bind(this)
     this.getLists = this.getLists.bind(this)
     this.getCategories = this.getCategories.bind(this)
+
+    this.updateQuestions = this.updateQuestions.bind(this)
   }
 
   componentDidMount(){
@@ -104,10 +106,13 @@ class AppContainer extends Component {
   }
 
   updateQuestions(submission){
-    debugger
-    return this.setState({
-      questions: submission
-    })
+
+    const setQuestion = this.setQuestion
+
+    // return this.setState({
+    //   questions: submission
+    // })
+
   }
 
   toggleAnswer(){
