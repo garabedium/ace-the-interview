@@ -4,7 +4,7 @@ class Api::V1::CategoriesController < ApiController
   before_action :authorize_user
 
   def index
-    render json: { categories: Category.all }
+    render json: Category.all.order(name: :asc)
   end
 
   def show

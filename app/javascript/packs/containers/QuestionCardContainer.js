@@ -12,7 +12,7 @@ class QuestionCardContainer extends Component {
 
   showCategories(){
     if (this.props.hasCategories){
-      let categories = this.props.categories.map( (item) => {
+      let categories = this.props.question.categories.map( (item) => {
         return (
           <li key={item.id} className="question__category--item">
             <Link to={`/app/categories/${item.id}`} className="question__category--link">{item.name}</Link>

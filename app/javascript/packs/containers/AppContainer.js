@@ -4,6 +4,8 @@ import QuestionCardContainer from './QuestionCardContainer';
 import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
 import QuestionFormContainer from './QuestionFormContainer';
+import FilterQuestionsContainer from './FilterQuestionsContainer';
+
 
 class AppContainer extends Component {
 
@@ -11,14 +13,17 @@ class AppContainer extends Component {
     super(props);
     this.state = {
       questions: [],
+      categories: [],
       questionId: 0,
+      selectedCategoryId: 0,
+      selectedListId: 0,
       answer: {},
       hasAnswer: false,
       hasCategories: false,
       answerActive: true,
       questionAdded: false,
       questionLists: [],
-      shown: []
+      cache: {}
     }
 
     this.setQuestion = this.setQuestion.bind(this)
@@ -30,6 +35,7 @@ class AppContainer extends Component {
     this.toggleAnswer = this.toggleAnswer.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
     this.getLists = this.getLists.bind(this)
+    this.getCategories = this.getCategories.bind(this)
   }
 
   componentDidMount(){
@@ -51,11 +57,14 @@ class AppContainer extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          questions: response.questions
+          questions: response.questions,
+          selectedCategoryId: response.category_id
         })
       })
       .then( this.setQuestion )
       .then( this.getLists )
+      .then( this.getCategories )
+
       .catch(error => {
         console.log(error)
         console.error(`Error in fetch: ${error.message}`)
@@ -92,6 +101,13 @@ class AppContainer extends Component {
       answerActive: false
     })
 
+  }
+
+  updateQuestions(submission){
+    debugger
+    return this.setState({
+      questions: submission
+    })
   }
 
   toggleAnswer(){
@@ -274,6 +290,29 @@ class AppContainer extends Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  getCategories(){
+    let apiUrl = '/api/v1/categories.json'
+    fetch(apiUrl,{
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {;
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          categories: response.categories
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
   updateAnswer(submission){
     const questionId = this.state.questions[this.state.questionId].id
     const answerId = this.state.questions[this.state.questionId].answer.id
@@ -317,70 +356,74 @@ class AppContainer extends Component {
     }
 
     return (
-<div>
+<div className="parent">
 
     <div className="row">
-      <div className="columns medium-9 medium-centered">
+      <div className="columns medium-11 medium-centered">
 
-<label>Categories
-  <select>
-    <option value="husker">Husker</option>
-    <option value="starbuck">Starbuck</option>
-    <option value="hotdog">Hot Dog</option>
-    <option value="apollo">Apollo</option>
-  </select>
-</label>
-<label>Lists
-  <select>
-    <option value="husker">Husker</option>
-    <option value="starbuck">Starbuck</option>
-    <option value="hotdog">Hot Dog</option>
-    <option value="apollo">Apollo</option>
-  </select>
-</label>
-      category dropdown | list dropdown
+         <FilterQuestionsContainer
+          questionLists={this.state.questionLists}
+          questionCategories={this.state.categories}
+          updateQuestions={this.updateQuestions}
+         />
+
       </div>
     </div>
 
       <div className="row">
+      <div className="columns medium-11 medium-centered">
+
+        <div className="row">
          <div className="columns medium-7 text-center">
-         <div className="question-wrapper">
-            <QuestionCardContainer
-              question={question}
-              answerBody={this.state.answer.answerBody}
-              answerHint={this.state.answer.answerHint}
-              categories={this.state.categories}
-              hasAnswer={this.state.hasAnswer}
-              hasCategories={this.state.hasCategories}
-              answerActive={this.state.answerActive}
-              toggleAnswer={this.toggleAnswer}
-              handleAnswer={this.handleAnswer}
-              questionLists={this.state.questionLists}
-              addQuestionToList={this.addQuestionToList}
-            />
-            <ButtonComponent
-              text="Random Question"
-              class='button secondary'
-              handleClick={this.setQuestion}
-            />
-          </div>
-        </div>
-          <div className="columns medium-5">
-            <aside className="sidebar card">
-              <h4 className="card-divider">My Lists</h4>
-              <QuestionListContainer
+           <div className="question-wrapper">
+              <QuestionCardContainer
+                question={question}
+                answerBody={this.state.answer.answerBody}
+                answerHint={this.state.answer.answerHint}
+                //categories={this.state.categories}
+                hasAnswer={this.state.hasAnswer}
+                hasCategories={this.state.hasCategories}
+                answerActive={this.state.answerActive}
+                toggleAnswer={this.toggleAnswer}
+                handleAnswer={this.handleAnswer}
                 questionLists={this.state.questionLists}
-                addNewList={this.addNewList}
+                addQuestionToList={this.addQuestionToList}
               />
-              <hr/>
-              <QuestionFormContainer
-                addNewQuestion={this.addNewQuestion}
-                questionAdded={this.state.questionAdded}
+              <ButtonComponent
+                text="Random Question"
+                class='button secondary'
+                handleClick={this.setQuestion}
               />
-            </aside>
-          </div>
-      </div>
-    </div>
+            </div>
+        </div>
+        <div className="columns medium-5">
+          <aside className="sidebar card">
+            <h4 className="card-divider">My Lists</h4>
+            <QuestionListContainer
+              questionLists={this.state.questionLists}
+              addNewList={this.addNewList}
+            />
+            <hr/>
+            <QuestionFormContainer
+              addNewQuestion={this.addNewQuestion}
+              questionAdded={this.state.questionAdded}
+            />
+          </aside>
+        </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+  </div>
+
     );
 
   }

@@ -19,6 +19,7 @@ class Api::V1::QuestionsController < ApiController
 
     render json: {
       category: user_industry,
+      category_id: industry_category_id,
       questions: industry_questions
     }
     #using serializer: # render json: industry_questions
