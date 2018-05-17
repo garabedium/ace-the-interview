@@ -1,11 +1,50 @@
+
+// @import 'foundation';
+
+.question-wrapper {
+  @include breakpoint(medium) {
+      max-width: 420px;
+      float: right;
+  }
+}
+
 .question {
   &__header {
     background: $color-secondary;
     color: $color-white;
     font-family: $font-secondary;
     font-size: 1.2rem;
+    margin-bottom: 0;
   }
   &__body {
     padding: 2rem 1rem;
+  }
+
+  &__body--bottom {
+    max-width: 80%;
+    margin: 30px auto 0 auto;
+  }
+  &__categories {
+    padding: 15px 0 10px 0;
+    border-top: solid 1px $color-gray-light;
+    border-bottom: solid 1px $color-gray-light;
+  }
+  &__category {
+    &--item{
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+    &--link {
+      font-size: 14px;
+      padding: 8px !important;
+      border-radius: 5px;
+      color: $color-white;
+      background-color: rgba($color-secondary, .8);
+      &:hover {
+        color: $color-black;
+        background-color: $color-secondary;
+      }
+    }
   }
 }

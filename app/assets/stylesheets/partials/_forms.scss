@@ -1,0 +1,45 @@
+.form {
+
+
+
+
+
+  &__addQuestionList{
+    @include breakpoint(small) {
+      max-width: 100%
+    }
+
+    margin: 15px auto 0 auto;
+    padding-top: 10px;
+
+    .input-group {
+    //   position: absolute;
+    //   bottom: 0;
+      margin-bottom: 0;
+        .input-group-field {
+          height: 2rem;
+          font-size: 14px;
+          border-color: $color-gray-light;
+          color: darken($color-gray-light,15%);
+          &:hover {
+            color: $color-black;
+          }
+        }
+        .input-group-button {
+          input {
+            height: 2rem;
+          }
+          .button {
+            border-radius: 5px;
+            padding: 0 10px;
+            margin-left: 10px;
+            background-color: $color-gray-light;
+            &:hover {
+              background-color: darken($color-gray-light, 25%);
+            }
+          }
+        }
+    }
+
+  }
+}

@@ -160,7 +160,6 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      debugger
       this.setState({
         questionLists: this.state.questionLists.concat(response)
       })
@@ -234,7 +233,6 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      debugger
       // this.setState({
       //   questions: response.questions,
       //   questionAdded: true
@@ -345,38 +343,42 @@ class AppContainer extends Component {
     </div>
 
       <div className="row">
-         <div className="columns medium-4 medium-offset-3 text-center">
-          <QuestionCardContainer
-            question={question}
-            answerBody={this.state.answer.answerBody}
-            answerHint={this.state.answer.answerHint}
-            categories={this.state.categories}
-            hasAnswer={this.state.hasAnswer}
-            hasCategories={this.state.hasCategories}
-            answerActive={this.state.answerActive}
-            toggleAnswer={this.toggleAnswer}
-            handleAnswer={this.handleAnswer}
-            questionLists={this.state.questionLists}
-            addQuestionToList={this.addQuestionToList}
-          />
-          <ButtonComponent
-            text="Random Question"
-            class='button secondary'
-            handleClick={this.setQuestion}
-          />
-        </div>
-          <aside className="columns medium-4">
-            <h4>My Lists</h4>
-            <QuestionListContainer
+         <div className="columns medium-7 text-center">
+         <div className="question-wrapper">
+            <QuestionCardContainer
+              question={question}
+              answerBody={this.state.answer.answerBody}
+              answerHint={this.state.answer.answerHint}
+              categories={this.state.categories}
+              hasAnswer={this.state.hasAnswer}
+              hasCategories={this.state.hasCategories}
+              answerActive={this.state.answerActive}
+              toggleAnswer={this.toggleAnswer}
+              handleAnswer={this.handleAnswer}
               questionLists={this.state.questionLists}
-              addNewList={this.addNewList}
+              addQuestionToList={this.addQuestionToList}
             />
-            <hr/>
-            <QuestionFormContainer
-              addNewQuestion={this.addNewQuestion}
-              questionAdded={this.state.questionAdded}
+            <ButtonComponent
+              text="Random Question"
+              class='button secondary'
+              handleClick={this.setQuestion}
             />
-          </aside>
+          </div>
+        </div>
+          <div className="columns medium-5">
+            <aside className="sidebar card">
+              <h4 className="card-divider">My Lists</h4>
+              <QuestionListContainer
+                questionLists={this.state.questionLists}
+                addNewList={this.addNewList}
+              />
+              <hr/>
+              <QuestionFormContainer
+                addNewQuestion={this.addNewQuestion}
+                questionAdded={this.state.questionAdded}
+              />
+            </aside>
+          </div>
       </div>
     </div>
     );

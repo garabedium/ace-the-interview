@@ -5,8 +5,10 @@ const FieldTextarea = (props) => {
     <label>{props.label}
       <textarea
         name={props.name}
+        placeholder={props.placeholder}
         value={props.content}
         onChange={props.handleChange}
+        className={props.class}
       />
     </label>
   );

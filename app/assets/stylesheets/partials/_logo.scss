@@ -1,0 +1,65 @@
+.logo {
+  font-family: $font-secondary;
+  display: block;
+  float: left;
+  &__card {
+    font-size: 40px;
+    font-weight: 700;
+    padding: 0 12px;
+    line-height: 1.75;
+    border-radius: 4px;
+    text-align: center;
+    background: $color-white;
+    border: solid 2px #ddd;
+    float: left;
+    color: $color-black;
+    &--mobile {
+      font-size: 19px;
+      padding: 0 8px;
+    }
+  }
+  &__text {
+    color: $color-white;
+    margin-left: 15px;
+    float: left;
+    line-height: 1.2;
+    font-weight: 600;
+    font-size: 22px;
+    visibility: visible;
+    opacity: 1;
+    transition: $transition-opacity;
+    &--serif {
+      display: block;
+      font-family: $font-serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 18px;
+      padding-top: 2px;
+    }
+  }
+  &--desktop {
+    @include breakpoint(small down) {
+      display: none;
+    }
+    // &:before {
+    //   content: '\2664';
+    //   font-
+    // }
+  }
+}
+// Logo Shrink:
+.shrink {
+  .logo__card {
+    font-size: 30px;
+    padding: 0 10px;
+    transition: $transition-font-size,
+                $transition-padding;
+  }
+  .logo__text {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility 0.2s, opacity 0.2s ease-out;
+  }
+}
+// END:LOGO

@@ -1,0 +1,23 @@
+.sidebar {
+  .card-divider {
+    background: transparent;
+    border-bottom: solid 1px $color-gray-light;
+    margin-bottom: 0;
+  }
+  .card-section {
+    padding: .5rem 1rem 1rem 1rem;
+  }
+  .user-lists {
+    list-style-type: none;
+    margin: 0 0 15px 0;
+  }
+  .list{
+    &--item {
+      border-bottom: solid 1px lighten($color-gray-light, 5%);
+    }
+    &--link {
+      display: block;
+      padding: 10px 0;
+    }
+  }
+}

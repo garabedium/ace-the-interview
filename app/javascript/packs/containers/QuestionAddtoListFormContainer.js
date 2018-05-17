@@ -81,18 +81,23 @@ class QuestionAddtoListFormContainer extends Component {
       <div>
         {errorWrapper}
 
-        <form className="form form__addQuestion--list" onSubmit={this.handleSubmit}>
+        <form className="form form__addQuestionList" onSubmit={this.handleSubmit}>
 
-          <select name="questionListId" value={this.state.questionListId} onChange={this.handleInput}>
-            <option value="">Add question to list...</option>
-            {selectOptions}
-          </select>
+          <div className="input-group">
 
-          <ButtonSubmit
-            value="Add"
-            class="button"
-          />
+            <select className="input-group-field" name="questionListId" value={this.state.questionListId} onChange={this.handleInput}>
+              <option value="">Add question to list...</option>
+              {selectOptions}
+            </select>
 
+            <div className="input-group-button">
+              <ButtonSubmit
+                value="Add"
+                class="button"
+              />
+            </div>
+
+          </div>
         </form>
 
       </div>

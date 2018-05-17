@@ -14,15 +14,14 @@ class QuestionCardContainer extends Component {
     if (this.props.hasCategories){
       let categories = this.props.categories.map( (item) => {
         return (
-          <li key={item.id} className="question__category">
-            <Link to={`/app/categories/${item.id}`}>{item.name}</Link>
+          <li key={item.id} className="question__category--item">
+            <Link to={`/app/categories/${item.id}`} className="question__category--link">{item.name}</Link>
           </li>
         )
       })
 
       return (
-        <ul className="menu simple">
-          <li className="question__category--label">Tags:</li>
+        <ul className="menu simple question__categories">
           {categories}
         </ul>
       )
@@ -69,15 +68,17 @@ class QuestionCardContainer extends Component {
             />
           }
 
-        {hasQuestionLists &&
-          <QuestionAddtoListFormContainer
-            questionLists={this.props.questionLists}
-            questionId={this.props.question.id}
-            addQuestionToList={this.props.addQuestionToList}
-          />
-        }
+          <div className="question__body--bottom">
+            {this.showCategories()}
 
-          {this.showCategories()}
+            {hasQuestionLists &&
+              <QuestionAddtoListFormContainer
+                questionLists={this.props.questionLists}
+                questionId={this.props.question.id}
+                addQuestionToList={this.props.addQuestionToList}
+              />
+            }
+          </div>
 
         </div>
       </div>

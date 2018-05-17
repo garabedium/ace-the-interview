@@ -5,10 +5,11 @@
 $x-color-blue: #5356ad;
 $x-color-blue-light: #A7A8E1;
 $x-color-orange: #F8A561;
-$x-color-black: rgb(16,24,32);
-$x-color-navy: rgb(0,66,106);
-$x-color-gray: rgb(91,103,112);
-$x-color-gray-medium: rgb(153,153,153);
+
+// $x-color-black: rgb(16,24,32);
+// $x-color-navy: rgb(0,66,106);
+// $x-color-gray: rgb(91,103,112);
+// $x-color-gray-medium: rgb(153,153,153);
 
 // Color Variables:
 // For use in other SCSS partials.
@@ -16,13 +17,14 @@ $color-primary: $x-color-blue;
 $color-secondary: $x-color-orange;
 $color-tertiary: $x-color-blue-light;
 
-$color-accent-primary: $x-color-black;
-$color-accent-secondary: $x-color-navy;
-$color-accent-tertiary: $x-color-gray;
+// $color-accent-primary: $x-color-black;
+// $color-accent-secondary: $x-color-navy;
+// $color-accent-tertiary: $x-color-gray;
 
 // Misc:
 $color-white: #FFFFFF;
 $color-black: #000000;
+$color-gray-light: darken($color-white,15%);
 $color-body: #ebebeb;
 
 
