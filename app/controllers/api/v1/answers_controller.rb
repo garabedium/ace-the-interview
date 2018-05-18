@@ -13,12 +13,7 @@ class Api::V1::AnswersController < ApiController
     render json: { answer: answer }
   end
 
-  # def edit
-  #   @answer = Answer.find(params[:id])
-  # end
-
   def update
-
     @answer = Answer.find(params[:id])
 
     if current_user && current_user == @answer.user
@@ -28,15 +23,6 @@ class Api::V1::AnswersController < ApiController
     end
   end
 
-  # def editable_by?(user)
-  #   user.admin? || self.user == user
-  # end
-  # def edit
-  #   @answer = Answer.find(params[:id])
-  #   if @answer.editable_by?(current_user)
-
-  #   end
-  # end
 
   def new
     @answer = Answer.new

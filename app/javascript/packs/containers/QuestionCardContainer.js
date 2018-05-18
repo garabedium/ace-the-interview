@@ -11,6 +11,7 @@ class QuestionCardContainer extends Component {
   }
 
   showCategories(){
+      // debugger
     if (this.props.hasCategories){
       let categories = this.props.categories.map( (item) => {
         return (
@@ -61,7 +62,6 @@ class QuestionCardContainer extends Component {
           {isAnswerActive &&
             <AnswerFormContainer
               answerBody={this.props.answerBody}
-              answerHint={this.props.answerHint}
               hasAnswer={this.props.hasAnswer}
               toggleAnswer={this.props.toggleAnswer}
               handleAnswer={this.props.handleAnswer}

@@ -1,38 +1,76 @@
 import React, { Component } from 'react';
 import {Router, browserHistory, Route, IndexRoute } from 'react-router';
+
 import QuestionCardContainer from './QuestionCardContainer';
 import QuestionListContainer from './QuestionListContainer';
 import ButtonComponent from '../components/ButtonComponent';
 import QuestionFormContainer from './QuestionFormContainer';
+import FilterQuestionsContainer from './FilterQuestionsContainer';
+
 
 class AppContainer extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      questions: [],
+
+      question: {},
+      answer: {
+        body: null,
+        hint: null,
+        id: null,
+      },
+      category: {},
+
+      categories: [],
+      questionCategories: [],
       questionId: 0,
+      selectedCategoryId: 0,
+      selectedListId: 0,
       answer: {},
+
       hasAnswer: false,
       hasCategories: false,
-      answerActive: true,
+      answerActive: false,
+
+
+      loadedCategory: '',
+      loadedList: '',
+
+      filterDefault: true,
+      filterCategory: false,
+      filterList: false,
+
       questionAdded: false,
-      questionLists: [],
-      shown: []
+      questionLists: []
     }
 
-    this.setQuestion = this.setQuestion.bind(this)
+
     this.addNewAnswer = this.addNewAnswer.bind(this)
     this.addNewQuestion = this.addNewQuestion.bind(this)
     this.addQuestionToList = this.addQuestionToList.bind(this)
     this.addNewList = this.addNewList.bind(this)
+
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
+
     this.getLists = this.getLists.bind(this)
+    this.getCategories = this.getCategories.bind(this)
+
+    this.getRandomQuestion = this.getRandomQuestion.bind(this)
+    this.getRandomCategoryQuestion = this.getRandomCategoryQuestion.bind(this)
+    this.getRandomListQuestion = this.getRandomListQuestion.bind(this)
+
   }
 
   componentDidMount(){
+    this.getRandomQuestion()
+    this.getLists()
+    this.getCategories()
+  }
+
+  getRandomQuestion(){
 
     const apiUrl = `/api/v1/questions.json`
 
@@ -51,46 +89,104 @@ class AppContainer extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          questions: response.questions
+          question: response.question,
+          answer: {
+            body: (response.answer) ? response.answer.body : '',
+            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+            id: (response.answer) ? response.answer.id : ''
+          },
+          hasAnswer: (response.answer) ? true : false,
+          questionCategories: response.categories,
+          hasCategories: (response.categories.length > 0) ? true : false
         })
       })
-      .then( this.setQuestion )
-      .then( this.getLists )
       .catch(error => {
-        console.log(error)
-        console.error(`Error in fetch: ${error.message}`)
-      });
+        console.error(`Error in (random question) fetch: ${error.message}`)
+      })
 
   }
 
-  setQuestion(){
+  getRandomCategoryQuestion(submission){
 
-    let answerBody, answerHint, categories
-    const randomIndex = Math.round(Math.random() * (this.state.questions.length - 1))
-    const question = this.state.questions[randomIndex]
-    const hasAnswer = (question.answer !== null) ? true : false
-    const hasCategories = (question.categories.length > 0) ? true : false
+    const categoryId = submission,
+          apiUrl = `/api/v1/categories.json&?random=${categoryId}`
 
-    if (hasAnswer){
-      answerBody = question.answer.body
-      answerHint = question.answer.hint || ""
-    }
-
-    if (hasCategories){
-      categories = question.categories
-    }
-
-    this.setState({
-      questionId: randomIndex,
-      hasAnswer: hasAnswer,
-      hasCategories: hasCategories,
-      answer:{
-        answerBody: answerBody,
-        answerHint: answerHint
-      },
-      categories: categories,
-      answerActive: false
+    fetch(apiUrl,{
+      credentials: 'same-origin'
     })
+    .then(response => {
+      if (response.ok) {;
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        response
+        this.setState({
+          question: response.question,
+          answer: {
+            body: (response.answer) ? response.answer.body : '',
+            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+            id: (response.answer) ? response.answer.id : ''
+          },
+          hasAnswer: (response.answer) ? true : false,
+          questionCategories: response.categories,
+          hasCategories: (response.categories.length > 0) ? true : false,
+          loadedCategory: submission,
+          loadedList: '',
+          filterCategory: true,
+          filterList: false,
+          filterDefault: false
+        })
+      })
+      .catch(error => {
+        console.error(`Error in (random question by category) fetch: ${error.message}`)
+      })
+
+  }
+
+  getRandomListQuestion(submission){
+    const listId = submission,
+          apiUrl = `/api/v1/lists.json?random=${listId}`
+
+    fetch(apiUrl,{
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {;
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          question: response.question,
+          answer: {
+            body: (response.answer) ? response.answer.body : '',
+            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+            id: (response.answer) ? response.answer.id : ''
+          },
+          hasAnswer: (response.answer) ? true : false,
+          questionCategories: response.categories,
+          hasCategories: (response.categories.length > 0) ? true : false,
+          loadedList: submission,
+          loadedCategory: '',
+          filterList: true,
+          filterDefault: false,
+          filterCategory: false
+        })
+      })
+      .catch(error => {
+        console.error(`Error in (random question) fetch: ${error.message}`)
+      })
 
   }
 
@@ -122,7 +218,7 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions,
+        // question: response.questions,
         questionAdded: true
       })
     })
@@ -168,17 +264,8 @@ class AppContainer extends Component {
 
   }
 
-  handleAnswer(submission){
-
-    if (this.state.hasAnswer){
-      this.updateAnswer(submission)
-    } else {
-      this.addNewAnswer(submission)
-    }
-  }
-
   addNewAnswer(submission) {
-    const questionId = this.state.questions[this.state.questionId].id
+    const questionId = this.state.question.id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
 
     fetch(apiUrl, {
@@ -199,11 +286,10 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions,
         hasAnswer: true,
         answer:{
-          answerBody: submission.body,
-          answerHint: submission.hint
+          body: submission.body,
+          hint: submission.hint
         }
       })
     })
@@ -233,23 +319,12 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      // this.setState({
-      //   questions: response.questions,
-      //   questionAdded: true
-      // })
+
     })
     .catch(error => console.error(`Error in fetch (add question to list): ${error.message}`))
 
   }
 
-  handleAnswer(submission){
-
-    if (this.state.hasAnswer){
-      this.updateAnswer(submission)
-    } else {
-      this.addNewAnswer(submission)
-    }
-  }
 
   getLists(){
     let apiUrl = '/api/v1/lists.json'
@@ -274,9 +349,32 @@ class AppContainer extends Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  getCategories(){
+    let apiUrl = '/api/v1/categories.json'
+    fetch(apiUrl,{
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {;
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          categories: response.categories
+        })
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
   updateAnswer(submission){
-    const questionId = this.state.questions[this.state.questionId].id
-    const answerId = this.state.questions[this.state.questionId].answer.id
+    const questionId = this.state.question.id
+    const answerId = this.state.answer.id
     const apiUrl = `/api/v1/questions/${questionId}/answers/${answerId}.json`
 
     fetch(apiUrl, {
@@ -297,11 +395,10 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questions: response.questions,
         hasAnswer: true,
         answer:{
-          answerBody: submission.body,
-          answerHint: submission.hint
+          body: submission.body,
+          hint: submission.hint
         }
       })
     })
@@ -311,50 +408,94 @@ class AppContainer extends Component {
 
   render() {
 
-    let question
-    if (this.state.questions.length > 0){
-      question = this.state.questions[this.state.questionId]
-    }
-
     return (
-      <div className="row">
-         <div className="columns medium-7 text-center">
-         <div className="question-wrapper">
-            <QuestionCardContainer
-              question={question}
-              answerBody={this.state.answer.answerBody}
-              answerHint={this.state.answer.answerHint}
-              categories={this.state.categories}
-              hasAnswer={this.state.hasAnswer}
-              hasCategories={this.state.hasCategories}
-              answerActive={this.state.answerActive}
-              toggleAnswer={this.toggleAnswer}
-              handleAnswer={this.handleAnswer}
-              questionLists={this.state.questionLists}
-              addQuestionToList={this.addQuestionToList}
-            />
-            <ButtonComponent
-              text="Random Question"
-              class='button secondary'
-              handleClick={this.setQuestion}
-            />
-          </div>
-        </div>
-          <div className="columns medium-5">
-            <aside className="sidebar card">
-              <h4 className="card-divider">My Lists</h4>
-              <QuestionListContainer
-                questionLists={this.state.questionLists}
-                addNewList={this.addNewList}
-              />
-              <hr/>
-              <QuestionFormContainer
-                addNewQuestion={this.addNewQuestion}
-                questionAdded={this.state.questionAdded}
-              />
-            </aside>
-          </div>
+<div className="parent">
+
+    <div className="row">
+      <div className="columns medium-11 medium-centered">
+
+         <FilterQuestionsContainer
+          questionLists={this.state.questionLists}
+          questionCategories={this.state.categories}
+          filterCategory={this.getRandomCategoryQuestion}
+          filterList={this.getRandomListQuestion}
+          loadedCategory={this.state.loadedCategory}
+          loadedList={this.state.loadedList}
+         />
+
       </div>
+    </div>
+
+      <div className="row">
+      <div className="columns medium-11 medium-centered">
+
+        <div className="row">
+         <div className="columns medium-7 text-center">
+           <div className="question-wrapper">
+
+              <QuestionCardContainer
+                question={this.state.question}
+                answerBody={this.state.answer.body}
+                categories={this.state.questionCategories}
+                hasCategories={this.state.hasCategories}
+                hasAnswer={this.state.hasAnswer}
+                answerActive={this.state.answerActive}
+                toggleAnswer={this.toggleAnswer}
+                handleAnswer={this.handleAnswer}
+                questionLists={this.state.questionLists}
+                addQuestionToList={this.addQuestionToList}
+              />
+
+              {this.state.filterDefault &&
+                <ButtonComponent
+                  text="Random Question"
+                  class='button secondary'
+                  handleClick={this.getRandomQuestion}
+                />
+              }
+
+              {this.state.filterCategory &&
+                <ButtonComponent
+                  text="Random Question"
+                  class='button secondary'
+                  handleClick={ () => this.getRandomCategoryQuestion(this.state.loadedCategory)}
+                />
+              }
+
+              {this.state.filterList &&
+                <ButtonComponent
+                  text="Random Question"
+                  class='button secondary'
+                  handleClick={ () => this.getRandomListQuestion(this.state.loadedList) }
+                />
+              }
+
+            </div>
+
+        </div>
+        <div className="columns medium-5">
+          <aside className="sidebar card">
+            <h4 className="card-divider">My Lists</h4>
+            <QuestionListContainer
+              questionLists={this.state.questionLists}
+              addNewList={this.addNewList}
+            />
+            <hr/>
+            <QuestionFormContainer
+              addNewQuestion={this.addNewQuestion}
+              questionAdded={this.state.questionAdded}
+            />
+          </aside>
+        </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+  </div>
+
     );
 
   }
