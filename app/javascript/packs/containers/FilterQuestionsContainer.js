@@ -36,8 +36,7 @@ class FilterQuestionsContainer extends Component {
 
       <div className="row">
 
-        <form className="form form__filterQuestions">
-
+        <form className="form form__filterQuestions clearfix">
           <div className="columns medium-6">
 
             <select className="select__filter select__filter--category"

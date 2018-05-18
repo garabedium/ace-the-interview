@@ -115,7 +115,7 @@ class QuestionListContainer extends Component {
   render() {
 
     let errorWrapper, errorItems
-    const newListButton = <button className="button button__question warning" onClick={this.toggleForm}>+ New List</button>
+    const newListButton = <button className="button button--secondary button__question" onClick={this.toggleForm}>+ New List</button>
     const showForm = this.state.showForm
 
     if ( Object.keys(this.state.errors).length > 0 ){
