@@ -11,8 +11,9 @@ class QuestionCardContainer extends Component {
   }
 
   showCategories(){
+      // debugger
     if (this.props.hasCategories){
-      let categories = this.props.question.categories.map( (item) => {
+      let categories = this.props.categories.map( (item) => {
         return (
           <li key={item.id} className="question__category--item">
             <Link to={`/app/categories/${item.id}`} className="question__category--link">{item.name}</Link>
@@ -61,7 +62,6 @@ class QuestionCardContainer extends Component {
           {isAnswerActive &&
             <AnswerFormContainer
               answerBody={this.props.answerBody}
-              answerHint={this.props.answerHint}
               hasAnswer={this.props.hasAnswer}
               toggleAnswer={this.props.toggleAnswer}
               handleAnswer={this.props.handleAnswer}

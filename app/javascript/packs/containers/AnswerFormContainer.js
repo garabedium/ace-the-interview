@@ -17,8 +17,8 @@ class AnswerFormContainer extends Component {
 
   componentDidMount(){
     this.setState({
-      answerBody: this.props.answerBody,
-      answerHint: this.props.answerHint
+      answerBody: this.props.answerBody
+      // answerHint: this.props.answerHint
     })
   }
 

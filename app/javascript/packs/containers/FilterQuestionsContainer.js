@@ -7,7 +7,7 @@ class FilterQuestionsContainer extends Component {
       listId: '',
       categoryId: ''
     }
-    this.handleClear = this.handleClear.bind(this)
+    // this.handleClear = this.handleClear.bind(this)
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleInput = this.handleInput.bind(this)
     this.getCategoryQuestions = this.getCategoryQuestions.bind(this)
@@ -17,71 +17,33 @@ class FilterQuestionsContainer extends Component {
 
 
   getCategoryQuestions(event){
-
-    const categoryId = parseInt(event.target.value),
-          apiUrl = `/api/v1/categories/${categoryId}`
-
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
-    .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.props.updateQuestions( response.category.questions )
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
-
+    const submission = event.target.value
+    this.props.filterCategory(submission)
   }
 
-  getListQuestions(){
-    console.log("get list questions")
+  getListQuestions(event){
+    const submission = event.target.value
+    this.props.filterList(submission)
   }
 
-  handleClear(event){
-    event.preventDefault()
-    this.setState({
-      listId: '',
-      categoryId: ''
-      // errors: {}
-    })
-  }
-
-  // handleInput(event){
-  //   debugger
-  //   this.setState({
-  //     [event.target.name]: parseInt(event.target.value)
-  //   })
-  // }
-
-  // handleSubmit(event){
+  // handleClear(event){
   //   event.preventDefault()
-
-  //     const submission = {
-  //       listId: this.state.listId,
-  //       categoryId: this.props.categoryId
-  //     }
-
-  //     this.props.updateQuestions(submission)
-  //     this.handleClear(event)
-
+  //   this.setState({
+  //     listId: '',
+  //     categoryId: ''
+  //     // errors: {}
+  //   })
   // }
 
   render() {
       const categoryOptions = this.props.questionCategories.map( (category) => {
           return ( <option key={category.id} value={`${category.id}`}>{category.name}</option> )
       })
-
       const listOptions = this.props.questionLists.map( (list) => {
           return ( <option key={list.id} value={`${list.id}`}>{list.name}</option> )
       })
+      // if isFilterCategoryActive is true, set List to ""
+
 
     return(
 
@@ -94,7 +56,9 @@ class FilterQuestionsContainer extends Component {
               <label>Load Category
                 <select className="select__filter select__filter--category"
                   name="categoryId"
-                  onChange={this.getCategoryQuestions}>
+                  onChange={this.getCategoryQuestions}
+                  value={this.props.loadedCategory}
+                >
                 <option value="">Select a Category...</option>
                   {categoryOptions}
                 </select>
@@ -106,7 +70,9 @@ class FilterQuestionsContainer extends Component {
               <label>Load List
                 <select className="select__filter select--filter--list"
                   name="listId"
-                  onChange={this.getListQuestions}>
+                  onChange={this.getListQuestions}
+                  value={this.props.loadedList}
+                >
                 <option value="">Select a List...</option>
                   {listOptions}
                 </select>
