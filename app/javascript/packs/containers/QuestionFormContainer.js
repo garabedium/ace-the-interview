@@ -72,7 +72,7 @@ class QuestionFormContainer extends Component {
 
     let errorWrapper, errorItems
 
-    const newQuestionButton = <button className="button button__question warning" onClick={this.toggleForm}>+ New Question</button>
+    const newQuestionButton = <button className="button button--secondary button__question" onClick={this.toggleForm}>+ New Question</button>
     const showForm = this.state.showForm
     const questionAdded = this.props.questionAdded
 
@@ -85,7 +85,7 @@ class QuestionFormContainer extends Component {
 
 
     return (
-      <div>
+      <div className="question-new">
         {newQuestionButton}
         {errorWrapper}
 

@@ -411,26 +411,25 @@ class AppContainer extends Component {
     return (
 <div className="parent">
 
-    <div className="row">
-      <div className="columns medium-11 medium-centered">
 
-         <FilterQuestionsContainer
-          questionLists={this.state.questionLists}
-          questionCategories={this.state.categories}
-          filterCategory={this.getRandomCategoryQuestion}
-          filterList={this.getRandomListQuestion}
-          loadedCategory={this.state.loadedCategory}
-          loadedList={this.state.loadedList}
-         />
-
-      </div>
-    </div>
 
       <div className="row">
       <div className="columns medium-11 medium-centered">
 
         <div className="row">
          <div className="columns medium-7 text-center">
+
+          <div className="question-filters">
+              <h5 className="question-filters__header">Load Questions by Category or List</h5>
+               <FilterQuestionsContainer
+                questionLists={this.state.questionLists}
+                questionCategories={this.state.categories}
+                filterCategory={this.getRandomCategoryQuestion}
+                filterList={this.getRandomListQuestion}
+                loadedCategory={this.state.loadedCategory}
+                loadedList={this.state.loadedList}
+               />
+            </div>
            <div className="question-wrapper">
 
               <QuestionCardContainer
@@ -475,12 +474,12 @@ class AppContainer extends Component {
         </div>
         <div className="columns medium-5">
           <aside className="sidebar card">
-            <h4 className="card-divider">My Lists</h4>
+            <h5 className="card-divider">My Lists</h5>
             <QuestionListContainer
               questionLists={this.state.questionLists}
               addNewList={this.addNewList}
             />
-            <hr/>
+
             <QuestionFormContainer
               addNewQuestion={this.addNewQuestion}
               questionAdded={this.state.questionAdded}
@@ -504,4 +503,6 @@ class AppContainer extends Component {
 }
 
 export default AppContainer;
+
+
 

@@ -14,8 +14,8 @@ class Api::V1::QuestionListsController < ApiController
 
   private
 
-  def question_list_params
-    params.permit(:list,:question)
-  end
+  # def question_list_params
+  #   params.permit(:list,:question)
+  # end
 
 end
