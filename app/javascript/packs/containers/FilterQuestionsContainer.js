@@ -40,30 +40,28 @@ class FilterQuestionsContainer extends Component {
 
           <div className="columns medium-6">
 
-              <label>Load Category
-                <select className="select__filter select__filter--category"
-                  name="categoryId"
-                  onChange={this.getCategoryQuestions}
-                  value={this.props.loadedCategory}
-                >
-                <option value="">Select a Category...</option>
-                  {categoryOptions}
-                </select>
-              </label>
+            <select className="select__filter select__filter--category"
+              name="categoryId"
+              onChange={this.getCategoryQuestions}
+              value={this.props.loadedCategory}
+            >
+            <option value="">Select a Category...</option>
+              {categoryOptions}
+            </select>
 
           </div>
 
           <div className="columns medium-6">
-              <label>Load List
-                <select className="select__filter select--filter--list"
-                  name="listId"
-                  onChange={this.getListQuestions}
-                  value={this.props.loadedList}
-                >
-                <option value="">Select a List...</option>
-                  {listOptions}
-                </select>
-              </label>
+
+            <select className="select__filter select--filter--list"
+              name="listId"
+              onChange={this.getListQuestions}
+              value={this.props.loadedList}
+            >
+            <option value="">Select a List...</option>
+              {listOptions}
+            </select>
+
           </div>
         </form>
 

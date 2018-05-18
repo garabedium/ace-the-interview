@@ -28,27 +28,12 @@ class Api::V1::ListsController < ApiController
     render json: lists.find(params[:id]), serializer: ListShowSerializer
   end
 
-  # def new
-  #   list = List.new
-  # end
-
   def create
     list = List.new(list_params)
     list.user = current_user
     list.save
 
-    # lists = current_user.lists
-
-    # list_questions = lists.map do |list|
-    #   {
-    #     id: list[:id],
-    #     name: list[:name],
-    #     questions: list.questions
-    #   }
-    # end
-
     render json: {id: list.id, name: list.name}
-
   end
 
   private
