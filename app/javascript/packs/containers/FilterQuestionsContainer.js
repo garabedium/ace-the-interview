@@ -3,37 +3,26 @@ import React, { Component } from 'react';
 class FilterQuestionsContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      listId: '',
-      categoryId: ''
-    }
-    // this.handleClear = this.handleClear.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
-    // this.handleInput = this.handleInput.bind(this)
+    this.state = {}
+
     this.getCategoryQuestions = this.getCategoryQuestions.bind(this)
     this.getListQuestions = this.getListQuestions.bind(this)
 
   }
 
-
   getCategoryQuestions(event){
     const submission = event.target.value
-    this.props.filterCategory(submission)
+    if (submission !== '' && submission !== this.props.loadedCategory){
+      this.props.filterCategory(submission)
+    }
   }
 
   getListQuestions(event){
     const submission = event.target.value
-    this.props.filterList(submission)
+    if (submission !== '' && submission !== this.props.loadedList){
+      this.props.filterList(submission)
+    }
   }
-
-  // handleClear(event){
-  //   event.preventDefault()
-  //   this.setState({
-  //     listId: '',
-  //     categoryId: ''
-  //     // errors: {}
-  //   })
-  // }
 
   render() {
       const categoryOptions = this.props.questionCategories.map( (category) => {
@@ -42,8 +31,6 @@ class FilterQuestionsContainer extends Component {
       const listOptions = this.props.questionLists.map( (list) => {
           return ( <option key={list.id} value={`${list.id}`}>{list.name}</option> )
       })
-      // if isFilterCategoryActive is true, set List to ""
-
 
     return(
 
