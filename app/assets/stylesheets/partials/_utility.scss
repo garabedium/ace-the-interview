@@ -1,0 +1,9 @@
+.background {
+  &__gradient {
+    &--gray {
+      background-image: -webkit-radial-gradient(center center, 531px 531px, #f8f8f8 0%, rgba(255, 255, 255, 0.75) 0%, #f8f8f8 85.2%);
+    }
+  }
+}
+
+    // background-image: -webkit-radial-gradient(center center, 531px 531px, #dadada 0%, rgba(255, 255, 255, 0.75) 0%, #dadada 85.2%);

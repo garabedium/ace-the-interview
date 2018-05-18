@@ -1,6 +1,7 @@
 // Variables
 // @import 'variables/all';
 
+
 @import 'partials/globals';
 @import 'partials/header';
 @import 'partials/buttons';
@@ -8,6 +9,8 @@
 @import 'partials/footer';
 @import 'partials/forms';
 @import 'partials/sidebar';
+@import 'partials/utility';
+@import 'partials/pages';
 @import 'components/question_card';
 @import 'components/answer';
 @import 'components/question_filters';
