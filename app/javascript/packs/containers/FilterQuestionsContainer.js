@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class FilterQuestionsContainer extends Component {
   constructor(props) {
@@ -25,12 +26,14 @@ class FilterQuestionsContainer extends Component {
   }
 
   render() {
-      const categoryOptions = this.props.questionCategories.map( (category) => {
-          return ( <option key={category.id} value={`${category.id}`}>{category.name}</option> )
-      })
-      const listOptions = this.props.questionLists.map( (list) => {
-          return ( <option key={list.id} value={`${list.id}`}>{list.name}</option> )
-      })
+
+    const hasLists = this.props.hasLists
+    const categoryOptions = this.props.questionCategories.map( (category) => {
+        return ( <option key={category.id} value={`${category.id}`}>{category.name}</option> )
+    })
+    const listOptions = this.props.questionLists.map( (list) => {
+        return ( <option key={list.id} value={`${list.id}`}>{list.name}</option> )
+    })
 
     return(
 
@@ -50,18 +53,23 @@ class FilterQuestionsContainer extends Component {
 
           </div>
 
-          <div className="columns medium-6">
-
-            <select className="select__filter select--filter--list"
-              name="listId"
-              onChange={this.getListQuestions}
-              value={this.props.loadedList}
-            >
-            <option value="">Select a List...</option>
-              {listOptions}
-            </select>
-
-          </div>
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {hasLists &&
+            <div className="columns medium-6">
+              <select className="select__filter select--filter--list"
+                name="listId"
+                onChange={this.getListQuestions}
+                value={this.props.loadedList}
+              >
+              <option value="">Select a List...</option>
+                {listOptions}
+              </select>
+            </div>
+          }
+         </CSSTransitionGroup>
         </form>
 
       </div>
