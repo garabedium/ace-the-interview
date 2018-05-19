@@ -5,7 +5,7 @@ $x-color-blue-light: #A7A8E1;
 $x-color-orange: #F8A561;
 
 $x-color-red: #ca0000;
-
+$x-color-green: #53af74;
 // Color Variables:
 // For use in other SCSS partials.
 $color-primary: $x-color-blue;
@@ -19,4 +19,4 @@ $color-body: #ebebeb;
 
 // Callouts
 $color-callout-alert: $x-color-red;
-// $color-callout-success: $x-color-red;
+$color-callout-success: $x-color-green;

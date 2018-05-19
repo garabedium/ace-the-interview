@@ -65,6 +65,10 @@ class QuestionCardContainer extends Component {
               hasAnswer={this.props.hasAnswer}
               toggleAnswer={this.props.toggleAnswer}
               handleAnswer={this.props.handleAnswer}
+              answerUpdated={this.props.answerUpdated}
+              answerAdded={this.props.answerAdded}
+              toggleAnswerAdded={this.toggleAnswerAdded}
+              toggleAnswerUpdated={this.props.toggleAnswerUpdated}
             />
           }
 
