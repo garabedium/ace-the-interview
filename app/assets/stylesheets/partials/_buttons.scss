@@ -1,5 +1,5 @@
 .button {
-  border-radius: 5px;
+  border-radius: 5px !important;
   font-weight: 700;
 
   &:hover {
@@ -31,24 +31,3 @@
   }
 
 }
-
-// .button
-// .button__submit
-// .button__submit--primary
-// .button__
-// --special
-
-// .button__nav
-// .button__nav
-
-// .button__category
-
-// .button__primary--toggle
-
-  // background: $color-secondary;
-  // box-shadow: 0 3px darken($color-secondary,15%);
-  // font-weight: 700;
-
-  // border: 0;
-  // position: relative;
-  // outline: none;

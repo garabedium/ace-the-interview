@@ -1,15 +1,10 @@
-// COLORS::stylesheets/variables/colors.scss
-
 // Internal Variables:
 // Only assigned to other variables to separate concerns.
 $x-color-blue: #5356ad;
 $x-color-blue-light: #A7A8E1;
 $x-color-orange: #F8A561;
 
-// $x-color-black: rgb(16,24,32);
-// $x-color-navy: rgb(0,66,106);
-// $x-color-gray: rgb(91,103,112);
-// $x-color-gray-medium: rgb(153,153,153);
+$x-color-red: #ca0000;
 
 // Color Variables:
 // For use in other SCSS partials.
@@ -17,47 +12,11 @@ $color-primary: $x-color-blue;
 $color-secondary: $x-color-orange;
 $color-tertiary: $x-color-blue-light;
 
-// $color-accent-primary: $x-color-black;
-// $color-accent-secondary: $x-color-navy;
-// $color-accent-tertiary: $x-color-gray;
-
-// Misc:
 $color-white: #FFFFFF;
 $color-black: #000000;
 $color-gray-light: darken($color-white,15%);
 $color-body: #ebebeb;
 
-
-// Color ideas:
-// - base: #5356ad
-  // light: A7A8E1
-  // light: 7779C7
-  // med: 3A3C9A
-  // med: 232580
-
-// secondary:
-  // red - orange: F8A561
-  // dark grey: 2B2B31
-
-
-// adobe:
-  // 5356AD
-  // pink: B20CE8
-  // orange: E8690C
-  // red: FF0000
-  // yellow / orange: FFCF34
-
-// Monochromatic:
-  // C7C9FF (light blue)
-  // 6265CC (blue)
-
-  // Light blue:
-   // base: #21ccea
-  // light: 77DEF1
-  // light2: 4AD4EE
-  // med: 04C0E3
-  // med: 0290AB
-  // accent orange: FF8724
-
-
-
+// Callouts
+$color-callout-alert: $x-color-red;
+// $color-callout-success: $x-color-red;

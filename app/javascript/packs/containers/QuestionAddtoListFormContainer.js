@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router';
 import FieldInput from '../components/FieldInput';
 import ButtonSubmit from '../components/ButtonSubmit';
+import CalloutMessage from '../components/CalloutMessage';
 
 class QuestionAddtoListFormContainer extends Component {
   constructor(props){
@@ -32,7 +34,7 @@ class QuestionAddtoListFormContainer extends Component {
   handleSubmit(event){
     event.preventDefault()
 
-    if ( this.validateListId('questionListId','Please select a List.') ){
+    if ( this.validateListId('questionListId','Please select a valid List.') ){
       const submission = {
         list: this.state.questionListId,
         question: this.props.questionId
@@ -64,6 +66,7 @@ class QuestionAddtoListFormContainer extends Component {
 
   render() {
 
+    const showSuccessMessage = this.props.showSuccessMessage
     const selectOptions = this.props.questionLists.map( (list) => {
         return ( <option key={list.id} value={`${list.id}`}>{list.name}</option> )
     })
@@ -72,14 +75,37 @@ class QuestionAddtoListFormContainer extends Component {
 
     if ( Object.keys(this.state.errors).length > 0){
       errorItems = Object.values(this.state.errors).map( error => {
-        return (<li key={error}>{error}</li>)
+        return (<div key={error}>{error}</div>)
       })
-      errorWrapper = <ul className="callout alert">{errorItems}</ul>
+      errorWrapper =
+        <CalloutMessage
+          content={errorItems}
+          class="alert"
+          handleClick={this.handleClear}
+        />
     }
 
     return (
       <div>
-        {errorWrapper}
+
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {errorWrapper}
+        </CSSTransitionGroup>
+
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {showSuccessMessage &&
+            <CalloutMessage
+              content="Question added to list."
+              class="success"
+              handleClick={this.props.toggleQuestionToList}
+            /> }
+        </CSSTransitionGroup>
 
         <form className="form form__addQuestionList" onSubmit={this.handleSubmit}>
 

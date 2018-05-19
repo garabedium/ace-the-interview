@@ -76,6 +76,8 @@ class QuestionCardContainer extends Component {
                 questionLists={this.props.questionLists}
                 questionId={this.props.question.id}
                 addQuestionToList={this.props.addQuestionToList}
+                showSuccessMessage={this.props.showSuccessMessage}
+                toggleQuestionToList={this.props.toggleQuestionToList}
               />
             }
           </div>

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { CSSTransitionGroup } from 'react-transition-group';
 import FieldInput from '../components/FieldInput';
 import ButtonSubmit from '../components/ButtonSubmit';
+import CalloutMessage from '../components/CalloutMessage';
 
 class QuestionListContainer extends Component {
   constructor(props){
@@ -115,14 +117,19 @@ class QuestionListContainer extends Component {
   render() {
 
     let errorWrapper, errorItems
-    const newListButton = <button className="button button--secondary button__question" onClick={this.toggleForm}>+ New List</button>
+    const newListButton = <button className="button small button--secondary button__question" onClick={this.toggleForm}>+ New List</button>
     const showForm = this.state.showForm
 
     if ( Object.keys(this.state.errors).length > 0 ){
       errorItems = Object.values(this.state.errors).map( error => {
-        return (<li key={error}>{error}</li>)
+        return (<div key={error}>{error}</div>)
       })
-      errorWrapper = <ul className="callout alert">{errorItems}</ul>
+      errorWrapper =
+        <CalloutMessage
+          content={errorItems}
+          class="alert"
+          handleClick={this.handleClear}
+        />
     }
 
     return (
@@ -131,22 +138,33 @@ class QuestionListContainer extends Component {
 
         {newListButton}
 
-        {errorWrapper}
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {errorWrapper}
+        </CSSTransitionGroup>
 
         {showForm &&
           <form className="form form__list--new" onSubmit={this.handleSubmit}>
 
-            <FieldInput
-              label="List Name"
-              name="listName"
-              content={this.state.listName}
-              handleChange={this.handleInput}
-            />
+            <div className="input-group">
 
-            <ButtonSubmit
-              value="Add"
-              class="button"
-            />
+              <FieldInput
+                name="listName"
+                class="input-group-field"
+                content={this.state.listName}
+                handleChange={this.handleInput}
+                placeholder="Add a new list"
+              />
+
+              <div className="input-group-button">
+                <ButtonSubmit
+                  value="Add"
+                  class="button button--secondary"
+                />
+              </div>
+            </div>
 
           </form>
         }

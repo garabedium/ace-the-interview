@@ -37,9 +37,9 @@ class CategoryShowContainer extends Component {
     if (this.state.category.questions){
       questions = this.state.category.questions.map( (item) => {
         return(
-          <div key={item.id}>
+          <li key={item.id} className="list list__item">
             {item.title}
-          </div>
+          </li>
         )
       })
     }
@@ -48,7 +48,11 @@ class CategoryShowContainer extends Component {
       <div className="row">
         <div className="columns medium-10 medium-centered">
           <h1>Category: {this.state.category.name}</h1>
-          {questions}
+
+          <ul className="list menu vertical">
+            {questions}
+          </ul>
+
         </div>
       </div>
     )

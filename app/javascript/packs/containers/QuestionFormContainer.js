@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { CSSTransitionGroup } from 'react-transition-group';
 import FieldTextarea from '../components/FieldTextarea'
 import FieldInput from '../components/FieldInput'
 import ButtonSubmit from '../components/ButtonSubmit'
+import CalloutMessage from '../components/CalloutMessage';
 
 class QuestionFormContainer extends Component {
   constructor(props){
@@ -72,39 +74,56 @@ class QuestionFormContainer extends Component {
 
     let errorWrapper, errorItems
 
-    const newQuestionButton = <button className="button button--secondary button__question" onClick={this.toggleForm}>+ New Question</button>
+    const newQuestionButton = <button className="button small button--secondary button__question" onClick={this.toggleForm}>+ New Question</button>
     const showForm = this.state.showForm
     const questionAdded = this.props.questionAdded
 
     if ( Object.keys(this.state.errors).length > 0 ){
       errorItems = Object.values(this.state.errors).map( error => {
-        return (<li key={error}>{error}</li>)
+        return (<div key={error}>{error}</div>)
       })
-      errorWrapper = <ul className="callout alert">{errorItems}</ul>
+      errorWrapper =
+        <CalloutMessage
+          content={errorItems}
+          class="alert"
+          handleClick={this.handleClear}
+        />
     }
 
 
     return (
       <div className="question-new">
         {newQuestionButton}
-        {errorWrapper}
+
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {errorWrapper}
+        </CSSTransitionGroup>
 
       {showForm &&
 
         <form className="form form__question--new" onSubmit={this.handleSubmit}>
 
-          <FieldInput
-            label="Question"
-            name="questionTitle"
-            content={this.state.questionTitle}
-            handleChange={this.handleInput}
-          />
+          <div className="input-group">
 
-          <ButtonSubmit
-            value="Save"
-            class="button"
-          />
+            <FieldInput
+              name="questionTitle"
+              content={this.state.questionTitle}
+              handleChange={this.handleInput}
+              placeholder="Add a new question"
+              class="input-group-field"
+            />
 
+            <div className="input-group-button">
+              <ButtonSubmit
+                value="Add"
+                class="button button--secondary"
+              />
+            </div>
+
+          </div>
         </form>
       }
       </div>
