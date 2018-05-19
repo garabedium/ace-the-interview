@@ -418,8 +418,6 @@ class AppContainer extends Component {
     return (
 <div className="parent">
 
-
-
       <div className="row">
       <div className="columns medium-11 medium-centered">
 
@@ -460,6 +458,7 @@ class AppContainer extends Component {
                   text="Random Question"
                   class='button secondary'
                   handleClick={this.getRandomQuestion}
+                  icon={<i className='fas fa-random'></i>}
                 />
               }
 

@@ -69,6 +69,7 @@ class QuestionListContainer extends Component {
 
       this.props.addNewList(submission)
       this.handleClear(event)
+      this.toggleForm()
     }
 
   }
@@ -174,12 +175,3 @@ class QuestionListContainer extends Component {
 }
 
 export default QuestionListContainer;
-
-
-
-
-
-
-
-
-
