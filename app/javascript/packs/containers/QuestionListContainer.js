@@ -69,6 +69,7 @@ class QuestionListContainer extends Component {
 
       this.props.addNewList(submission)
       this.handleClear(event)
+      this.toggleForm()
     }
 
   }
@@ -96,7 +97,7 @@ class QuestionListContainer extends Component {
   }
 
  validateDuplicateList(field,error) {
-    const value = this.state[field].toLowerCase().replace(/ {1,}/g," ")
+    const value = this.state[field].toLowerCase().trim().replace(/ {1,}/g," ")
     const currentLists = this.props.questionLists.map( (list) => { return list.name.toLowerCase() })
 
     const setError = () => {
@@ -174,12 +175,3 @@ class QuestionListContainer extends Component {
 }
 
 export default QuestionListContainer;
-
-
-
-
-
-
-
-
-
