@@ -14,32 +14,25 @@ class Api::V1::AnswersController < ApiController
   end
 
   def update
-    @answer = Answer.find(params[:id])
+    answer = Answer.find(params[:id])
 
-    if current_user && current_user == @answer.user
-      @answer = @answer.update(answer_params)
+    if current_user && current_user == answer.user
+      answer = answer.update(answer_params)
 
-      render json: { questions: user_answers_by_question }
+      render json: answer
     end
-  end
-
-
-  def new
-    @answer = Answer.new
   end
 
   def create
     answer_absent = Answer.find_by(user:current_user,question: params[:question_id]).nil?
+      if !current_user.nil? && answer_absent
+        answer = Answer.new(answer_params)
+        answer.question = Question.find(params[:question_id])
+        answer.user = current_user
+        answer.save
 
-    if !current_user.nil? && answer_absent
-      @answer = Answer.new(answer_params)
-      @answer.question = Question.find(params[:question_id])
-      @answer.user = current_user
-      @answer.save
-
-      render json: { questions: user_answers_by_question }
-    end
-
+        render json: answer
+      end
   end
 
 

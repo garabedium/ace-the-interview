@@ -33,7 +33,6 @@ class AppContainer extends Component {
       hasCategories: false,
       answerActive: false,
 
-
       loadedCategory: '',
       loadedList: '',
 
@@ -42,6 +41,7 @@ class AppContainer extends Component {
       filterList: false,
 
       questionAdded: false,
+      questionAddedtoList: false,
       questionLists: []
     }
 
@@ -61,6 +61,7 @@ class AppContainer extends Component {
     this.getRandomQuestion = this.getRandomQuestion.bind(this)
     this.getRandomCategoryQuestion = this.getRandomCategoryQuestion.bind(this)
     this.getRandomListQuestion = this.getRandomListQuestion.bind(this)
+    this.toggleQuestionToList = this.toggleQuestionToList.bind(this)
 
   }
 
@@ -288,8 +289,9 @@ class AppContainer extends Component {
       this.setState({
         hasAnswer: true,
         answer:{
-          body: submission.body,
-          hint: submission.hint
+          body: response.body,
+          hint: response.hint,
+          id: response.id
         }
       })
     })
@@ -299,9 +301,7 @@ class AppContainer extends Component {
 
 
   addQuestionToList(submission) {
-
     const apiUrl = '/api/v1/question_lists.json'
-
     fetch(apiUrl, {
       credentials: 'same-origin',
       method: 'POST',
@@ -319,12 +319,16 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-
+      this.toggleQuestionToList()
     })
     .catch(error => console.error(`Error in fetch (add question to list): ${error.message}`))
-
   }
 
+  toggleQuestionToList(){
+    this.setState({
+      questionAddedtoList: !this.state.questionAddedtoList
+    })
+  }
 
   getLists(){
     let apiUrl = '/api/v1/lists.json'
@@ -394,11 +398,13 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
+      debugger
       this.setState({
         hasAnswer: true,
         answer:{
           body: submission.body,
-          hint: submission.hint
+          hint: submission.hint,
+          id: answerId
         }
       })
     })
@@ -443,6 +449,8 @@ class AppContainer extends Component {
                 handleAnswer={this.handleAnswer}
                 questionLists={this.state.questionLists}
                 addQuestionToList={this.addQuestionToList}
+                showSuccessMessage={this.state.questionAddedtoList}
+                toggleQuestionToList={this.toggleQuestionToList}
               />
 
               {this.state.filterDefault &&

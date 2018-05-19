@@ -7,3 +7,11 @@
 }
 
     // background-image: -webkit-radial-gradient(center center, 531px 531px, #dadada 0%, rgba(255, 255, 255, 0.75) 0%, #dadada 85.2%);
+
+
+.list {
+  &__item{
+    padding: 15px 0;
+    border-bottom: solid 1px $color-gray-light;
+  }
+}

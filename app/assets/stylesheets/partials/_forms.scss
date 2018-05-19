@@ -1,9 +1,14 @@
 .form {
+
   label {
     font-weight: 600;
   }
   select {
     margin: 0;
+  }
+
+  .input-group-button .button {
+    margin-left: 5px;
   }
 
   &__filterQuestions{
@@ -28,8 +33,7 @@
     @include breakpoint(small) {
       max-width: 100%
     }
-    margin: 15px auto 0 auto;
-    padding-top: 10px;
+    margin: 20px auto 0 auto;
 
     .input-group {
       margin-bottom: 0;
@@ -49,13 +53,18 @@
           .button {
             border-radius: 5px;
             padding: 0 10px;
-            margin-left: 10px;
             background-color: $color-gray-light;
             &:hover {
               background-color: darken($color-gray-light, 25%);
             }
           }
         }
+    }
+  }
+
+  &__question--new {
+    .button {
+      margin-left: 5px;
     }
   }
 
