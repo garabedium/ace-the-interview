@@ -423,7 +423,7 @@ class AppContainer extends Component {
       answerAdded: !this.state.answerAdded
     })
   }
-
+  
   toggleAnswerUpdated(){
     this.setState({
       answerUpdated: !this.state.answerUpdated
