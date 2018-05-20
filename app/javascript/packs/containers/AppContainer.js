@@ -58,6 +58,7 @@ class AppContainer extends Component {
     this.toggleAnswer = this.toggleAnswer.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
     this.toggleAnswerUpdated = this.toggleAnswerUpdated.bind(this)
+    this.toggleAnswerAdded = this.toggleAnswerAdded.bind(this)
 
     this.getLists = this.getLists.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -66,6 +67,7 @@ class AppContainer extends Component {
     this.getRandomCategoryQuestion = this.getRandomCategoryQuestion.bind(this)
     this.getRandomListQuestion = this.getRandomListQuestion.bind(this)
     this.toggleQuestionToList = this.toggleQuestionToList.bind(this)
+    this.toggleQuestionAdded = this.toggleQuestionAdded.bind(this)
 
   }
 
@@ -76,7 +78,6 @@ class AppContainer extends Component {
   }
 
   getRandomQuestion(){
-
     const apiUrl = `/api/v1/questions.json`
 
     fetch(apiUrl,{
@@ -100,6 +101,7 @@ class AppContainer extends Component {
             hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
             id: (response.answer) ? response.answer.id : ''
           },
+          answerActive: false,
           hasAnswer: (response.answer) ? true : false,
           questionCategories: response.categories,
           hasCategories: (response.categories.length > 0) ? true : false
@@ -112,7 +114,6 @@ class AppContainer extends Component {
   }
 
   getRandomCategoryQuestion(submission){
-
     const categoryId = submission,
           apiUrl = `/api/v1/categories.json&?random=${categoryId}`
 
@@ -130,7 +131,6 @@ class AppContainer extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        response
         this.setState({
           question: response.question,
           answer: {
@@ -138,6 +138,7 @@ class AppContainer extends Component {
             hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
             id: (response.answer) ? response.answer.id : ''
           },
+          answerActive: false,
           hasAnswer: (response.answer) ? true : false,
           questionCategories: response.categories,
           hasCategories: (response.categories.length > 0) ? true : false,
@@ -179,6 +180,7 @@ class AppContainer extends Component {
             hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
             id: (response.answer) ? response.answer.id : ''
           },
+          answerActive: false,
           hasAnswer: (response.answer) ? true : false,
           questionCategories: response.categories,
           hasCategories: (response.categories.length > 0) ? true : false,
@@ -202,7 +204,6 @@ class AppContainer extends Component {
   }
 
   addNewQuestion(submission) {
-
     const apiUrl = '/api/v1/questions.json'
 
     fetch(apiUrl, {
@@ -222,10 +223,18 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      this.setState({
-        // question: response.questions,
-        questionAdded: true
-      })
+        this.setState({
+          question: response.question,
+          questionAdded: true,
+          answer: {
+            body: '',
+            hint: '',
+            id: ''
+          },
+          hasAnswer: false,
+          hasCategories: false
+        })
+
     })
     .catch(error => console.error(`Error in fetch (add new question): ${error.message}`))
 
@@ -300,9 +309,13 @@ class AppContainer extends Component {
       })
     })
     .catch(error => console.error(`Error in fetch (adding new answer): ${error.message}`))
-
   }
 
+  toggleQuestionAdded(){
+    this.setState({
+      questionAdded: !this.state.questionAdded
+    })
+  }
 
   addQuestionToList(submission) {
     const apiUrl = '/api/v1/question_lists.json'
@@ -423,7 +436,7 @@ class AppContainer extends Component {
       answerAdded: !this.state.answerAdded
     })
   }
-  
+
   toggleAnswerUpdated(){
     this.setState({
       answerUpdated: !this.state.answerUpdated
@@ -479,7 +492,6 @@ class AppContainer extends Component {
                   text="Random Question"
                   class='button secondary'
                   handleClick={this.getRandomQuestion}
-                  icon={<i className='fas fa-random'></i>}
                 />
               }
 
@@ -513,6 +525,7 @@ class AppContainer extends Component {
               <QuestionFormContainer
                 addNewQuestion={this.addNewQuestion}
                 questionAdded={this.state.questionAdded}
+                toggleQuestionAdded={this.toggleQuestionAdded}
               />
             </aside>
           </div>
@@ -520,8 +533,6 @@ class AppContainer extends Component {
           </div>
         </div>
       </div>
-
-
 
   </div>
 

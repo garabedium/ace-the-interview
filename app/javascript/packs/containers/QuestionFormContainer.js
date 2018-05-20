@@ -23,8 +23,7 @@ class QuestionFormContainer extends Component {
     event.preventDefault()
     this.setState({
       questionTitle: "",
-      errors: {},
-      showForm: false
+      errors: {}
     })
   }
 
@@ -53,7 +52,6 @@ class QuestionFormContainer extends Component {
     }));
   }
 
-
   validateTextInput(field,error) {
     const value = this.state[field];
     const setError = () => {
@@ -74,9 +72,9 @@ class QuestionFormContainer extends Component {
 
     let errorWrapper, errorItems
 
+    const questionAdded = this.props.questionAdded
     const newQuestionButton = <button className="button small button--secondary button__question" onClick={this.toggleForm}>+ New Question</button>
     const showForm = this.state.showForm
-    const questionAdded = this.props.questionAdded
 
     if ( Object.keys(this.state.errors).length > 0 ){
       errorItems = Object.values(this.state.errors).map( error => {
@@ -102,27 +100,34 @@ class QuestionFormContainer extends Component {
           {errorWrapper}
         </CSSTransitionGroup>
 
+        <CSSTransitionGroup
+          transitionName="el-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {questionAdded &&
+            <CalloutMessage
+              content="Question added."
+              class="success"
+              handleClick={this.props.toggleQuestionAdded}
+            /> }
+        </CSSTransitionGroup>
+
       {showForm &&
-
         <form className="form form__question--new" onSubmit={this.handleSubmit}>
-
           <div className="input-group">
-
-            <FieldInput
-              name="questionTitle"
-              content={this.state.questionTitle}
-              handleChange={this.handleInput}
-              placeholder="Add a new question"
-              class="input-group-field"
-            />
-
+              <FieldInput
+                name="questionTitle"
+                content={this.state.questionTitle}
+                handleChange={this.handleInput}
+                placeholder="Add a new question"
+                class="input-group-field"
+              />
             <div className="input-group-button">
               <ButtonSubmit
                 value="Add"
                 class="button button--secondary"
               />
             </div>
-
           </div>
         </form>
       }
