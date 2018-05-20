@@ -34,8 +34,6 @@
     <div class="row">
       <div class="columns large-12">
 
-      <!-- <div class="title-bar-left title-bar-logo"> -->
-
         <a href="/<% if current_user %>app<% end %>" class="logo logo--desktop clearfix">
           <span class="logo logo__card">A</span>
           <span class="logo logo__text">
@@ -43,13 +41,11 @@
           </span>
         </a>
 
-     <!--  </div> -->
-
       <div class="title-bar-right title-bar-menu menu-centered text-center-small">
         <ul class="main menu dropdown small-horizontal" data-responsive-menu="accordion medium-dropdown" data-alignment="auto">
         <% if current_user %>
           <li><a href="/app" class="button button__nav button__nav--app">Study</a></li>
-          <li><a href="#" class="button button__nav button__nav--dashboard">Dashboard</a></li>
+          <li><a href="/app/dashboard" class="button button__nav button__nav--dashboard">Dashboard</a></li>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "button button__nav buton__nav--signout" %></li>
         <% else %>
           <li><%= link_to 'Sign Up', new_user_registration_path, :class => "button button--primary button__nav button__nav--signup" %></li>
