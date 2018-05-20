@@ -33,6 +33,8 @@ class AppContainer extends Component {
       hasCategories: false,
       hasLists: false,
       answerActive: false,
+      answerAdded: false,
+      answerUpdated: false,
 
       loadedCategory: '',
       loadedList: '',
@@ -55,6 +57,7 @@ class AppContainer extends Component {
     this.updateAnswer = this.updateAnswer.bind(this)
     this.toggleAnswer = this.toggleAnswer.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
+    this.toggleAnswerUpdated = this.toggleAnswerUpdated.bind(this)
 
     this.getLists = this.getLists.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -288,6 +291,7 @@ class AppContainer extends Component {
     .then(response => {
       this.setState({
         hasAnswer: true,
+        answerAdded: true,
         answer:{
           body: response.body,
           hint: response.hint,
@@ -399,9 +403,11 @@ class AppContainer extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      debugger
       this.setState({
         hasAnswer: true,
+        answerAdded: false,
+        answerUpdated: true,
+        answerUpdated: !this.state.answerUpdated,
         answer:{
           body: submission.body,
           hint: submission.hint,
@@ -410,7 +416,18 @@ class AppContainer extends Component {
       })
     })
     .catch(error => console.error(`Error in fetch (updating answer): ${error.message}`))
+  }
 
+  toggleAnswerAdded(){
+    this.setState({
+      answerAdded: !this.state.answerAdded
+    })
+  }
+  
+  toggleAnswerUpdated(){
+    this.setState({
+      answerUpdated: !this.state.answerUpdated
+    })
   }
 
   render() {
@@ -419,12 +436,12 @@ class AppContainer extends Component {
 <div className="parent">
 
       <div className="row">
-      <div className="columns medium-11 medium-centered">
+        <div className="columns medium-11 medium-centered">
+          <div className="row">
 
-        <div className="row">
          <div className="columns medium-7 text-center">
 
-          <div className="question-filters">
+            <div className="question-filters">
               <h5 className="question-filters__header">Load Questions by Category or List</h5>
                <FilterQuestionsContainer
                 questionLists={this.state.questionLists}
@@ -436,7 +453,7 @@ class AppContainer extends Component {
                 hasLists={this.state.hasLists}
                />
             </div>
-           <div className="question-wrapper">
+            <div className="question-wrapper">
 
               <QuestionCardContainer
                 question={this.state.question}
@@ -451,6 +468,10 @@ class AppContainer extends Component {
                 addQuestionToList={this.addQuestionToList}
                 showSuccessMessage={this.state.questionAddedtoList}
                 toggleQuestionToList={this.toggleQuestionToList}
+                answerUpdated={this.state.answerUpdated}
+                answerAdded={this.state.answerAdded}
+                toggleAnswerAdded={this.toggleAnswerAdded}
+                toggleAnswerUpdated={this.toggleAnswerUpdated}
               />
 
               {this.state.filterDefault &&
@@ -481,24 +502,24 @@ class AppContainer extends Component {
             </div>
 
         </div>
-        <div className="columns medium-5">
-          <aside className="sidebar card">
-            <h5 className="card-divider">My Lists</h5>
-            <QuestionListContainer
-              questionLists={this.state.questionLists}
-              addNewList={this.addNewList}
-            />
+          <div className="columns medium-5">
+            <aside className="sidebar card">
+              <h5 className="card-divider">My Lists</h5>
+              <QuestionListContainer
+                questionLists={this.state.questionLists}
+                addNewList={this.addNewList}
+              />
 
-            <QuestionFormContainer
-              addNewQuestion={this.addNewQuestion}
-              questionAdded={this.state.questionAdded}
-            />
-          </aside>
-        </div>
-        </div>
+              <QuestionFormContainer
+                addNewQuestion={this.addNewQuestion}
+                questionAdded={this.state.questionAdded}
+              />
+            </aside>
+          </div>
 
+          </div>
         </div>
-        </div>
+      </div>
 
 
 
