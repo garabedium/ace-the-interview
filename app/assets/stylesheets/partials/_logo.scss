@@ -1,5 +1,6 @@
 .logo {
   font-family: $font-secondary;
+  position: relative;
   display: block;
   float: left;
   &__card {
@@ -21,6 +22,7 @@
   &__text {
     color: $color-white;
     margin-left: 15px;
+    padding-top: 5px;
     float: left;
     line-height: 1.2;
     font-weight: 600;
@@ -34,17 +36,35 @@
       font-style: italic;
       font-weight: 400;
       font-size: 18px;
-      padding-top: 2px;
+      margin: -3px 0 -6px 0;
     }
   }
   &--desktop {
     @include breakpoint(small down) {
       display: none;
     }
-    // &:before {
-    //   content: '\2664';
-    //   font-
-    // }
+    &:hover {
+      .logo__card {
+        background-color: #f74646;
+        transition: all .3s ease-in-out;
+        color: $color-white;
+        &:before {
+          color: $color-white;
+        }
+      }
+    }
+    .logo__card {
+      transition: all .2s ease-in-out;
+      &:before {
+        display: block;
+        content: '\2660'; // diamond: 2666, heart: 2665
+        font-size: 10px;
+        color: #f74646;
+        position: absolute;
+        right: 4px;
+        top: 2px;
+      }
+    }
   }
 }
 // Logo Shrink:
