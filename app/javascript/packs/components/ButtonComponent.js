@@ -7,7 +7,7 @@ const ButtonComponent = (props) =>{
       className={props.class}
       onClick={props.handleClick}
     >
-      {props.text}
+      {props.text} {props.icon}
     </button>
   );
 }

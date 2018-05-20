@@ -31,6 +31,7 @@ class AppContainer extends Component {
 
       hasAnswer: false,
       hasCategories: false,
+      hasLists: false,
       answerActive: false,
       answerAdded: false,
       answerUpdated: false,
@@ -240,7 +241,6 @@ class AppContainer extends Component {
   }
 
   addNewList(submission) {
-
     const apiUrl = '/api/v1/lists.json'
 
     fetch(apiUrl, {
@@ -261,11 +261,11 @@ class AppContainer extends Component {
     .then(response => response.json())
     .then(response => {
       this.setState({
-        questionLists: this.state.questionLists.concat(response)
+        questionLists: this.state.questionLists.concat(response),
+        hasLists: true
       })
     })
     .catch(error => console.error(`Error in fetch (add new list): ${error.message}`))
-
   }
 
   addNewAnswer(submission) {
@@ -351,7 +351,8 @@ class AppContainer extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          questionLists: response.lists
+          questionLists: response.lists,
+          hasLists: (response.lists.length > 0) ? true : false
         })
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
@@ -422,7 +423,7 @@ class AppContainer extends Component {
       answerAdded: !this.state.answerAdded
     })
   }
-
+  
   toggleAnswerUpdated(){
     this.setState({
       answerUpdated: !this.state.answerUpdated
@@ -449,6 +450,7 @@ class AppContainer extends Component {
                 filterList={this.getRandomListQuestion}
                 loadedCategory={this.state.loadedCategory}
                 loadedList={this.state.loadedList}
+                hasLists={this.state.hasLists}
                />
             </div>
             <div className="question-wrapper">
@@ -477,6 +479,7 @@ class AppContainer extends Component {
                   text="Random Question"
                   class='button secondary'
                   handleClick={this.getRandomQuestion}
+                  icon={<i className='fas fa-random'></i>}
                 />
               }
 

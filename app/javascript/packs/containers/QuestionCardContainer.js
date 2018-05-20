@@ -95,10 +95,3 @@ class QuestionCardContainer extends Component {
 
 export default QuestionCardContainer;
 
-
-          // <QuestionAddtoListFormContainer
-          //   questionLists={this.props.questionLists}
-          // />
-
-
-

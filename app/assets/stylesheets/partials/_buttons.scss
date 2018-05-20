@@ -4,10 +4,12 @@
 
   &:hover {
     background-color: $color-black;
-    // background: $color-secondary;
-    // top: 2px;
-    // box-shadow: 0 1px darken($color-secondary,15%);
+    .fas {
+      transform: translateX(3px);
+      transition: all .3s ease-in-out;
+    }
   }
+
   &--primary {
     background: $color-secondary;
     &:hover {
@@ -28,6 +30,11 @@
 
   &__answer {
 
+  }
+
+  .fas {
+    font-size: .7rem;
+    transition: all .3s ease-in-out;
   }
 
 }
