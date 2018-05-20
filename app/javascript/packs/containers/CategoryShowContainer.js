@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BackButton from '../components/BackButton';
 
 class CategoryShowContainer extends Component {
   constructor(props) {
@@ -47,6 +48,10 @@ class CategoryShowContainer extends Component {
     return(
       <div className="row">
         <div className="columns medium-10 medium-centered">
+          <BackButton
+            content="Back"
+            class="button secondary small"
+          />
           <h1>Category: {this.state.category.name}</h1>
 
           <ul className="list menu vertical">

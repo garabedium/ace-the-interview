@@ -1,8 +1,15 @@
 @import 'foundation';
 @import 'variables/all';
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   background: lighten($color-body,5%);
   font-family: $font-primary;
+  margin-bottom: 60px;
   @include breakpoint(small only) {
       padding-top: 59px;
   }

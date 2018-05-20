@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :answers
       end
 
+      resources :dashboard, only: [:index]
       resources :categories
       resources :lists
       resources :question_lists
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   get "app", to: 'apps#index'
-  get "app/questions", to: 'apps#questions'
+  get "app/dashboard", to: 'apps#dashboards'
   get "app/categories/:id", to: 'apps#categories'
   get "app/lists/:id", to: 'apps#lists'
 

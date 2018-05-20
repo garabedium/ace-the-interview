@@ -4,7 +4,6 @@ class Api::V1::QuestionListsController < ApiController
   before_action :authorize_user
 
   def create
-    binding.pry
     question_list = QuestionList.new
     question_list.list = List.find(params[:list])
     question_list.question = Question.find(params[:question])
@@ -14,9 +13,4 @@ class Api::V1::QuestionListsController < ApiController
   end
 
   private
-
-  # def question_list_params
-  #   params.permit(:list,:question)
-  # end
-
 end

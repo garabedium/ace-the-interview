@@ -1,5 +1,7 @@
 .footer {
-  margin-top: 40px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   border-top: solid 1px $color-tertiary;
   padding: 20px 0;
   font-size: .8rem;

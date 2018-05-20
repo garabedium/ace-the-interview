@@ -7,6 +7,7 @@ import QuestionsIndexContainer from './containers/QuestionsIndexContainer';
 import CategoriesIndexContainer from './containers/CategoriesIndexContainer';
 import CategoryShowContainer from './containers/CategoryShowContainer';
 import ListShowContainer from './containers/ListShowContainer';
+import DashboardContainer from './containers/DashboardContainer';
 
 class Routes extends Component {
 
@@ -19,6 +20,7 @@ class Routes extends Component {
     return (
       <Router history={browserHistory}>
         <Route path='/app' component={AppContainer} />
+        <Route path='/app/dashboard' component={DashboardContainer} />
         <Route path='/app/categories/:id' component={CategoryShowContainer} />
         <Route path='/app/lists/:id' component={ListShowContainer} />
       </Router>
