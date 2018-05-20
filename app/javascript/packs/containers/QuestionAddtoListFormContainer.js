@@ -108,9 +108,7 @@ class QuestionAddtoListFormContainer extends Component {
         </CSSTransitionGroup>
 
         <form className="form form__addQuestionList" onSubmit={this.handleSubmit}>
-
           <div className="input-group">
-
             <select className="input-group-field" name="questionListId" value={this.state.questionListId} onChange={this.handleInput}>
               <option value="">Add question to list...</option>
               {selectOptions}
@@ -122,7 +120,6 @@ class QuestionAddtoListFormContainer extends Component {
                 class="button"
               />
             </div>
-
           </div>
         </form>
 

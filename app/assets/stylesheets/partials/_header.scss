@@ -33,6 +33,9 @@
   &.shrink {
     padding: 10px 0;
     transition: $transition-padding;
+    .title-bar-right {
+      margin-top: 10px;
+    }
   }
   .title-bar-right {
     margin-top: 20px;
