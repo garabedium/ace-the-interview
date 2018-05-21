@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import AnswerFormContainer from './AnswerFormContainer'
+import QuestionAddtoListFormContainer from './QuestionAddtoListFormContainer'
 
 class QuestionCardContainer extends Component {
   constructor(props){
     super(props)
-    this.state = {
-    }
+    this.state = {}
     this.showCategories = this.showCategories.bind(this)
   }
 
@@ -14,15 +14,14 @@ class QuestionCardContainer extends Component {
     if (this.props.hasCategories){
       let categories = this.props.categories.map( (item) => {
         return (
-          <li key={item.id} className="question__category">
-            <Link to={`/app/categories/${item.id}`}>{item.name}</Link>
+          <li key={item.id} className="question__category--item">
+            <Link to={`/app/categories/${item.id}`} className="question__category--link">{item.name}</Link>
           </li>
         )
       })
 
       return (
-        <ul className="menu simple">
-          <li className="question__category--label">Tags:</li>
+        <ul className="menu simple question__categories">
           {categories}
         </ul>
       )
@@ -33,6 +32,7 @@ class QuestionCardContainer extends Component {
 
     const question = (this.props.question) ? this.props.question.title : ""
     const isAnswerActive = this.props.answerActive
+    const hasQuestionLists = (this.props.questionLists.length > 0) ? true : false
 
     const buttonText = () => {
       let result
@@ -48,7 +48,6 @@ class QuestionCardContainer extends Component {
 
     const answerButton = <button className="button button__answer" onClick={this.props.toggleAnswer}>{buttonText()}</button>
 
-    // const categories = this.showCategories
 
     return (
       <div className="card question">
@@ -61,15 +60,30 @@ class QuestionCardContainer extends Component {
 
           {isAnswerActive &&
             <AnswerFormContainer
-              addNewAnswer={this.props.addNewAnswer}
-              updateAnswer={this.props.updateAnswer}
               answerBody={this.props.answerBody}
-              answerHint={this.props.answerHint}
               hasAnswer={this.props.hasAnswer}
+              toggleAnswer={this.props.toggleAnswer}
+              handleAnswer={this.props.handleAnswer}
+              answerUpdated={this.props.answerUpdated}
+              answerAdded={this.props.answerAdded}
+              toggleAnswerAdded={this.props.toggleAnswerAdded}
+              toggleAnswerUpdated={this.props.toggleAnswerUpdated}
             />
           }
 
-          {this.showCategories()}
+          <div className="question__body--bottom">
+            {this.showCategories()}
+
+            {hasQuestionLists &&
+              <QuestionAddtoListFormContainer
+                questionLists={this.props.questionLists}
+                questionId={this.props.question.id}
+                addQuestionToList={this.props.addQuestionToList}
+                showSuccessMessage={this.props.showSuccessMessage}
+                toggleQuestionToList={this.props.toggleQuestionToList}
+              />
+            }
+          </div>
 
         </div>
       </div>
@@ -79,3 +93,4 @@ class QuestionCardContainer extends Component {
 }
 
 export default QuestionCardContainer;
+

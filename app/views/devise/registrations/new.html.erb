@@ -1,8 +1,17 @@
-<div class="row">
-  <div class="columns medium-6 medium-centered">
+<% content_for :body_class, "page--signup" %>
 
-  <h1>Sign up</h1>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+<div class="row">
+  <div class="columns medium-7 medium-centered">
+    <h1 class="page--header">Sign Up</h1>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="columns medium-7 medium-centered">
+
+  <%= form_for(resource, :html => {:class => "form form__devise"}, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
     <div class="field">

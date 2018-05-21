@@ -6,12 +6,10 @@ class ListShowSerializer < ActiveModel::Serializer
 
     list_questions = list_questions.map do |item|
       {
-        question: {
-          id: item.id,
-          title: item.title,
-          categories: item.categories,
-          answer: item.answers.find_by(user: current_user)
-        }
+        id: item.id,
+        title: item.title,
+        categories: item.categories,
+        answer: item.answers.find_by(user: current_user)
       }
     end
   end

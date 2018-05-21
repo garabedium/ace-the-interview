@@ -1,0 +1,24 @@
+$transition-padding: padding 0.8s ease-in-out;
+$transition-font-size: font-size 0.8s ease-in-out;
+$transition-opacity: opacity 0.8s ease-in-out;
+
+$transition-opacity-in: opacity .5s ease-in;
+$transition-opacity-out: opacity .3s ease-in;
+
+.el-transition-enter {
+  opacity: 0.01;
+}
+
+.el-transition-enter.el-transition-enter-active {
+  opacity: 1;
+  transition: $transition-opacity-in;
+}
+
+.el-transition-leave {
+  opacity: 1;
+}
+
+.el-transition-leave.el-transition-leave-active {
+  opacity: 0.01;
+  transition: $transition-opacity-out;
+}

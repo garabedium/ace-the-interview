@@ -1,18 +1,40 @@
 .button {
+  border-radius: 5px !important;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $color-black;
+    .fas {
+      transform: translateX(3px);
+      transition: all .3s ease-in-out;
+    }
+  }
+
   &--primary {
     background: $color-secondary;
     &:hover {
-      color: $color-black;
-      background: lighten($color-secondary,10%);
+      background: darken($color-secondary,15%);
     }
   }
 
   &__nav {
     margin-right: 5px;
+    &:hover {
+      background-color: $color-black;
+    }
+  }
+
+  &--secondary {
+    background-color: $color-gray-light;
   }
 
   &__answer {
 
+  }
+
+  .fas {
+    font-size: .7rem;
+    transition: all .3s ease-in-out;
   }
 
 }

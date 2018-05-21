@@ -1,0 +1,16 @@
+.callout {
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-top: 10px;
+  border: 0;
+  &.alert {
+    background-color: #f3d1cb;
+    border-bottom: solid 3px $color-callout-alert;
+  }
+  &.success {
+    border-bottom: solid 3px $color-callout-success;
+  }
+}
+
+

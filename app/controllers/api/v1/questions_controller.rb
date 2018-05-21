@@ -4,8 +4,34 @@ class Api::V1::QuestionsController < ApiController
   before_action :authorize_user
 
   def index
-    render json: { questions: user_answers_by_question }
-    # render json: Question.all # Couple this with the serializer....
+    user_industry = current_user.industry.name
+    industry_category_id = Category.find_by(name: user_industry).id
+    question = Category.find_by(id: industry_category_id).questions.sample(1)[0]
+    categories = question.categories
+    answer = question.answers.find_by(user: current_user)
+
+    render json: {
+      question: question,
+      answer: answer,
+      categories: categories
+    }
+  end
+
+  def show
+  end
+
+  def create
+    question = Question.new(question_params)
+    question.user = current_user
+    question.save
+
+    render json: question
+  end
+
+
+  private
+  def question_params
+    params.require(:question).permit(:title)
   end
 
 end

@@ -1,6 +1,6 @@
 class UserSeeder
   USERS = [
-    {:email => 'ace@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Greg', :last_name =>'Gee', :industry => Industry.first, :admin => true, :zip => '02115'},
+    {:email => 'ace@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Greg', :last_name =>'Gee', :industry => Industry.find_by(name: "Computer Software"), :admin => true, :zip => '02115'},
     {:email => 'lorem@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Lore', :last_name =>'Lee', :industry => Industry.last, :admin => false, :zip => '02116'}
   ]
 
