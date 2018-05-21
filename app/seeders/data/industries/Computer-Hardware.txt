@@ -1,0 +1,6 @@
+Why did you choose computer hardware over software?
+What's the difference between a serial and a parallel port?
+What is the difference between FSB And BSB?
+What is the LGA?
+What are CISC and RISC architectures? What are the advantages and disadvantages of both?
+What is Hyper Threading? Why is it important?
