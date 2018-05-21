@@ -1,18 +1,12 @@
 class IndustrySeeder
   INDUSTRIES = [
     'Accounting',
-    'Architecture',
-    'Automotive',
-    'Aviation',
-    'Banking',
     'Computer Hardware',
     'Computer Networking',
     'Computer Software',
-    'Financial Services',
     'Human Resources',
     'Insurance',
     'Investment Banking',
-    'Law',
     'Marketing and Advertising',
     'Real Estate'
   ]
