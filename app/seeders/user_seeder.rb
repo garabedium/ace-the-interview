@@ -1,11 +1,9 @@
-require 'pry'
 class UserSeeder
   PASSWORD = ENV['USER_PASSWORD']
   USERS = [
     {:email => 'ace@gmail.com', :password => "#{PASSWORD}", :password_confirmation => "#{PASSWORD}", :first_name => 'Greg', :last_name =>'Gee', :industry => Industry.find_by(name: "Computer Software"), :admin => true, :zip => '02115'},
     {:email => 'lorem@gmail.com', :password => "#{PASSWORD}", :password_confirmation => "#{PASSWORD}", :first_name => 'Lore', :last_name =>'Lee', :industry => Industry.last, :admin => false, :zip => '02116'}
   ]
-binding.pry
 
   def self.seed!
     USERS.each do |item|
