@@ -1,17 +1,18 @@
 # Ace the Interview
 Ace the Interview helps you improve your interview readiness:
-- Write and practice interview questions and answers.
-- Do mock interviews with peers to practice your questions in a low-stakes environment.
+- Write and practice interview question flashcards.
+- Create custom lists to prepare for a specific company or industry topic.
+- Future: Connect with peers to practice mock interviews in a low-stakes environment.
 
 ## Getting Started
-- Visit *future link* to sign up and start your interview prep!
+- Visit [Ace the Interview](https://acetheinterview.herokuapp.com/) on Heroku to sign up and start your interview prep!
 
 ## Built With
-- Ruby on Rails
-- React
-- [Foundation](https://foundation.zurb.com/sites/docs/) - Frontend framework. See gemfile for version.
-
-## Deployment Process
+- Ruby on Rails - Backend
+- React - Frontend
+- [Foundation](https://foundation.zurb.com/sites/docs/) - Frontend framework
+- Heroku - Hosting
+- Postgres - Database
 
 ## Acknowledgements
 - My fellow launchers in cohort 20
