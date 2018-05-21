@@ -1,0 +1,14 @@
+What is Stop-and-Wait Protocol?
+What is Piggybacking?
+Differences between Hub, Switch and Router?
+What is DHCP, how does it work?
+What is ARP, how does it work?
+What happens when you type a URL in web browser?
+What are the layers in OSI model?
+What are Unicasting, Anycasting, Multiccasting and Broadcasting?
+What is TCP/IP, how does it work?
+What is a node?
+What is HTTP?
+What is DNS?
+What is Data Encapsulation?
+What are the different types of Network Topology?

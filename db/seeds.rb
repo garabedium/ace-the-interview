@@ -6,4 +6,5 @@ if Rails.env.development? || Rails.env.production?
   UserSeeder.seed!
   CategorySeeder.seed!
   QuestionSoftwareSeeder.seed!
+  QuestionsIndustries.seed!
 end

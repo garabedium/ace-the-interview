@@ -2,7 +2,6 @@ class CategorySeeder
   CATEGORIES = [
     'CSS',
     'Databases',
-    'General',
     'HTML',
     'Javascript',
     'Performance',
@@ -14,7 +13,15 @@ class CategorySeeder
     'Fun',
     'Unit Testing',
     'HTTP',
-    'Computer Software'
+    'Accounting',
+    'Computer Hardware',
+    'Computer Networking',
+    'Computer Software',
+    'Human Resources',
+    'Insurance',
+    'Investment Banking',
+    'Marketing and Advertising',
+    'Real Estate'
   ]
 
   def self.seed!
