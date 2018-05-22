@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <% if Rails.env.production? %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20422227-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-20422227-2');
+    </script>
+  <% end %>
+
   <title>AceTheInterview</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag 'application', media: 'all' %>
