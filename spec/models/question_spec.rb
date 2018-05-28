@@ -12,17 +12,7 @@ describe Question do
     expect(t.macro).to eq(:has_many)
   end
 
-  it "should have many categories" do
-    t = Question.reflect_on_association(:categories)
-    expect(t.macro).to eq(:has_many)
-  end
-
-  it "should have many question categories" do
-    t = Question.reflect_on_association(:question_categories)
-    expect(t.macro).to eq(:has_many)
-  end
-
+  it { should have_many(:categories).through :question_categories }
   it { should have_many(:lists).through :question_lists }
-
 
 end
