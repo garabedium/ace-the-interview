@@ -6,6 +6,10 @@ FactoryBot.define do
     sequence(:name) {|n| "Industry Name #{n}" }
   end
 
+  factory :category do
+    sequence(:name) { |n| "Industry Name #{n}" }
+  end
+
   factory :user do
     sequence(:email) {|n| "user#{n}@example.com" }
     first_name 'Lorem'
@@ -18,11 +22,12 @@ FactoryBot.define do
 
   factory :question do
     sequence(:title) {|n| "How do you lorem the #{n}?" }
+    # category { FactoryBot.create(:category) }
     user { FactoryBot.create(:user) }
   end
 
   factory :answer do
-    sequence(:body) {|n| "This is an awesome answer no: #{n}?" }
+    sequence(:body) {|n| "This is an awesome answer, no: #{n}?" }
     user { FactoryBot.create(:user) }
     question { FactoryBot.create(:question) }
   end
