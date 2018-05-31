@@ -237,22 +237,8 @@ class AppContainer extends Component {
 
   addQuestionToList(submission) {
     const apiUrl = '/api/v1/question_lists.json'
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
+
+    this.post(apiUrl,submission)
     .then(response => {
       this.toggleQuestionToList()
     })
@@ -288,7 +274,6 @@ class AppContainer extends Component {
   }
 
   get(url){
-
    return fetch(url,{
       credentials: 'same-origin'
     })
@@ -305,7 +290,8 @@ class AppContainer extends Component {
   }
 
   getLists(){
-    let apiUrl = '/api/v1/lists.json'
+    const apiUrl = '/api/v1/lists.json'
+
     this.get(apiUrl)
     .then(response => {
       this.setState({
@@ -317,7 +303,7 @@ class AppContainer extends Component {
   }
 
   getCategories(){
-    let apiUrl = '/api/v1/categories.json'
+    const apiUrl = '/api/v1/categories.json'
 
     this.get(apiUrl)
       .then(response => {
