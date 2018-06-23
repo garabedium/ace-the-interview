@@ -1,29 +1,28 @@
-# require "rails_helper"
+require "rails_helper"
 
-# RSpec.describe Api::V1::AnswersController, type: :controller do
+RSpec.describe Api::V1::AnswersController, type: :controller do
 
-#   user = FactoryBot.create(:user)
-#   question = FactoryBot.create(:question)
-#   answer = FactoryBot.create(:answer)
+  before(:each) do
+    @user = FactoryBot.create(:user)
+    # @category = FactoryBot.create(:category)
+    @question = FactoryBot.create(:question)
+    # QuestionCategory.create(question: @question, category: @category)
+    @answer = Answer.create(user: @user, question: @question, body: "Lorem ipsum dolum")
+  end
 
-#   describe "GET#index" do
-#     it "should return an answer for the specific user's question" do
-#       get "/api/v1/questions/#{question.id}/answers"
-# binding.pry
-#       returned_json = JSON.parse(response.body)
-#       returned_json = returned_json["answers"]
+  describe "GET#index" do
+    it "should return an answer for a specific question" do
+      sign_in(@user)
 
-#       expect(response.status).to eq 200
-#       expect(response.content_type).to eq("application/json")
-#       expect(returned_json.length).to eq 1
-#       expect(returned_json[0]["body"]).to eq "#{answer.body}"
-#       expect(returned_json[0]["question_id"]).to eq "#{question.id}"
+      get :index, params: {question_id: @answer.question_id}
 
-#       returned_json.each do |item|
-#         expect(item["public"]).to eq(true)
-#       end
+      returned_json = JSON.parse(response.body)["answer"]
 
-#     end
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      expect(returned_json["body"]).to eq "#{@answer.body}"
 
-#   end
-# end
+    end
+
+  end
+end

@@ -8,10 +8,10 @@ class Api::V1::AnswersController < ApiController
     render json: { answer: answer }
   end
 
-  def show
-    answer = Answer.find_by(user: current_user, question: params[:question_id])
-    render json: { answer: answer }
-  end
+  # def show
+  #   answer = Answer.find_by(user: current_user, question: params[:question_id])
+  #   render json: { answer: answer }
+  # end
 
   def update
     answer = Answer.find(params[:id])

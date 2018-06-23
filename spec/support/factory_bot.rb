@@ -22,7 +22,6 @@ FactoryBot.define do
 
   factory :question do
     sequence(:title) {|n| "How do you lorem the #{n}?" }
-    # category { FactoryBot.create(:category) }
     user { FactoryBot.create(:user) }
   end
 
