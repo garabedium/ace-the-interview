@@ -20,6 +20,11 @@ FactoryBot.define do
     password_confirmation 'password'
   end
 
+  factory :list do
+    sequence(:name) {|n| "Some List #{n}?" }
+    user { FactoryBot.create(:user) }
+  end
+
   factory :question do
     sequence(:title) {|n| "How do you lorem the #{n}?" }
     user { FactoryBot.create(:user) }

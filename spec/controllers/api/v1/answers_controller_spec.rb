@@ -4,9 +4,7 @@ RSpec.describe Api::V1::AnswersController, type: :controller do
 
   before(:each) do
     @user = FactoryBot.create(:user)
-    # @category = FactoryBot.create(:category)
     @question = FactoryBot.create(:question)
-    # QuestionCategory.create(question: @question, category: @category)
     @answer = Answer.create(user: @user, question: @question, body: "Lorem ipsum dolum")
   end
 
