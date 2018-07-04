@@ -8,11 +8,6 @@ class Api::V1::AnswersController < ApiController
     render json: { answer: answer }
   end
 
-  # def show
-  #   answer = Answer.find_by(user: current_user, question: params[:question_id])
-  #   render json: { answer: answer }
-  # end
-
   def update
     answer = Answer.find(params[:id])
 
@@ -40,6 +35,5 @@ class Api::V1::AnswersController < ApiController
   def answer_params
     params.require(:answer).permit(:hint,:body)
   end
-
 
 end
