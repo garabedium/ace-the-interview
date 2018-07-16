@@ -49,8 +49,8 @@ class AppContainer extends Component {
     }
 
 
-    this.addNewAnswer = this.addNewAnswer.bind(this)
-    this.addNewQuestion = this.addNewQuestion.bind(this)
+    this.createAnswer = this.createAnswer.bind(this)
+    this.createQuestion = this.createQuestion.bind(this)
     this.addQuestionToList = this.addQuestionToList.bind(this)
     this.addNewList = this.addNewList.bind(this)
 
@@ -166,7 +166,7 @@ class AppContainer extends Component {
   }
 
 // add --> create (use REST verbs)
-  addNewQuestion(submission) {
+  createQuestion(submission) {
     const apiUrl = '/api/v1/questions.json'
 
     this.post(apiUrl,submission)
@@ -193,7 +193,7 @@ class AppContainer extends Component {
     if (this.state.hasAnswer){
       this.updateAnswer(submission)
     } else {
-      this.addNewAnswer(submission)
+      this.createAnswer(submission)
     }
   }
 
@@ -210,7 +210,7 @@ class AppContainer extends Component {
     .catch(error => console.error(`Error in fetch (add new list): ${error.message}`))
   }
 
-  addNewAnswer(submission) {
+  createAnswer(submission) {
     const questionId = this.state.question.id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
 
@@ -443,7 +443,7 @@ class AppContainer extends Component {
               />
 
               <QuestionFormContainer
-                addNewQuestion={this.addNewQuestion}
+                createQuestion={this.createQuestion}
                 questionAdded={this.state.questionAdded}
                 toggleQuestionAdded={this.toggleQuestionAdded}
               />

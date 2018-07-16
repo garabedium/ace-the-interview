@@ -40,7 +40,7 @@ class QuestionFormContainer extends Component {
       const submission  = {
         title: this.state.questionTitle
       }
-      this.props.addNewQuestion(submission)
+      this.props.createQuestion(submission)
       this.handleClear(event)
     }
 
