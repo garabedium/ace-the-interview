@@ -94,6 +94,7 @@ class AppContainer extends Component {
         questionCategories: response.categories,
         hasCategories: (response.categories.length > 0) ? true : false
       })
+    debugger;
     })
     .catch(error => {
       console.error(`Error in (random question) fetch: ${error.message}`)
@@ -363,7 +364,24 @@ class AppContainer extends Component {
     })
   }
 
+  loadRandomQuestionButton(){
+    let clickMethod
+    if (this.state.loadedCategory || this.state.loadedList) {
+      clickMethod = (this.state.loadedCategory) ? () => this.getRandomCategoryQuestion(this.state.loadedCategory) : () => this.getRandomListQuestion(this.state.loadedList)
+    } else {
+      clickMethod = this.getRandomQuestion
+    }
+
+      return   <ButtonComponent
+                  text="Random Question"
+                  class='button secondary'
+                  handleClick={ clickMethod }
+                />
+  }
+
   render() {
+
+    let randomQuestionButton = this.loadRandomQuestionButton()
 
     return (
 <div className="parent">
@@ -407,29 +425,7 @@ class AppContainer extends Component {
                 toggleAnswerUpdated={this.toggleAnswerUpdated}
               />
 
-              {this.state.filterDefault &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={this.getRandomQuestion}
-                />
-              }
-
-              {this.state.filterCategory &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={ () => this.getRandomCategoryQuestion(this.state.loadedCategory)}
-                />
-              }
-
-              {this.state.filterList &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={ () => this.getRandomListQuestion(this.state.loadedList) }
-                />
-              }
+              {randomQuestionButton}
 
             </div>
 
