@@ -49,8 +49,8 @@ class AppContainer extends Component {
     }
 
 
-    this.addNewAnswer = this.addNewAnswer.bind(this)
-    this.addNewQuestion = this.addNewQuestion.bind(this)
+    this.createAnswer = this.createAnswer.bind(this)
+    this.createQuestion = this.createQuestion.bind(this)
     this.addQuestionToList = this.addQuestionToList.bind(this)
     this.addNewList = this.addNewList.bind(this)
 
@@ -80,120 +80,83 @@ class AppContainer extends Component {
   getRandomQuestion(){
     const apiUrl = `/api/v1/questions.json`
 
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
+    this.get(apiUrl)
     .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
+      this.setState({
+        question: response.question,
+        answer: {
+          body: (response.answer) ? response.answer.body : '',
+          hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+          id: (response.answer) ? response.answer.id : ''
+        },
+        answerActive: false,
+        hasAnswer: (response.answer) ? true : false,
+        questionCategories: response.categories,
+        hasCategories: (response.categories.length > 0) ? true : false
       })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          question: response.question,
-          answer: {
-            body: (response.answer) ? response.answer.body : '',
-            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
-            id: (response.answer) ? response.answer.id : ''
-          },
-          answerActive: false,
-          hasAnswer: (response.answer) ? true : false,
-          questionCategories: response.categories,
-          hasCategories: (response.categories.length > 0) ? true : false
-        })
-      })
-      .catch(error => {
-        console.error(`Error in (random question) fetch: ${error.message}`)
-      })
+    debugger;
+    })
+    .catch(error => {
+      console.error(`Error in (random question) fetch: ${error.message}`)
+    })
 
   }
 
   getRandomCategoryQuestion(submission){
     const categoryId = submission,
           apiUrl = `/api/v1/categories.json&?random=${categoryId}`
-
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
+    this.get(apiUrl)
     .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
+      this.setState({
+        question: response.question,
+        answer: {
+          body: (response.answer) ? response.answer.body : '',
+          hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+          id: (response.answer) ? response.answer.id : ''
+        },
+        answerActive: false,
+        hasAnswer: (response.answer) ? true : false,
+        questionCategories: response.categories,
+        hasCategories: (response.categories.length > 0) ? true : false,
+        loadedCategory: submission,
+        loadedList: '',
+        filterCategory: true,
+        filterList: false,
+        filterDefault: false
       })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          question: response.question,
-          answer: {
-            body: (response.answer) ? response.answer.body : '',
-            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
-            id: (response.answer) ? response.answer.id : ''
-          },
-          answerActive: false,
-          hasAnswer: (response.answer) ? true : false,
-          questionCategories: response.categories,
-          hasCategories: (response.categories.length > 0) ? true : false,
-          loadedCategory: submission,
-          loadedList: '',
-          filterCategory: true,
-          filterList: false,
-          filterDefault: false
-        })
-      })
-      .catch(error => {
-        console.error(`Error in (random question by category) fetch: ${error.message}`)
-      })
+    })
+    .catch(error => {
+      console.error(`Error in (random question by category) fetch: ${error.message}`)
+    })
 
   }
 
   getRandomListQuestion(submission){
     const listId = submission,
           apiUrl = `/api/v1/lists.json?random=${listId}`
-
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
+    this.get(apiUrl)
     .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
+      this.setState({
+        question: response.question,
+        answer: {
+          body: (response.answer) ? response.answer.body : '',
+          hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
+          id: (response.answer) ? response.answer.id : ''
+        },
+        answerActive: false,
+        hasAnswer: (response.answer) ? true : false,
+        questionCategories: response.categories,
+        hasCategories: (response.categories.length > 0) ? true : false,
+        loadedList: submission,
+        loadedCategory: '',
+        filterList: true,
+        filterDefault: false,
+        filterCategory: false
       })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          question: response.question,
-          answer: {
-            body: (response.answer) ? response.answer.body : '',
-            hint: (response.answer && response.answer.hint) ? response.answer.hint : '',
-            id: (response.answer) ? response.answer.id : ''
-          },
-          answerActive: false,
-          hasAnswer: (response.answer) ? true : false,
-          questionCategories: response.categories,
-          hasCategories: (response.categories.length > 0) ? true : false,
-          loadedList: submission,
-          loadedCategory: '',
-          filterList: true,
-          filterDefault: false,
-          filterCategory: false
-        })
-      })
-      .catch(error => {
-        console.error(`Error in (random question) fetch: ${error.message}`)
-      })
+    })
+    .catch(error => {
+      console.error(`Error in (random question) fetch: ${error.message}`)
+    })
 
   }
 
@@ -203,25 +166,11 @@ class AppContainer extends Component {
     })
   }
 
-  addNewQuestion(submission) {
+// add --> create (use REST verbs)
+  createQuestion(submission) {
     const apiUrl = '/api/v1/questions.json'
 
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
+    this.post(apiUrl,submission)
     .then(response => {
         this.setState({
           question: response.question,
@@ -245,29 +194,14 @@ class AppContainer extends Component {
     if (this.state.hasAnswer){
       this.updateAnswer(submission)
     } else {
-      this.addNewAnswer(submission)
+      this.createAnswer(submission)
     }
   }
 
   addNewList(submission) {
     const apiUrl = '/api/v1/lists.json'
 
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
+    this.post(apiUrl,submission)
     .then(response => {
       this.setState({
         questionLists: this.state.questionLists.concat(response),
@@ -277,26 +211,11 @@ class AppContainer extends Component {
     .catch(error => console.error(`Error in fetch (add new list): ${error.message}`))
   }
 
-  addNewAnswer(submission) {
+  createAnswer(submission) {
     const questionId = this.state.question.id
     const apiUrl = `/api/v1/questions/${questionId}/answers.json`
 
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
+    this.post(apiUrl,submission)
     .then(response => {
       this.setState({
         hasAnswer: true,
@@ -319,22 +238,8 @@ class AppContainer extends Component {
 
   addQuestionToList(submission) {
     const apiUrl = '/api/v1/question_lists.json'
-    fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify(submission),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
+
+    this.post(apiUrl,submission)
     .then(response => {
       this.toggleQuestionToList()
     })
@@ -347,9 +252,30 @@ class AppContainer extends Component {
     })
   }
 
-  getLists(){
-    let apiUrl = '/api/v1/lists.json'
-    fetch(apiUrl,{
+
+  //
+
+  post(url,payload){
+    return fetch(url, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+  }
+
+  get(url){
+   return fetch(url,{
       credentials: 'same-origin'
     })
     .then(response => {
@@ -362,36 +288,31 @@ class AppContainer extends Component {
         }
       })
       .then(response => response.json())
-      .then(response => {
-        this.setState({
-          questionLists: response.lists,
-          hasLists: (response.lists.length > 0) ? true : false
-        })
+  }
+
+  getLists(){
+    const apiUrl = '/api/v1/lists.json'
+
+    this.get(apiUrl)
+    .then(response => {
+      this.setState({
+        questionLists: response.lists,
+        hasLists: (response.lists.length > 0) ? true : false
       })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   getCategories(){
-    let apiUrl = '/api/v1/categories.json'
-    fetch(apiUrl,{
-      credentials: 'same-origin'
-    })
-    .then(response => {
-      if (response.ok) {;
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
+    const apiUrl = '/api/v1/categories.json'
+
+    this.get(apiUrl)
       .then(response => {
         this.setState({
           categories: response.categories
         })
       })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   updateAnswer(submission){
@@ -443,7 +364,24 @@ class AppContainer extends Component {
     })
   }
 
+  loadRandomQuestionButton(){
+    let clickMethod
+    if (this.state.loadedCategory || this.state.loadedList) {
+      clickMethod = (this.state.loadedCategory) ? () => this.getRandomCategoryQuestion(this.state.loadedCategory) : () => this.getRandomListQuestion(this.state.loadedList)
+    } else {
+      clickMethod = this.getRandomQuestion
+    }
+
+      return   <ButtonComponent
+                  text="Random Question"
+                  class='button secondary'
+                  handleClick={ clickMethod }
+                />
+  }
+
   render() {
+
+    let randomQuestionButton = this.loadRandomQuestionButton()
 
     return (
 <div className="parent">
@@ -487,29 +425,7 @@ class AppContainer extends Component {
                 toggleAnswerUpdated={this.toggleAnswerUpdated}
               />
 
-              {this.state.filterDefault &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={this.getRandomQuestion}
-                />
-              }
-
-              {this.state.filterCategory &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={ () => this.getRandomCategoryQuestion(this.state.loadedCategory)}
-                />
-              }
-
-              {this.state.filterList &&
-                <ButtonComponent
-                  text="Random Question"
-                  class='button secondary'
-                  handleClick={ () => this.getRandomListQuestion(this.state.loadedList) }
-                />
-              }
+              {randomQuestionButton}
 
             </div>
 
@@ -523,7 +439,7 @@ class AppContainer extends Component {
               />
 
               <QuestionFormContainer
-                addNewQuestion={this.addNewQuestion}
+                createQuestion={this.createQuestion}
                 questionAdded={this.state.questionAdded}
                 toggleQuestionAdded={this.toggleQuestionAdded}
               />
@@ -544,6 +460,3 @@ class AppContainer extends Component {
 }
 
 export default AppContainer;
-
-
-
